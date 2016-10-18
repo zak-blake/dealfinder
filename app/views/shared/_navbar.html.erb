@@ -1,11 +1,15 @@
-<nav class="navbar navbar-dark default-color">
+<nav class="navbar navbar-dark default-color z-depth-1">
   <div class="container-fluid">
-    <ul class="nav navbar-nav">
-
-      <li class="nav-item">
-        <%= link_to "Home", root_url, class: "nav-link waves-effect glyphicon glyphicon-home" %>
-        <i class: "glyphicon glyphicon-home" ></i>
-      </li>
+    <ul class="nav navbar-nav navbar-left">
+      <li class="nav-item"><%= link_to "Home", root_url, class: "nav-link waves-effect" %></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+        <li ="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+      <% else user_signed_in? %>
+        <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link waves-effect" %></li>
+        <li class="nav-link"><%= link_to "Signup", new_user_registration_path, class: "nav-link waves-effect" %></li>
+      <% end %>
     </ul>
   </div>
 </nav>
