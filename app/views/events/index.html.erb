@@ -1,1 +1,5 @@
-<center><h1>Events</h1></center>
+<center><h1>All Events</h1></center>
+
+<% @events.each do |e| %>
+  <%= render 'shared/event_card', event: e %>
+<% end %>

@@ -1,6 +1,5 @@
-<h1>My Events</h1>
+<center><h1>All Events</h1></center>
 
 <% @events.each do |e| %>
-  <h2><%= link_to e.name, event_path(e) %></h2>
-  <p><%= e.description %></p>
+  <%= render 'shared/event_card', event: e %>
 <% end %>
