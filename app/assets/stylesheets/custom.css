@@ -1,0 +1,11 @@
+.card {
+  padding: 15px;
+}
+
+h4 {
+  display: inline;
+}
+
+.card-text {
+  color: #37474F;
+}

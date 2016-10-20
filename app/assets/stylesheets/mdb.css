@@ -1,6 +1,6 @@
 /*
  * Material Design for Bootstrap 3
- * Version: MDB FREE 3.4.1 
+ * Version: MDB FREE 3.4.1
  *
  *
  * Copyright: Material Design for Bootstrap
@@ -9,7 +9,7 @@
  * Read the license: http://mdbootstrap.com/license/
  *
  * Atribution: Animate CSS, Twitter Bootstrap, Materialize CSS, Normalize CSS, Waves JS, WOW JS, Toastr, Chart.js , Hammer.js
- * 
+ *
  */
 /*********************
   Mixins
@@ -4045,7 +4045,7 @@ small {
 }
 
 .card .card-title {
-  color: #fff;
+  color: black;
   font-size: 24px;
   font-weight: 300;
 }
