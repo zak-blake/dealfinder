@@ -1,4 +1,6 @@
-<h2><%= @owner.name %></h2>
-<h2><%= @owner.email %></h2>
+<div class="card">
+  <p><%= @owner.name %></p>
+  <p><%= @owner.email %></p>
 
-<%= link_to "Edit Profile", edit_user_registration_path %>
+  <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default" %>
+</div>

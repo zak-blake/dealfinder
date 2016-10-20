@@ -5,11 +5,16 @@
   <%= f.label :description %>
   <%= f.text_field :description %><br />
 
+<!--
+  <%= f.label :location %>
+  <%= f.text_field :description %><br />
+-->
+
   <%= f.label :start_time %>
   <%= f.time_select :start_time %><br />
 
   <%= f.label :end_time %>
   <%= f.time_select :end_time %><br />
 
-  <%= f.submit %>
+  <%= f.submit 'Create New Event', :class => 'btn btn-primary' %>
 <% end %>

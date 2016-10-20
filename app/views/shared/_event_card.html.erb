@@ -1,17 +1,13 @@
-<h4>
-  <%= event.name %>
-</h4>
+<div class="card">
+  <h4>
+    <%= event.name %>
+  </h4>
 
-<h4>
-  <%= event.description %>
-</h4>
+  <h4 style="float: right">
+    <%= "From " + event.start_time.to_s(:time) + " to " + event.end_time.to_s(:time) %>
+  </h4>
 
-<h5>
-<%= "From " + event.start_time.to_s(:time) + " To " + event.end_time.to_s(:time) %>
-</h5>
-
-<!-- <div class="card">
-        <h4 style="float: left">2 for 1 Drinks at Sandbar</h4>
-        <h4 style="float: right"> 8:00pm - 2:00am </h4>
-
-</div> -->
+  <p>
+    <%= event.description %>
+  </p>
+</div>
