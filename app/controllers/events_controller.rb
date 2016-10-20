@@ -19,6 +19,12 @@ class EventsController < ApplicationController
     end
   end
 
+  # show all the events for a specific owner
+  def owner_list
+    @owner = User.find(params[:id])
+    @events = @owner.events
+  end
+
   def show
   end
 
@@ -42,7 +48,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     flash[:success] = "Event Deleted"
-    redirect_to root_path
+    redirect_to owner_list_path(current_user.id)
   end
 
   private
