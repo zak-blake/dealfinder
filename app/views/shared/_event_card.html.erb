@@ -4,7 +4,7 @@
   </h4>
 
   <h4 style="float: right">
-    <%= "From " + event.start_time.to_s(:time) + " to " + event.end_time.to_s(:time) %>
+    <%= "From " + event.start_time.strftime("%I:%M%p") + " to " + event.end_time.strftime("%I:%M%p") %>
   </h4>
 
   <p>
