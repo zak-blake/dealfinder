@@ -11,5 +11,5 @@
     <%= @event.description %>
   </p>
 
-  <%= button_to "delete", @event, :method => :delete %>
+  <%= button_to "delete", @event, :method => :delete if @edit_mode %>
 </div>

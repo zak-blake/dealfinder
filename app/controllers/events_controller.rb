@@ -1,7 +1,11 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :owner_list]
-  before_action :filter_dealer_or_admin, except: [:index, :show, :owner_list]
+
   before_action :find_event, only: [:show, :edit, :update, :destroy]
+  before_action :filter_content_owner, only: [ :edit, :update, :destroy]
+
+  before_action :filter_dealer_or_admin, except: [:new, :index, :show, :owner_list]
+  before_action :set_edit_mode, only: [:show, :edit, :update, :destroy]
 
   def new
     @event = current_user.events.build
@@ -10,7 +14,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(event_params)
 
-    if @event.save
+    if (event.user == current_user) && @event.save
       flash[:success] = "Event Created"
       redirect_to @event
     else
@@ -32,7 +36,9 @@ class EventsController < ApplicationController
   end
 
   def update
-    if @event.update(event_params)
+    @event.assign_attributes(event_params)
+
+    if (@event.user == current_user) && @event.save
       flash[:success] = "Update Successful"
       redirect_to @event
     else
@@ -66,6 +72,10 @@ class EventsController < ApplicationController
       flash[:danger] = "Unauthorized"
       redirect_to root_path
     end
+  end
+
+  def filter_content_owner
+    redirect_to root_path unless user_signed_in? && @event && @event.user == current_user
   end
 
   def set_edit_mode
