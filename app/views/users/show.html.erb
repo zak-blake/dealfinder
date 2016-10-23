@@ -4,4 +4,11 @@
     <p><%= @owner.email %></p>
 
     <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default" if @edit_mode %>
+
+    <center><h4>Events</h4></center>
+
+    <% @events.each do |e| %>
+      <%= render 'shared/event_card', event: e %>
+    <% end %>
+
   </div>
