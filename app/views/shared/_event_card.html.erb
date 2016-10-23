@@ -1,10 +1,10 @@
 <div class="card">
   <h4>
-    <%= link_to event.name, event %>
+    <%= link_to event.name, event %><small> at <%= link_to event.user.name, user_show_path(event.user) %></small>
   </h4>
 
   <h4 style="float: right">
-    <small><%= event.start_time.strftime("%I:%M%p") + " to " + event.end_time.strftime("%I:%M%p") %></small>
+    <small><%= event.start_time.strftime("%I:%M%p") + " to " + event.end_time.strftime("%I:%M%p") %>  </small>
   </h4>
 
   <p>

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
-  before_action :filter_dealer_or_admin, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show, :owner_list]
+  before_action :filter_dealer_or_admin, except: [:index, :show, :owner_list]
   before_action :find_event, only: [:show, :edit, :update, :destroy]
 
   def new
