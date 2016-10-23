@@ -49,7 +49,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     flash[:success] = "Event Deleted"
-    redirect_to owner_list_path(current_user.id)
+    redirect_to user_show_path(current_user)
   end
 
   private

@@ -4,5 +4,7 @@ Rails.application.routes.draw do
 
   resources :events
 
+  get '/test_info', to: 'users#test_info', as: 'test_info'
+
   root 'events#index'
 end

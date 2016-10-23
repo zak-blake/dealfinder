@@ -2,6 +2,7 @@
   <div>
     <h1><%= @owner.name %></h1>
     <p><%= @owner.email %></p>
+    <p><%= @owner.description %></p>
 
     <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default" if @edit_mode %>
 
