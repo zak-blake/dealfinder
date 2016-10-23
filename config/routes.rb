@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => :registrations }
   get '/users/:id', to: 'users#show', as: 'user_show'
 
   resources :events
 
-  get '/test_info', to: 'users#test_info', as: 'test_info'
-
   root 'events#index'
+
+  # Connect with app
+  get 'events_today', to: 'events#day'
 end
