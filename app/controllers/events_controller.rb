@@ -67,4 +67,8 @@ class EventsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def set_edit_mode
+    @edit_mode = user_signed_in? && @event.user == current_user
+  end
 end

@@ -3,5 +3,5 @@
     <p><%= @owner.name %></p>
     <p><%= @owner.email %></p>
 
-    <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default" %>
+    <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default" if @edit_mode %>
   </div>
