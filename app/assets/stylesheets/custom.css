@@ -35,7 +35,7 @@ html {
 }
 
 .container {
-  padding-bottom: 200px;
+  padding-bottom: 250px;
 }
 
 .navbar-fixed-bottom {
@@ -49,3 +49,20 @@ html {
 .btn-default {
   margin-left: 0px !important;
 }
+
+.footer-copyright {
+  text-align: center;
+}
+
+.title {
+  color: white;
+}
+
+.custom {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+}
+
+textarea { resize: none; }
