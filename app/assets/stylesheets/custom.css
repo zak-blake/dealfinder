@@ -28,3 +28,24 @@ body {
 .bod {
   padding-top: 80px;
 }
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.container {
+  padding-bottom: 200px;
+}
+
+.navbar-fixed-bottom {
+  position: absolute;
+}
+
+.btn-primary {
+  margin-left: 0px !important;
+}
+
+.btn-default {
+  margin-left: 0px !important;
+}
