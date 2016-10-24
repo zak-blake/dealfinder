@@ -1,10 +1,10 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :day]
 
   before_action :find_event, only: [:show, :edit, :update, :destroy]
   before_action :filter_content_owner, only: [ :edit, :update, :destroy]
 
-  before_action :filter_dealer_or_admin, except: [:new, :index, :show]
+  before_action :filter_dealer_or_admin, except: [:new, :index, :show, :day]
   before_action :set_edit_mode, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -54,10 +54,23 @@ class EventsController < ApplicationController
 
   # App integration
   def day
-    render plain: "No Data yet"
+    str = ""
+    str.concat(event_to_pt(Event.first))
+    render plain: str
   end
 
   private
+
+  def event_to_pt(event)
+    divider = "~"
+    str = ""
+    str.concat(event.id.to_s).concat(divider).concat(
+      event.name).concat(divider).concat(
+      event.start_time.strftime("%I%M")).concat(divider).concat(
+      event.end_time.strftime("%I%M")).concat(divider).concat(
+      event.description).concat("*")
+      return str
+  end
 
   def event_params
     params.require(:event).permit(:name, :start_time, :end_time, :description)
