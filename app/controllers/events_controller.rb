@@ -56,6 +56,7 @@ class EventsController < ApplicationController
   def day
     str = ""
     str.concat(event_to_pt(Event.first))
+    str.concat(event_to_pt(Event.second))
     render plain: str
   end
 

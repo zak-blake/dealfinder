@@ -13,3 +13,4 @@
 - limit the number of events on the home page (what's happening today)
 - gps coordinates
 - filter out tilde from data
+- require user files
