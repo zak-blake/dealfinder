@@ -52,6 +52,11 @@ class EventsController < ApplicationController
     redirect_to user_show_path(current_user)
   end
 
+  # App integration
+  def day
+    render plain: "No Data yet"
+  end
+
   private
 
   def event_params
