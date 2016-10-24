@@ -14,5 +14,6 @@
 
 ## Backlog
 
+- mobile sidenav 
 - edit profile with bootstrap modal?
 - gps coordinates
