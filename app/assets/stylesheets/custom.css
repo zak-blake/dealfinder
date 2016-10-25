@@ -3,6 +3,10 @@
   margin-bottom: 10px;
 }
 
+.card-custom{
+  margin-top: 50px;
+}
+
 h4 {
   display: inline-block;;
 }
@@ -40,6 +44,7 @@ html {
 
 .navbar-fixed-bottom {
   position: absolute;
+  padding-bottom: 50px;
 }
 
 .btn-primary {
@@ -65,4 +70,14 @@ html {
   font-family: 'Lobster', cursive;
 }
 
-textarea { resize: none; }
+textarea {
+  resize: none;
+ }
+
+ .breadcrumb {
+   background-color: #F1F1F1;
+ }
+
+  .pull-left {
+   padding-left: 20px;
+ }

@@ -1,11 +1,10 @@
-
-  <div>
+  <div class="card card-custom">
     <div class="row">
       <h1 class="pull-left"><%= @owner.name %></h1>
       <%= link_to "Edit Profile", edit_user_registration_path, class: "btn pull-right" %>
     </div>
 
-    <p><%= @owner.email %></p>
+    <p><%= mail_to @owner.email %></p>
     <p><%= @owner.description %></p>
 
     <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default" if @edit_mode %>
