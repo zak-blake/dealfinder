@@ -20,7 +20,7 @@
           <li class="nav-item"><%= link_to "New Event", new_event_path, class: "nav-link waves-effect" %></li>
         </ul>
         <ul class="nav navbar-nav navbar-left">
-          <li class="nav-item"><%= link_to "My Profile: "+current_user.name, user_show_path(current_user.id), class: "nav-link waves-effect" %></li>
+          <li class="nav-item"><%= link_to "My Profile", user_show_path(current_user.id), class: "nav-link waves-effect" %></li>
         </ul>
       <% end %>
       <ul class="nav navbar-nav navbar-right">
