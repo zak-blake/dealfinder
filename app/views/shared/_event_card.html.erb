@@ -1,13 +1,27 @@
+<% edit_mode ||= nil %>
+<% show ||= nil %>
+
 <div class="card">
   <h4>
-    <%= link_to event.name, event %><small> at <%= link_to event.user.name, user_show_path(event.user) %></small>
+    <%=  link_to event.name, event unless show %>
+    <%= event.name if show %>
+    <small> at <%= link_to event.user.name, user_show_path(event.user) %></small>
   </h4>
 
   <h4 style="float: right">
-    <small><%= event.start_time.strftime("%I:%M%p") + " to " + event.end_time.strftime("%I:%M%p") %>  </small>
+    <small>
+      <%= event.days_as_string + " " + event.start_time.strftime("%I:%M%p").sub(/^[0:]*/,"") + " to " + event.end_time.strftime("%I:%M%p").sub(/^[0:]*/,"") %>
+    </small>
   </h4>
 
   <p>
     <%= event.description %>
   </p>
+
+  <% if event.user == current_user %>
+    <div class="pull-right">
+      <%= link_to "edit", edit_event_path(event)  %>
+      <%= link_to "delete", event, :method => :delete, data: {confirm: "confirm delete: #{event.name}" } %>
+    </div>
+  <% end %>
 </div>

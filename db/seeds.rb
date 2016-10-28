@@ -17,11 +17,10 @@ user_list = [
 ]
 
 event_list = [
-  ["Pint Night", "7:00pm", "11:00pm", "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
-  ["Day Drinking", "10:00am", "04:00pm", "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."],
-  ["Dog Day", "10:00am", "12:00pm", "Mlkshk kombucha post-ironic edison bulb, blog keytar occupy vice pork belly stumptown. Flannel vegan readymade, 8-bit artisan four loko echo park tilde actually street art vinyl air plant lomo green juice. Photo booth poutine kombucha farm-to-table. Bitters intelligentsia stumptown"],
-  ["Beerfest", "9:00am", "6:00pm", "vaporware tousled small batch offal aesthetic single-origin coffee pickled viral venmo shoreditch cardigan. Kombucha williamsburg venmo lo-fi. Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel vice flannel stumptown photo booth. Mixtape umami thundercats, vape pork belly synth DIY intelligentsia echo park cliche."],
-  ["Stone Takeover", "4:00pm", "12:00pm", "Locavore blue bottle pour-over, hammock YOLO vice bicycle rights forage 90's microdosing venmo 3 wolf moon artisan chartreuse meh."]
+  ["Pint Night", "7:00pm", "11:00pm", 42, "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
+  ["Day Drinking", "10:00am", "04:00pm", 96, "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."],
+  ["Beerfest", "9:00am", "6:00pm", 127, "vaporware tousled small batch offal aesthetic single-origin coffee pickled viral venmo shoreditch cardigan. Kombucha williamsburg venmo lo-fi. Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel vice flannel stumptown photo booth. Mixtape umami thundercats, vape pork belly synth DIY intelligentsia echo park cliche."],
+  ["Stone Takeover", "4:00pm", "12:00pm", 1, "Locavore blue bottle pour-over, hammock YOLO vice bicycle rights forage 90's microdosing venmo 3 wolf moon artisan chartreuse meh."]
 ]
 
 
@@ -34,10 +33,11 @@ user_list.each do |email, name, password, user_context, desc|
     email: email,
     user_context: user_context )
 
-  event_list.each do |name, start_time, end_time, desc|
+  event_list.each do |name, start_time, end_time, days, desc|
     puts "Creating Event: " + name.to_s
     Event.create(
       user_id: u.id,
+      days_of_the_week: days,
       name: name,
       start_time: start_time,
       end_time: end_time,

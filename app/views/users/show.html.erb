@@ -13,4 +13,10 @@
       <%= render 'shared/event_card', event: e %>
     <% end %>
 
+    <% if @events.empty? %>
+      <center>
+        <h5><small>no events posted yet<%= link_to " add one", new_event_path if @edit_mode %></small></h5>
+      </center>
+    <% end %>
+
   </div>

@@ -1,12 +1,2 @@
-<div class="card card-custom">
-  <h4><%= @event.name %><small> at <%= link_to @owner.name, user_show_path(@owner) %></small></h4>
-
-  <h4 style="float: right"><small><%= @event.start_time.strftime("%I:%M%p") + " to " + @event.end_time.strftime("%I:%M%p") %></small></h4>
-
-  <h4>Days Mask: <%= @event.days_of_the_week %></h4>
-
-  <p><%= @event.description %></p>
-
-  <%= button_to "delete", @event, :method => :delete if @edit_mode %>
-  <%= link_to "edit", edit_event_path(@event) if @edit_mode %>
-</div>
+<br>
+<%= render 'shared/event_card', event: @event, edit_mode: @edit_mode, show: true %>
