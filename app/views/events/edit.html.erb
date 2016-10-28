@@ -1,0 +1,8 @@
+<h2>Edit Event</h2>
+
+<%= form_for @event do |f| %>
+
+  <%= render 'fields', f: f %>
+
+  <%= f.submit 'Update Schedule', :class => 'btn btn-primary' %>
+<% end %>

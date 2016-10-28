@@ -14,7 +14,9 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(event_params)
 
-    if (event.user == current_user) && @event.save
+    @event.days_of_the_week = get_days_from_form
+
+    if (@event.user == current_user) && @event.save
       flash[:success] = "Event Created"
       redirect_to @event
     else
@@ -32,6 +34,8 @@ class EventsController < ApplicationController
 
   def update
     @event.assign_attributes(event_params)
+
+    @event.days_of_the_week = get_days_from_form
 
     if (@event.user == current_user) && @event.save
       flash[:success] = "Update Successful"
@@ -94,5 +98,14 @@ class EventsController < ApplicationController
 
   def set_edit_mode
     @edit_mode = user_signed_in? && @event.user == current_user
+  end
+
+  def get_days_from_form
+    sum = 0
+    [1, 2, 4, 8, 16, 32, 64].each do |index|
+      box_name = "weekday#{index}"
+      sum += params[box_name.to_sym][:select].to_i if params[box_name.to_sym][:select]
+    end
+    return sum
   end
 end
