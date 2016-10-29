@@ -8,6 +8,8 @@ class Event < ApplicationRecord
 
   belongs_to :user
 
+  default_scope { order(:start_time) }
+
   def self.events_today(day)
     self.where
   end

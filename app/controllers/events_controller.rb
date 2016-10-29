@@ -49,7 +49,7 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events_today = Event.order(:start_time).select{ |e| e.days.include? current_day }
+    @events_today = Event.select{ |e| e.days.include? current_day }
   end
 
   def destroy
