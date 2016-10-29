@@ -8,6 +8,14 @@ class Event < ApplicationRecord
 
   belongs_to :user
 
+  def self.events_today(day)
+    self.where
+  end
+
+  def days
+    WEEK_DAYS.select { |d| d.second & days_of_the_week != 0 }.map{ |d| d.first }
+  end
+
   def days_as_string
     return nil unless days_of_the_week
     return "every day" if days_of_the_week == 127

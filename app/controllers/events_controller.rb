@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  include  EventsHelper
+
   before_action :authenticate_user!, except: [:index, :show, :day]
 
   before_action :find_event, only: [:show, :edit, :update, :destroy]
@@ -47,7 +49,7 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all
+    @events_today = Event.order(:start_time).select{ |e| e.days.include? current_day }
   end
 
   def destroy

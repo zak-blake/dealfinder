@@ -8,7 +8,7 @@
 - limit the number of events on the home page (what's happening today)
 - filter out tilde from data
 - require user fields
-
+- highlight events that are today on the owner show page
 
 ## Backlog
 
