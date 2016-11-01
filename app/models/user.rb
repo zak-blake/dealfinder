@@ -7,6 +7,7 @@ class User < ApplicationRecord
  enum user_context: { owner: 0, admin: 1 }
 
  has_many :events
+ validates :name, presence: true
 
  def owner?
    if user_context == "owner" then return true else return false end

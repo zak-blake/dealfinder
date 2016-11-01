@@ -9,6 +9,8 @@ class EventsController < ApplicationController
   before_action :filter_dealer_or_admin, except: [:new, :index, :show, :day]
   before_action :set_edit_mode, only: [:show, :edit, :update, :destroy]
 
+  before_action :set_errors, only: [:new, :edit]
+
   def new
     @event = current_user.events.build
   end
@@ -22,7 +24,9 @@ class EventsController < ApplicationController
       flash[:success] = "Event Created"
       redirect_to @event
     else
-      flash[:danger] = "Creation Failed"
+      @event.errors.full_messages.each do |e|
+        flash[:danger] = e
+      end
       render 'new'
     end
   end
@@ -43,7 +47,9 @@ class EventsController < ApplicationController
       flash[:success] = "Update Successful"
       redirect_to @event
     else
-      flash[:danger] = "Update Failed"
+      @event.errors.full_messages.each do |e|
+        flash[:danger] = e
+      end
       render 'edit'
     end
   end
@@ -67,6 +73,10 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def set_errors
+    @errors = params[:errors]
+  end
 
   def event_to_pt(event)
     divider = "~"
