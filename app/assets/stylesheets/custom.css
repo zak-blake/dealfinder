@@ -89,3 +89,7 @@ textarea {
   text-align: center;
   font-size: 23px;
 }
+
+.short-hd {
+  margin-top: -5px;
+}

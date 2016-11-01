@@ -8,7 +8,7 @@
     <small> at <%= link_to event.user.name, user_show_path(event.user) %></small>
   </h4>
 
-  <h4 style="float: right">
+  <h4 style="float: right"  class="short-hd">
     <small>
       <%= event.start_time.strftime("%I:%M%p").sub(/^[0:]*/,"") + " to " + event.end_time.strftime("%I:%M%p").sub(/^[0:]*/,"") %>
     </small>
