@@ -90,6 +90,7 @@ textarea {
   font-size: 23px;
 }
 
+<<<<<<< HEAD
 .dropdown-toggle {
   background-color: #F1F1F1;
   border: none;
@@ -108,4 +109,6 @@ textarea {
 .dropdown-item {
   font-size: 30px;
   margin: 15px;
-}
+
+.short-hd {
+  margin-top: -5px;
