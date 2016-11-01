@@ -7,9 +7,9 @@
 
   <% index = 1 %>
   <% Event::WEEK_DAYS.each do |day| %>
-      <% checked_value = (day.second & index) != 0 %>
+      <% checked_value = (day.last & index) != 0 %>
     <%= label_tag(:weekday, class: "checkbox-inline") do %>
-      <%= check_box("weekday#{day.second}", "select", { checked: (@event.days_of_the_week & index) != 0 }, day.second.to_s) %>
+      <%= check_box("weekday#{day.last}", "select", { checked: (@event.days_of_the_week & index) != 0 }, day.last.to_s) %>
       <%= day.first %>
       <% index *= 2 %>
     <% end %>
