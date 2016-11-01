@@ -74,11 +74,11 @@ textarea {
   resize: none;
  }
 
- .breadcrumb {
+.breadcrumb {
    background-color: #F1F1F1;
  }
 
-  .pull-left {
+.pull-left {
    padding-left: 20px;
  }
 
@@ -88,4 +88,24 @@ textarea {
   color: white;
   text-align: center;
   font-size: 23px;
+}
+
+.dropdown-toggle {
+  background-color: #F1F1F1;
+  border: none;
+  border-bottom: 2px dashed;
+}
+
+.dropdown-toggle[aria-expanded="true"] {
+  background:#F1F1F1;
+
+}
+
+.dropdown-toggle[aria-expanded="false"] {
+  background:#F1F1F1;
+}
+
+.dropdown-item {
+  font-size: 30px;
+  margin: 15px;
 }

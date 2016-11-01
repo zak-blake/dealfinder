@@ -1,4 +1,15 @@
-<center><h1>Events Today</h1></center>
+<center><h1>Events <div class="btn-group">
+<button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Today <i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+  <!--  <div class="dropdown-menu">
+       <a class="dropdown-item"></a><br>
+       <a class="dropdown-item" href="#">Thursday</a><br>
+       <a class="dropdown-item" href="#">Friday</a><br>
+       <a class="dropdown-item" href="#">Saturday</a><br>
+       <a class="dropdown-item" href="#">Sunday</a><br>
+       <a class="dropdown-item" href="#">Monday</a><br>
+   </div> -->
+</div>
+  </h1></center>
 
 <% @events_today.each do |e| %>
   <%= render 'shared/event_card', event: e %>
