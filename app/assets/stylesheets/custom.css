@@ -81,3 +81,11 @@ textarea {
   .pull-left {
    padding-left: 20px;
  }
+
+.event-days {
+  border-radius: 20px;
+  background-color: lightgray;
+  color: white;
+  text-align: center;
+  font-size: 23px;
+}
