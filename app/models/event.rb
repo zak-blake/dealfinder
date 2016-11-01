@@ -14,8 +14,12 @@ class Event < ApplicationRecord
     self.where
   end
 
-  def days
-    WEEK_DAYS.select { |d| d.second & days_of_the_week != 0 }.map{ |d| d.first }
+  def days_short
+    WEEK_DAYS.select { |d| d.last & days_of_the_week != 0 }.map{ |d| d.second }
+  end
+
+  def days_long
+    WEEK_DAYS.select { |d| d.last & days_of_the_week != 0 }.map{ |d| d.first }
   end
 
   def days_as_string
@@ -24,19 +28,19 @@ class Event < ApplicationRecord
 
     str = ""
     WEEK_DAYS.each do |d|
-      str.concat(d.first).concat(" ") if (d.second & days_of_the_week != 0)
+      str.concat(d.second).concat(" ") if (d.last & days_of_the_week != 0)
     end
     str
   end
 
   WEEK_DAYS = [
-    ["monday", 1],
-    ["tuesday", 2],
-    ["wednesday", 4],
-    ["thursday", 8],
-    ["friday", 16],
-    ["saturday", 32],
-    ["sunday", 64]
+    ["monday",    "M",  1],
+    ["tuesday",   "T",  2],
+    ["wednesday", "W",  4],
+    ["thursday",  "Th", 8],
+    ["friday",    "F",  16],
+    ["saturday",  "Sa", 32],
+    ["sunday",    "Su", 64]
   ]
 
   def at_least_one_day
