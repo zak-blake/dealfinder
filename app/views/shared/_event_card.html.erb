@@ -10,7 +10,9 @@
 
   <h4 style="float: right">
     <small>
-      <%= event.days_as_string + " " + event.start_time.strftime("%I:%M%p").sub(/^[0:]*/,"") + " to " + event.end_time.strftime("%I:%M%p").sub(/^[0:]*/,"") %>
+      <%= event.start_time.strftime("%I:%M%p").sub(/^[0:]*/,"") + " to " + event.end_time.strftime("%I:%M%p").sub(/^[0:]*/,"") %>
+      <br>
+      <%= event.days_as_string + " " %>
     </small>
   </h4>
 
