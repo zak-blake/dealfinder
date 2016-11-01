@@ -24,7 +24,7 @@ class Event < ApplicationRecord
 
   def days_as_string
     return nil unless days_of_the_week
-    return "every day" if days_of_the_week == 127
+    return "Everyday" if days_of_the_week == 127
 
     str = ""
     WEEK_DAYS.each do |d|
