@@ -54,9 +54,10 @@ class EventsController < ApplicationController
     end
   end
 
+
   def index
-    @events_today = Event.select{ |e| e.days_long.include? current_day }
-    # @events_wednesday = Event.select{ |e| e.days_long.include? wednesday}
+    @day = params[:day] || current_day
+    @events_today = Event.select{ |e| e.days_long.include? @day }
   end
 
   def destroy

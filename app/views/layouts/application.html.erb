@@ -13,9 +13,12 @@
   </head>
 
   <body class="bod">
+    <div id="shabba" style="float: left">
+      <%= render 'shared/ownerList' %>
+    </div>
     <%= render 'shared/navbar' %>
 
-    <div class="container">
+<div class="container">
       <!-- <p class="notice"><%= notice %></p> -->
       <%= render 'shared/devise_flash_override' %>
       <% flash.each do |key, value| %>

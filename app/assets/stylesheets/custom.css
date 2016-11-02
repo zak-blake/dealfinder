@@ -7,6 +7,17 @@
   margin-top: 50px;
 }
 
+.card-owner-list {
+  margin-left: 20px;
+  margin-top: 135px;
+  width: 400px;
+  height: 60% !important;
+}
+
+#shabba {
+  height: 70vw;
+}
+
 h4 {
   display: inline-block;;
 }
@@ -90,7 +101,7 @@ textarea {
   font-size: 23px;
 }
 
-<<<<<<< HEAD
+
 .dropdown-toggle {
   background-color: #F1F1F1;
   border: none;
@@ -99,7 +110,6 @@ textarea {
 
 .dropdown-toggle[aria-expanded="true"] {
   background:#F1F1F1;
-
 }
 
 .dropdown-toggle[aria-expanded="false"] {
