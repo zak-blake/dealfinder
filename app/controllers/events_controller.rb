@@ -56,7 +56,8 @@ class EventsController < ApplicationController
 
 
   def index
-    @day = params[:day] || current_day
+    day = params[:day]
+    @day = (Event.week_days_array.include? day) ? day : Event.current_day
     @events_today = Event.select{ |e| e.days_long.include? @day }
   end
 

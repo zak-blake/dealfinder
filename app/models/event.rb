@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  include EventsHelper
+
   validates :name, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
@@ -13,12 +15,20 @@ class Event < ApplicationRecord
     self.where
   end
 
+  def self.today_or(day)
+    current_day == day ? "today" : day
+  end
+
   def days_short
     WEEK_DAYS.select { |d| d.last & days_of_the_week != 0 }.map{ |d| d.second }
   end
 
   def days_long
     WEEK_DAYS.select { |d| d.last & days_of_the_week != 0 }.map{ |d| d.first }
+  end
+
+  def self.current_day
+    Time.now.strftime('%A').downcase
   end
 
   def days_as_string
@@ -41,6 +51,10 @@ class Event < ApplicationRecord
     ["saturday",  "Sa", 32],
     ["sunday",    "Su", 64]
   ]
+
+  def self.week_days_array
+    WEEK_DAYS.map{|d| d.first}
+  end
 
   def at_least_one_day
     errors.add(:days_of_the_week, "at least one must be selected") if days_of_the_week == 0
