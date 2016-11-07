@@ -13,13 +13,8 @@
   </head>
 
   <body class="bod">
-    <div id="shabba" style="float: left">
-      <%= render 'shared/ownerList' %>
-    </div>
-    <%= render 'shared/navbar' %>
 
-<div class="container">
-      <!-- <p class="notice"><%= notice %></p> -->
+    <%= render 'shared/navbar' %>
       <%= render 'shared/devise_flash_override' %>
       <% flash.each do |key, value| %>
         <% unless key == "notice" || key == "alert" %>
@@ -27,8 +22,11 @@
         <% end %>
       <% end %>
 
-      <%= yield %>
-    </div>
+    
+      <div <%= "class=container".html_safe unless controller_name == "events" && action_name == "index" %>>
+        <%= yield %>
+      </div>
+
 
     <%= render 'shared/footer' %>
   </body>

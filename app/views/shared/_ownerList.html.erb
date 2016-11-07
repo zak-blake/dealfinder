@@ -1,10 +1,11 @@
-<div>
-  <!--
-  <% @users = User.all %>
-<% @users.each do |user| %>
-  <%= user.name %><br/>
-<% end %>
--->
-</div>
+<div class="card card-durag">
+  <div class="names">
+    <h3 style="font-family: 'Lobster', cursive;"> Owners </h3>
+  </div>
 
-<!-- class="card card-owner-list" style="float: left" -->
+  <% @users = User.all %>
+    <% @users.each do |user| %>
+      <%=link_to user.name, user_show_path(user) %><br/>
+  <% end %>
+
+</div>

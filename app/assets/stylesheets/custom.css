@@ -14,6 +14,10 @@
   height: 60% !important;
 }
 
+.card-durag {
+  font-size: 25px;
+}
+
 #shabba {
   height: 70vw;
 }
@@ -66,10 +70,6 @@ html {
   margin-left: 0px !important;
 }
 
-.footer-copyright {
-  text-align: center;
-}
-
 .title {
   color: white;
 }
@@ -85,10 +85,6 @@ textarea {
   resize: none;
  }
 
-.breadcrumb {
-   background-color: #F1F1F1;
- }
-
 .pull-left {
    padding-left: 20px;
  }
@@ -100,7 +96,6 @@ textarea {
   text-align: center;
   font-size: 23px;
 }
-
 
 .dropdown-toggle {
   background-color: #F1F1F1;
@@ -122,3 +117,12 @@ textarea {
 
 .short-hd {
   margin-top: -5px;
+}
+
+.container-fluid {
+  margin-top: -5000px !important;
+}
+
+.names {
+  border: 1px solid;
+}
