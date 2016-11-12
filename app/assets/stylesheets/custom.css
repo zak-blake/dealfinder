@@ -114,15 +114,8 @@ textarea {
 .dropdown-item {
   font-size: 30px;
   margin: 15px;
+}
 
 .short-hd {
   margin-top: -5px;
-}
-
-.container-fluid {
-  margin-top: -5000px !important;
-}
-
-.names {
-  border: 1px solid;
 }

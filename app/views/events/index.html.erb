@@ -1,16 +1,19 @@
-<center><h1>Events <div class="btn-group">
-<button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @day.to_s %><i class="fa fa-chevron-down" aria-hidden="true"> </i></button>
-    <div class="dropdown-menu">
-        <%= link_to 'Monday', events_path(day: 'monday'), {class: "dropdown-item"} %><br>
-        <%= link_to 'Tuesday', events_path(day: 'tuesday'), { class: "dropdown-item"} %><br>
-        <%= link_to 'Wednesday', events_path(day: 'wednesday'), { class: "dropdown-item"} %><br>
-        <%= link_to 'Thursday', events_path(day: 'thursday'), { class: "dropdown-item"} %><br>
-        <%= link_to 'Friday', events_path(day: 'friday'), { class: "dropdown-item"} %><br>
-        <%= link_to 'Saturday', events_path(day: 'saturday'), { class: "dropdown-item"} %><br>
-        <%= link_to 'Sunday', events_path(day: 'sunday'), { class: "dropdown-item"} %><br>
-   </div>
-</div>
-  </h1></center>
+<center>
+  <h1>what's going on <div class="btn-group">
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= Event.today_or(@day.to_s) %><i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+        <div class="dropdown-menu">
+            <%= link_to Event.today_or('monday'),     events_path(day: 'monday'),     { class: "dropdown-item"} %><br>
+            <%= link_to Event.today_or('tuesday'),    events_path(day: 'tuesday'),    { class: "dropdown-item"} %><br>
+            <%= link_to Event.today_or('wednesday'),  events_path(day: 'wednesday'),  { class: "dropdown-item"} %><br>
+            <%= link_to Event.today_or('thursday'),   events_path(day: 'thursday'),   { class: "dropdown-item"} %><br>
+            <%= link_to Event.today_or('friday'),     events_path(day: 'friday'),     { class: "dropdown-item"} %><br>
+            <%= link_to Event.today_or('saturday'),   events_path(day: 'saturday'),   { class: "dropdown-item"} %><br>
+            <%= link_to Event.today_or('sunday'),     events_path(day: 'sunday'),     { class: "dropdown-item"} %><br>
+       </div>
+    </div>
+    <%= link_to "reset", events_path, class: "btn btn-sm btn-info" unless Event.current_day == @day %>
+  </h1>
+</center>
 
 <div class="col-md-3">
     <%= render 'shared/ownerList' %>

@@ -3,7 +3,7 @@
 
 <div class="card">
   <h4>
-    <%=  link_to event.name, event unless show %>
+    <%= link_to event.name, event_path(event) unless show %>
     <%= event.name if show %>
     <small> at <%= link_to event.user.name, user_show_path(event.user) %></small>
   </h4>
@@ -17,9 +17,7 @@
     </div>
   </h4>
 
-  <p>
-    <%= event.description %>
-  </p>
+  <p><%= event.description %></p>
 
   <% if event.user == current_user %>
     <div class="pull-right">

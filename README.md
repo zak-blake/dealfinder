@@ -4,7 +4,6 @@
 - dont show events that have passed today
 - highlight events that are today on the owner show page
 - filter out tilde from data or use a new divider
-- event index dropdown on today button
 
 ## To Do
 
