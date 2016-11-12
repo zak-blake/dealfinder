@@ -9,6 +9,14 @@ class User < ApplicationRecord
  has_many :events
  validates :name, presence: true
 
+ def self.owners
+   self.where(user_context: "owner")
+ end
+
+ def self.admins
+   self.where(user_context: "admin")
+ end
+
  def owner?
    if user_context == "owner" then return true else return false end
  end

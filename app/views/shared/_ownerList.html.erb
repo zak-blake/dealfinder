@@ -2,10 +2,9 @@
   <div class="names">
     <h3 style="font-family: 'Lobster', cursive;"> Owners </h3>
   </div>
-
-  <% @users = User.all %>
-    <% @users.each do |user| %>
-      <%=link_to user.name, user_show_path(user) %><br/>
-  <% end %>
-
+  <ul>
+    <% owners.each do |user| %>
+      <li><%= link_to user.name, user_show_path(user) %><li/>
+    <% end %>
+  </ul>
 </div>
