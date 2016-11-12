@@ -35,6 +35,25 @@ class Event < ApplicationRecord
     return nil unless days_of_the_week
     return "Everyday" if days_of_the_week == 127
 
+    # single day
+    case days_of_the_week
+    when 1
+      return "Mondays"
+    when 2
+      return "Tuesdays"
+    when 4
+      return "Wednesdays"
+    when 8
+      return "Thursdays"
+    when 16
+      return "Fridays"
+    when 32
+      return "Saturdays"
+    when 64
+      return "Sundays"
+    end
+
+    # multiple days
     str = ""
     WEEK_DAYS.each do |d|
       str.concat(d.second).concat(" ") if (d.last & days_of_the_week != 0)

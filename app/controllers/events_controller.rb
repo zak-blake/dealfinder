@@ -93,7 +93,8 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :start_time, :end_time, :description, :days_of_the_week)
+    params.require(:event).permit(
+      :name, :start_time, :end_time, :description, :days_of_the_week)
   end
 
   def find_event
@@ -108,7 +109,8 @@ class EventsController < ApplicationController
   end
 
   def filter_content_owner
-    redirect_to root_path unless user_signed_in? && @event && @event.user == current_user
+    redirect_to root_path unless
+      user_signed_in? && @event && @event.user == current_user
   end
 
   def set_edit_mode
@@ -119,7 +121,8 @@ class EventsController < ApplicationController
     sum = 0
     [1, 2, 4, 8, 16, 32, 64].each do |index|
       box_name = "weekday#{index}"
-      sum += params[box_name.to_sym][:select].to_i if params[box_name.to_sym][:select]
+      sum += params[box_name.to_sym][:select].to_i if
+        params[box_name.to_sym][:select]
     end
     return sum
   end
