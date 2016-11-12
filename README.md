@@ -7,9 +7,11 @@
 
 ## To Do
 
+- don't show one time events
 - allow upload of pictures for events and users (many for each so may need a new model)
 - add rspec testing
 - add list of owners to the left of the main container
+- devise token auth for app
 
 ## Integration
 - facebook
