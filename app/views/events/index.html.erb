@@ -1,17 +1,13 @@
 <center>
-  <h1>what's going on <div class="btn-group">
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= Event.today_or(@day.to_s) %><i class="fa fa-chevron-down" aria-hidden="true"></i></button>
-        <div class="dropdown-menu">
-            <%= link_to Event.today_or('monday'),     events_path(day: 'monday'),     { class: "dropdown-item"} %><br>
-            <%= link_to Event.today_or('tuesday'),    events_path(day: 'tuesday'),    { class: "dropdown-item"} %><br>
-            <%= link_to Event.today_or('wednesday'),  events_path(day: 'wednesday'),  { class: "dropdown-item"} %><br>
-            <%= link_to Event.today_or('thursday'),   events_path(day: 'thursday'),   { class: "dropdown-item"} %><br>
-            <%= link_to Event.today_or('friday'),     events_path(day: 'friday'),     { class: "dropdown-item"} %><br>
-            <%= link_to Event.today_or('saturday'),   events_path(day: 'saturday'),   { class: "dropdown-item"} %><br>
-            <%= link_to Event.today_or('sunday'),     events_path(day: 'sunday'),     { class: "dropdown-item"} %><br>
-       </div>
+  <h1>what's going on
+    <div class="btn-group">
+      <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= Event.today_or(@day.to_s) %>
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-menu"><%= day_link_list %></div>
     </div>
-    <%= link_to "reset", events_path, class: "btn btn-sm btn-info" unless Event.current_day == @day %>
+    <%= link_to "reset", events_path, class: "btn btn-sm btn-secondary" unless Event.current_day == @day %>
   </h1>
 </center>
 
