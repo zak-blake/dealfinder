@@ -119,3 +119,7 @@ textarea {
 .short-hd {
   margin-top: -5px;
 }
+
+.pretty-font {
+  font-family: 'Lobster', cursive;
+}
