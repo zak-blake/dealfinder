@@ -16,8 +16,9 @@ class Event < ApplicationRecord
   end
 
   def ended?
-    et = end_time.utc.strftime("%H%M").to_i
-    now = Time.now.utc.strftime("%H%M").to_i
+    et = end_time.strftime("%H%M").to_i
+    now = Time.zone.now.strftime("%H%M").to_i
+
     now > et
   end
 
@@ -38,7 +39,7 @@ class Event < ApplicationRecord
   end
 
   def self.current_day
-    Time.now.strftime('%A').downcase
+    Time.zone.now.strftime('%A').downcase
   end
 
   def days_as_string
