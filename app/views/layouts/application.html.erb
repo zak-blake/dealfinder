@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://use.fontawesome.com/4b5f793601.js"></script>
+
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
   </head>
 
   <body class="bod">
@@ -21,7 +23,7 @@
         <% end %>
       <% end %>
 
-    
+
       <div <%= "class=container".html_safe unless controller_name == "events" && action_name == "index" %>>
         <%= yield %>
       </div>

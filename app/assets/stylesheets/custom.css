@@ -15,7 +15,7 @@
 }
 
 .card-durag {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 #shabba {
@@ -98,9 +98,8 @@ textarea {
 }
 
 .dropdown-toggle {
-  background-color: #F1F1F1;
   border: none;
-  border-bottom: 2px dashed;
+  border-bottom: 3px solid;
 }
 
 .dropdown-toggle[aria-expanded="true"] {
@@ -122,4 +121,11 @@ textarea {
 
 .pretty-font {
   font-family: 'Lobster', cursive;
+}
+
+.navbar-brand {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+  margin-top: -15px;
 }
