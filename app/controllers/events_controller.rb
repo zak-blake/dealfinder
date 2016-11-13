@@ -1,6 +1,4 @@
 class EventsController < ApplicationController
-  include  EventsHelper
-
   before_action :authenticate_user!, except: [:index, :show, :day]
 
   before_action :find_event, only: [:show, :edit, :update, :destroy]
@@ -12,7 +10,7 @@ class EventsController < ApplicationController
   before_action :set_errors, only: [:new, :edit]
 
   def new
-    @event = current_user.events.build
+    @event = current_user.events.build(days_of_the_week: 0)
   end
 
   def create
@@ -20,7 +18,7 @@ class EventsController < ApplicationController
 
     @event.days_of_the_week = get_days_from_form
 
-    if (@event.user == current_user) && @event.save
+    if (@event.owner == current_user) && @event.save
       flash[:success] = "Event Created"
       redirect_to @event
     else
@@ -32,7 +30,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @owner = @event.user
+    @owner = @event.owner
   end
 
   def edit
@@ -43,7 +41,7 @@ class EventsController < ApplicationController
 
     @event.days_of_the_week = get_days_from_form
 
-    if (@event.user == current_user) && @event.save
+    if (@event.owner == current_user) && @event.save
       flash[:success] = "Update Successful"
       redirect_to @event
     else
@@ -104,18 +102,17 @@ class EventsController < ApplicationController
 
   def filter_dealer_or_admin
     unless user_signed_in? && current_user.owner_or_admin?
-      flash[:danger] = "Unauthorized"
       redirect_to root_path
     end
   end
 
   def filter_content_owner
     redirect_to root_path unless
-      user_signed_in? && @event && @event.user == current_user
+      user_signed_in? && @event && @event.owner == current_user
   end
 
   def set_edit_mode
-    @edit_mode = user_signed_in? && @event.user == current_user
+    @edit_mode = user_signed_in? && @event.owner == current_user
   end
 
   def get_days_from_form

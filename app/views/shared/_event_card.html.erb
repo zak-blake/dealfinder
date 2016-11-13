@@ -5,12 +5,12 @@
   <h4>
     <%= link_to event.name, event_path(event) unless show %>
     <%= event.name if show %>
-    <small> at <%= link_to event.user.name, user_show_path(event.user) %></small>
+    <small> at <%= link_to event.owner.name, user_show_path(event.owner) %></small>
   </h4>
 
   <h4 style="float: right"  class="short-hd">
     <small>
-      <%= event.start_time.strftime("%I:%M%p").sub(/^[0:]*/,"") + " to " + event.end_time.strftime("%I:%M%p").sub(/^[0:]*/,"") %>
+      <%= event.pretty_start_time + " to " + event.pretty_end_time %>
     </small>
     <div class="event-days">
       <%= event.days_as_string + "  " %>
@@ -19,7 +19,7 @@
 
   <p><%= event.description %></p>
 
-  <% if event.user == current_user %>
+  <% if event.owner == current_user %>
     <div class="pull-right">
       <%= link_to "edit", edit_event_path(event)  %>
       <%= link_to "delete", event, :method => :delete, data: {confirm: "confirm delete: #{event.name}" } %>

@@ -7,7 +7,7 @@ class Event < ApplicationRecord
 
   validate :at_least_one_day
 
-  belongs_to :user
+  belongs_to :owner, class_name: 'User', :foreign_key => 'user_id'
 
   default_scope { order(:start_time) }
 
@@ -17,6 +17,14 @@ class Event < ApplicationRecord
 
   def self.today_or(day)
     current_day == day ? "today" : day
+  end
+
+  def pretty_start_time
+    start_time.strftime("%I:%M%p").sub(/^[0:]*/,"")
+  end
+
+  def pretty_end_time
+    end_time.strftime("%I:%M%p").sub(/^[0:]*/,"")
   end
 
   def days_short
