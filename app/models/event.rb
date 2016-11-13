@@ -11,12 +11,14 @@ class Event < ApplicationRecord
 
   default_scope { order(:start_time) }
 
-  def self.events_today(day)
-    self.where
-  end
-
   def self.today_or(day)
     current_day == day ? "today" : day
+  end
+
+  def ended?
+    et = end_time.utc.strftime("%H%M").to_i
+    now = Time.now.utc.strftime("%H%M").to_i
+    now > et
   end
 
   def pretty_start_time

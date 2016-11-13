@@ -52,12 +52,14 @@ class EventsController < ApplicationController
     end
   end
 
-
   def index
     day = params[:day]
     @owners = User.owners
     @day = (Event.week_days_array.include? day) ? day : Event.current_day
     @events_today = Event.select{ |e| e.days_long.include? @day }
+
+    # only filter passed events today
+    @events_today.reject!{ |e| e.ended? } if Event.current_day == @day
   end
 
   def destroy

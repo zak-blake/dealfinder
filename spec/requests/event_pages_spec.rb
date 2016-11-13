@@ -53,6 +53,67 @@ describe "Event Pages" do
         expect(page).to have_content("Login")
         expect(page).to have_content("Signup")
       end
+
+      describe "when there is an event" do
+        before do
+          time = Time.parse("Jan 3 2000 4:00 utc)") #monday
+          allow(Time).to receive(:now).and_return(time)
+          allow(Event).to receive(:current_day).and_return("monday")
+        end
+        describe "today" do
+          before do
+            @event.days_of_the_week = 1
+            @event.save!
+            @event.reload
+          end
+
+          describe "that has not passed" do
+            before do
+              @event.end_time = Time.parse("6:00 utc")
+              @event.save!
+              @event.reload
+              visit events_path
+            end
+            it "should display the event" do
+              expect(page).to have_content(@event.name)
+            end
+          end
+
+          describe "that has already passed" do
+            before do
+              @event.end_time = Time.parse("3:00 utc")
+              @event.save!
+              @event.reload
+            end
+
+            it "should not display the event" do
+              visit events_path
+              expect(page).not_to have_content(@event.name)
+            end
+
+            describe "on a different day" do
+              before{ @event.update_attribute(:days_of_the_week, 3)}
+              it "should display the event" do
+                visit events_path(day: "tuesday")
+                expect(page).to have_content(@event.name)
+              end
+            end
+          end
+        end
+
+        describe "not today" do
+          before do
+            @event.days_of_the_week = 4
+            @event.save!
+            @event.reload
+          end
+
+          it "should not show the event" do
+            visit events_path
+            expect(page).not_to have_content(@event.name)
+          end
+        end
+      end
     end
 
     describe "destroy" do

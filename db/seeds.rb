@@ -7,29 +7,29 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 sandbar_events = [
-  ["Pint Night", "7:00pm", "11:00pm", 42, "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
-  ["Day Drinking", "10:00am", "04:00pm", 96, "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."]
+  ["Pint Night", "01:00", "23:00", 127, "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
+  ["Day Drinking", "08:00", "13:00", 96, "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."]
 ]
 
 beach_club_events = [
-  ["Beerfest", "9:00am", "6:00pm", 127, "vaporware tousled small batch offal aesthetic single-origin coffee pickled viral venmo shoreditch cardigan. Kombucha williamsburg venmo lo-fi. Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel vice flannel stumptown photo booth. Mixtape umami thundercats, vape pork belly synth DIY intelligentsia echo park cliche."],
-  ["Stone Takeover", "4:00pm", "12:00pm", 1, "Locavore blue bottle pour-over, hammock YOLO vice bicycle rights forage 90's microdosing venmo 3 wolf moon artisan chartreuse meh."]
+  ["Beerfest", "09:00", "18:00", 127, "vaporware tousled small batch offal aesthetic single-origin coffee pickled viral venmo shoreditch cardigan. Kombucha williamsburg venmo lo-fi. Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel vice flannel stumptown photo booth. Mixtape umami thundercats, vape pork belly synth DIY intelligentsia echo park cliche."],
+  ["Stone Takeover", "16:00", "24:00", 1, "Locavore blue bottle pour-over, hammock YOLO vice bicycle rights forage 90's microdosing venmo 3 wolf moon artisan chartreuse meh."]
 ]
 
 matrix_events = [
-  ["Party Time", "6:00pm", "1:00am", 48, "Drink and dance at matrix until you can't stand anymore!"]
+  ["Party Time", "06:00", "11:00", 48, "Drink and dance at matrix until you can't stand anymore!"]
 ]
 
 donkey_bar_events = [
-  ["Lunch Special", "10:00am", "2:00pm", 31, "Two for one lunch items and free apps with purchase of drink"]
+  ["Lunch Special", "10:00", "13:00", 31, "Two for one lunch items and free apps with purchase of drink"]
 ]
 
 user_list = [
-  [ "sandbar@gmail.com",     "Sandbar",              "password", 0, sandbar_events, "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
+  [ "sandbar@gmail.com",    "Sandbar",             "password", 0, sandbar_events, "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
   [ "seven@gmail.com",      "Seven",                "password", 0, nil, "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights."],
   [ "beachclub@gmail.com",  "Beach Club",           "password", 0, beach_club_events, "Locavore blue bottle pour-over, hammock YOLO vice bicycle rights forage 90's microdosing venmo 3 wolf moon artisan chartreuse meh."],
-  [ "admin@gmail.com",      "Matrix Bar and Club",  "password", 0, matrix_events, "Kombucha williamsburg venmo lo-fi. Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel"],
-  [ "donkey@gmail.com",     "Donkey Bar and Grill", "password", 0, donkey_bar_events, "Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel vice flannel stumptown photo booth. Mixtape umami thundercats, vape pork belly synth DIY intelligentsia echo park cliche."],
+  [ "admin@gmail.com",      "Matrix",               "password", 0, matrix_events, "Kombucha williamsburg venmo lo-fi. Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel"],
+  [ "donkey@gmail.com",     "Drunken Donkey",       "password", 0, donkey_bar_events, "Put a bird on it narwhal kickstarter occupy food truck, jean shorts fashion axe normcore DIY biodiesel vice flannel stumptown photo booth. Mixtape umami thundercats, vape pork belly synth DIY intelligentsia echo park cliche."],
   [ "arie@gmail.com",       "Arie Allen",           "password", 1],
   [ "zak@gmail.com",        "Zak Blake",            "password", 1]
 ]
