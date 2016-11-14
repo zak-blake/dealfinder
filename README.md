@@ -13,6 +13,7 @@
 * devise token auth for app
 * custom event location
 * scopes for event types
+* make the errors persistent on forms
 
 ## Specs
 * user model tests
