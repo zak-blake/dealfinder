@@ -7,10 +7,10 @@
 
 ## To Do
 * add one time events to views appropriately
---* cleanup up the date view of one time events
+* cleanup up the date view of one time events
 * allow upload of pictures for events and users (many for each)
 * create third user contexts for normal people
-..* devise token auth for app
+* devise token auth for app
 * custom event location
 * scopes for event types
 
