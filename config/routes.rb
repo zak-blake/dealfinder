@@ -5,7 +5,4 @@ Rails.application.routes.draw do
   resources :events
 
   root 'events#index'
-
-  # Connect with app
-  get 'events_today', to: 'events#day'
 end

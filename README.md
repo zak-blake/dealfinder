@@ -1,7 +1,6 @@
 # README
 
 ## Small Changes
-- dont show events that have passed today
 - highlight events that are today on the owner show page?
 - fix map asset errors
 - bookmark icon is default :(

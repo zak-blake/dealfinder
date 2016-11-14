@@ -68,14 +68,6 @@ class EventsController < ApplicationController
     redirect_to user_show_path(current_user)
   end
 
-  # App integration
-  def day
-    str = ""
-    str.concat(event_to_pt(Event.first))
-    str.concat(event_to_pt(Event.second))
-    render plain: str
-  end
-
   private
 
   def set_errors
