@@ -5,3 +5,9 @@ function fadeAlert(){
     }, 2000);
   })
 }
+
+function hideGroupShow(hideClass, showClass){
+  console.log(showClass);
+  $("." + hideClass).hide();
+  $("." + showClass).show();
+}

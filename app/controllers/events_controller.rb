@@ -70,6 +70,22 @@ class EventsController < ApplicationController
 
   private
 
+  def event_params
+    params.require(:event).permit(
+      :name, :start_time, :end_time, :description, :days_of_the_week,
+      :event_date, :event_type)
+  end
+
+  def find_event
+    @event = Event.find(params[:id])
+  end
+
+  def process_by_event_type
+    p params
+    date = nil if params[:weekly]
+    days_of_the_week = nil if params[:"one-time"]
+  end
+
   def set_errors
     @errors = params[:errors]
   end
@@ -83,15 +99,6 @@ class EventsController < ApplicationController
       event.end_time.strftime("%I%M")).concat(divider).concat(
       event.description).concat("*")
       return str
-  end
-
-  def event_params
-    params.require(:event).permit(
-      :name, :start_time, :end_time, :description, :days_of_the_week)
-  end
-
-  def find_event
-    @event = Event.find(params[:id])
   end
 
   def filter_dealer_or_admin

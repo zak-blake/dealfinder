@@ -141,7 +141,7 @@ describe "Event Pages" do
         visit new_event_path
       end
       it "should show new event form" do
-        expect(page).to have_content("Create New Event")
+        expect(page).to have_content("New Event")
       end
 
       describe "fills out form" do

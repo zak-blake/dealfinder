@@ -1,25 +1,31 @@
 <%= f.label :name %>
-<%= f.text_field :name %><br />
+<%= f.text_field :name %>
 
 <%= f.label :description %>
-<%= f.text_area :description %><br />
+<%= f.text_area :description %>
 
-<% index = 1 %>
-<% Event::WEEK_DAYS.each do |day| %>
-    <% checked_value = (day.last & index) != 0 %>
-  <%= label_tag(:weekday, class: "checkbox-inline") do %>
-    <%= check_box("weekday#{day.last}", "select",
-      { checked: (@event.days_of_the_week & index) != 0 }, day.last.to_s) %>
-    <%= day.first %>
-    <% index *= 2 %>
-  <% end %>
-<% end %>
-
-<br>
-<br>
+<br /><br />
 
 <%= f.label :start_time %>
-<%= f.time_select :start_time %><br />
+<%= f.time_select :start_time %>
 
 <%= f.label :end_time %>
-<%= f.time_select :end_time %><br />
+<%= f.time_select :end_time %>
+
+<br /><br />
+
+<%= f.collection_radio_buttons(:event_type, Event.type_name_array, :first, :second) do |b| %>
+  <div class="radio">
+    <%= b.label {b.radio_button(onchange: "hideGroupShow(\"event_type\", \"#{b.text}\")") + b.text } %>
+  </div>
+<% end %>
+
+<div class="event_type one-time" <%="#{'style=display:none;' if @event.weekly?}" %>>
+  <label>event date<%= f.date_select :event_date %></label>
+</div>
+
+<div class="event_type weekly" <%= "#{'style=display:none;' if @event.one_time?}" %>>
+  <%= days_of_the_week_checkboxes(@event) %>
+</div>
+
+<br /><br />
