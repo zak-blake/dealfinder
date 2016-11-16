@@ -6,6 +6,7 @@
 * bookmark icon is default :(
 
 ## To Do
+* refactor more code into the models from the controllers, clean up events generally, rename date_or_days
 * show date as 'today' when it is
 * allow upload of pictures for events and users (many for each)
 * create third user contexts for normal people
