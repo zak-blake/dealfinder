@@ -3,7 +3,8 @@ require 'rails_helper'
 describe "Event Pages" do
   before do
     @owner = FactoryGirl.create(:user)
-    @event = FactoryGirl.create(:event, owner: @owner, days_of_the_week: 1)
+    @weekly_event = FactoryGirl.create(:event, owner: @owner, days_of_the_week: 1)
+    @one_time_event = FactoryGirl.create(:event, owner: @owner, event_type: :one_time, event_date: Date.today)
   end
 
   describe "as public user" do
@@ -20,14 +21,24 @@ describe "Event Pages" do
     end
 
     describe "show" do
-      it "should have event content" do
+      it "should have weekly event content" do
         #event card layout
-        visit event_path(@event)
-        expect(page).to have_content(@event.name)
-        expect(page).to have_content(@event.owner.name)
-        expect(page).to have_content(@event.pretty_start_time)
-        expect(page).to have_content(@event.pretty_end_time)
-        expect(page).to have_content(@event.days_as_string)
+        visit event_path(@weekly_event)
+        expect(page).to have_content(@weekly_event.name)
+        expect(page).to have_content(@weekly_event.owner.name)
+        expect(page).to have_content(@weekly_event.pretty_start_time)
+        expect(page).to have_content(@weekly_event.pretty_end_time)
+        expect(page).not_to have_content("edit")
+        expect(page).not_to have_content("delete")
+      end
+
+      it "should have one time event content" do
+        #event card layout
+        visit event_path(@one_time_event)
+        expect(page).to have_content(@one_time_event.name)
+        expect(page).to have_content(@one_time_event.owner.name)
+        expect(page).to have_content(@one_time_event.pretty_start_time)
+        expect(page).to have_content(@one_time_event.pretty_end_time)
         expect(page).not_to have_content("edit")
         expect(page).not_to have_content("delete")
       end
@@ -35,13 +46,13 @@ describe "Event Pages" do
 
     describe "edit" do
       it "should redirect to login page" do
-        expect(get edit_event_path(@event)).to redirect_to new_user_session_path
+        expect(get edit_event_path(@weekly_event)).to redirect_to new_user_session_path
       end
     end
 
     describe "update" do
       it "should redirect to login page" do
-        expect(patch event_path(@event)).to redirect_to new_user_session_path
+        expect(patch event_path(@weekly_event)).to redirect_to new_user_session_path
         expect(put event_path).to redirect_to new_user_session_path
       end
     end
@@ -56,46 +67,48 @@ describe "Event Pages" do
 
       describe "when there is an event" do
         before do
-          time = Time.parse("Jan 3 2000 4:00 utc)") #monday
+          time = Time.parse("Jan 3 2000 4:00pm utc)") #monday
           allow(Time).to receive(:now).and_return(time)
           allow(Event).to receive(:current_day).and_return("monday")
         end
         describe "today" do
           before do
-            @event.days_of_the_week = 1
-            @event.save!
-            @event.reload
+            @weekly_event.days_of_the_week = 1
+            @weekly_event.save!
+            @weekly_event.reload
           end
 
           describe "that has not passed" do
             before do
-              @event.end_time = Time.parse("6:00 utc")
-              @event.save!
-              @event.reload
+              @weekly_event.start_time = Time.parse("2:00pm utc")
+              @weekly_event.end_time = Time.parse("6:00pm utc")
+              @weekly_event.save!
+              @weekly_event.reload
               visit events_path
             end
             it "should display the event" do
-              expect(page).to have_content(@event.name)
+              expect(page).to have_content(@weekly_event.name)
             end
           end
 
           describe "that has already passed" do
             before do
-              @event.end_time = Time.parse("3:00 utc")
-              @event.save!
-              @event.reload
+              @weekly_event.start_time = Time.parse("2:00pm utc")
+              @weekly_event.end_time = Time.parse("3:00pm utc")
+              @weekly_event.save!
+              @weekly_event.reload
             end
 
             it "should not display the event" do
               visit events_path
-              expect(page).not_to have_content(@event.name)
+              expect(page).not_to have_content(@weekly_event.name)
             end
 
             describe "on a different day" do
-              before{ @event.update_attribute(:days_of_the_week, 3)}
+              before{ @weekly_event.update_attribute(:days_of_the_week, 3)}
               it "should display the event" do
                 visit events_path(day: "tuesday")
-                expect(page).to have_content(@event.name)
+                expect(page).to have_content(@weekly_event.name)
               end
             end
           end
@@ -103,14 +116,54 @@ describe "Event Pages" do
 
         describe "not today" do
           before do
-            @event.days_of_the_week = 4
-            @event.save!
-            @event.reload
+            @weekly_event.days_of_the_week = 4
+            @weekly_event.save!
+            @weekly_event.reload
           end
 
           it "should not show the event" do
             visit events_path
-            expect(page).not_to have_content(@event.name)
+            expect(page).not_to have_content(@weekly_event.name)
+          end
+        end
+      end
+
+      describe "when there is a one-time event" do
+        before do
+          @one_time_event.save!
+          @one_time_event.reload
+        end
+
+        describe "today" do
+          before do
+            allow(Time).to receive(:now).and_return(Time.parse("12:00pm"))
+            allow(Date).to receive(:today).and_return(Date.today)
+          end
+
+          it "should not display the event" do
+            visit events_path
+            expect(page).to have_content(@one_time_event.name)
+          end
+        end
+
+        describe "not today" do
+          before { allow(Date).to receive(:today).and_return(Date.new(2001,2,3) ) }
+
+          it "should not display the event" do
+            visit events_path
+            expect(page).not_to have_content(@one_time_event.name)
+          end
+        end
+
+        describe "today that has passed" do
+          before do
+            allow(Time).to receive(:now).and_return(Time.parse("11:00pm"))
+            allow(Date).to receive(:today).and_return(Date.today)
+          end
+
+          it "should not display the event" do
+            visit events_path
+            expect(page).not_to have_content(@one_time_event.name)
           end
         end
       end
@@ -118,7 +171,7 @@ describe "Event Pages" do
 
     describe "destroy" do
       it "should redirect to login page" do
-        expect(delete event_path(@event)).to redirect_to new_user_session_path
+        expect(delete event_path(@weekly_event)).to redirect_to new_user_session_path
       end
     end
   end
@@ -130,7 +183,7 @@ describe "Event Pages" do
 
     describe "show" do
       it "should have owner options" do
-        visit event_path(@event)
+        visit event_path(@weekly_event)
         expect(page).to have_content("edit")
         expect(page).to have_content("delete")
       end
@@ -158,7 +211,7 @@ describe "Event Pages" do
 
         describe "saves event" do
           before{ click_button "Create Event" }
-          subject{ Event.order(:id).last }
+          subject{ Event.where(name: "cool event").last }
           specify do
             expect(subject.name).to eq("cool event")
             expect(subject.pretty_start_time).to eq("9:30AM")
@@ -172,7 +225,7 @@ describe "Event Pages" do
     describe "who owns event" do
       describe "edit" do
         before do
-          visit edit_event_path(@event)
+          visit edit_event_path(@weekly_event)
         end
         it "should show edit event form" do
           expect(page).to have_content("Edit")
@@ -193,7 +246,7 @@ describe "Event Pages" do
 
           describe "saves event" do
             before{ click_button "Update" }
-            subject{ Event.order(:id).last }
+            subject{ Event.where(name: "cool event").last }
             specify do
               expect(subject.name).to eq("cool event")
               expect(subject.pretty_start_time).to eq("9:30AM")
@@ -208,11 +261,11 @@ describe "Event Pages" do
     describe "who does not own event" do
       before do
         @owner2 = FactoryGirl.create(:user)
-        @event2 = FactoryGirl.create(:event, owner: @owner2)
+        @weekly_event2 = FactoryGirl.create(:event, owner: @owner2)
       end
       describe "edit" do
         it "should redirect to root page" do
-          expect(get edit_event_path(@event2)).to redirect_to root_path
+          expect(get edit_event_path(@weekly_event2)).to redirect_to root_path
         end
       end
     end

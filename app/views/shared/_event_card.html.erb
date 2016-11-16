@@ -8,12 +8,12 @@
     <small> at <%= link_to event.owner.name, user_show_path(event.owner) %></small>
   </h4>
 
-  <h4 style="float: right"  class="short-hd">
+  <h4 style="float: right" class="short-hd">
     <small>
       <%= event.pretty_start_time + " to " + event.pretty_end_time %>
     </small>
     <div class="event-days">
-      <%= event.days_as_string + "  " %>
+      <%= event.day_or_dates + "  " %>
     </div>
   </h4>
 

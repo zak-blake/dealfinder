@@ -29,6 +29,12 @@ describe "Event" do
       expect(subject).not_to be_valid
     end
 
+    it "start time equal to or later than end time" do
+      subject.start_time = Time.parse("1:00pm")
+      subject.end_time = Time.parse("9:00am")
+      expect(subject).not_to be_valid
+    end
+
     it "name is nil" do
       subject.name = nil
       expect(subject).not_to be_valid

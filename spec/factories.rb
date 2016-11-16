@@ -8,8 +8,8 @@ FactoryGirl.define do
 
   factory :event do
     sequence(:name) { |n| "Event #{n}" }
-    start_time  "12:00"
-    end_time    "01:00"
+    start_time  Time.parse("10:00am")
+    end_time    Time.parse("10:00pm")
     days_of_the_week 8
   end
 end

@@ -6,14 +6,13 @@
 * bookmark icon is default :(
 
 ## To Do
-* add one time events to views appropriately
-* cleanup up the date view of one time events
+* show date as 'today' when it is
 * allow upload of pictures for events and users (many for each)
 * create third user contexts for normal people
 * devise token auth for app
-* custom event location
-* scopes for event types
+* allow address for dealer and customer address for event (2 line and zip and city)
 * make the errors persistent on forms
+* change from using default scope for event ordering
 
 ## Specs
 * user model tests

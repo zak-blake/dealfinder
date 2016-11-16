@@ -54,12 +54,9 @@ class EventsController < ApplicationController
 
   def index
     day = params[:day]
-    @owners = User.owners
     @day = (Event.week_days_array.include? day) ? day : Event.current_day
-    @events_today = Event.select{ |e| e.days_long.include? @day }
-
-    # only filter passed events today
-    @events_today.reject!{ |e| e.ended? } if Event.current_day == @day
+    @owners = User.owners
+    @events_today = Event.events_today(@day)
   end
 
   def destroy
@@ -81,24 +78,12 @@ class EventsController < ApplicationController
   end
 
   def process_by_event_type
-    p params
     date = nil if params[:weekly]
     days_of_the_week = nil if params[:"one-time"]
   end
 
   def set_errors
     @errors = params[:errors]
-  end
-
-  def event_to_pt(event)
-    divider = "~"
-    str = ""
-    str.concat(event.id.to_s).concat(divider).concat(
-      event.name).concat(divider).concat(
-      event.start_time.strftime("%I%M")).concat(divider).concat(
-      event.end_time.strftime("%I%M")).concat(divider).concat(
-      event.description).concat("*")
-      return str
   end
 
   def filter_dealer_or_admin
