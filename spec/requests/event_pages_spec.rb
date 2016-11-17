@@ -214,8 +214,8 @@ describe "Event Pages" do
           subject{ Event.where(name: "cool event").last }
           specify do
             expect(subject.name).to eq("cool event")
-            expect(subject.pretty_start_time).to eq("9:30AM")
-            expect(subject.pretty_end_time).to eq("10:45AM")
+            expect(subject.pretty_start_time).to eq("9:30 am")
+            expect(subject.pretty_end_time).to eq("10:45 am")
             expect(subject.days_of_the_week).to eq(1)
           end
         end
@@ -249,8 +249,8 @@ describe "Event Pages" do
             subject{ Event.where(name: "cool event").last }
             specify do
               expect(subject.name).to eq("cool event")
-              expect(subject.pretty_start_time).to eq("9:30AM")
-              expect(subject.pretty_end_time).to eq("10:45AM")
+              expect(subject.pretty_start_time).to eq("9:30 am")
+              expect(subject.pretty_end_time).to eq("10:45 am")
               expect(subject.days_of_the_week).to eq(2)
             end
           end
