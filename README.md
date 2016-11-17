@@ -6,6 +6,7 @@
 * bookmark icon is default :(
 
 ## To Do
+* favicon only shows on one page?
 * Figure out how to order the dealer show events (weekly and one time)
 * write model tests for all the event methods
 * test today and tomorrow showing up
