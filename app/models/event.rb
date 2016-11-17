@@ -60,13 +60,17 @@ class Event < ApplicationRecord
     events
   end
 
+  def one_time_date_today?
+    return false unless one_time?
+    event_date == Date.today
+  end
+
   def happening_today?(day)
-    if weekly?
-      return true if days_long.include? day
-    elsif one_time?
-      return true if event_date.today?
+    if ( weekly? && (days_long.include? day) ) || one_time_date_today?
+      true
+    else
+      false
     end
-    false
   end
 
   def ended?
@@ -77,11 +81,11 @@ class Event < ApplicationRecord
   end
 
   def pretty_start_time
-    start_time.strftime("%I:%M%p").sub(/^[0:]*/,"")
+    start_time.strftime("%I:%M %P").sub(/^[0:]*/,"")
   end
 
   def pretty_end_time
-    end_time.strftime("%I:%M%p").sub(/^[0:]*/,"")
+    end_time.strftime("%I:%M %P").sub(/^[0:]*/,"")
   end
 
   def days_short

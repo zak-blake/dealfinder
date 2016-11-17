@@ -11,11 +11,7 @@
   </h1>
 </center>
 
-<div class="col-md-2 col-md-offset-1">
-    <%= render 'shared/owner_list', owners: @owners %>
-</div>
-
-<div class="col-md-8">
+<div class="col-md-10 col-md-offset-1">
   <% @events_today.each do |e| %>
     <%= render 'shared/event_card', event: e %>
   <% end %>

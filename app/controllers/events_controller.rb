@@ -1,10 +1,10 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :day]
+  before_action :authenticate_user!, except: [:index, :show, :day, :events_today]
 
   before_action :find_event, only: [:show, :edit, :update, :destroy]
   before_action :filter_content_owner, only: [ :edit, :update, :destroy]
 
-  before_action :filter_dealer_or_admin, except: [:new, :index, :show, :day]
+  before_action :filter_dealer_or_admin, except: [:new, :index, :show, :day, :events_today]
   before_action :set_edit_mode, only: [:show, :edit, :update, :destroy]
 
   before_action :set_errors, only: [:new, :edit]
@@ -63,6 +63,10 @@ class EventsController < ApplicationController
     @event.destroy
     flash[:success] = "Event Deleted"
     redirect_to user_show_path(current_user)
+  end
+
+  def api_events_today
+    render json: Event.all
   end
 
   private
