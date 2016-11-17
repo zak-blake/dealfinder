@@ -97,6 +97,14 @@ textarea {
   font-size: 23px;
 }
 
+.div-today {
+  background-color: purple;
+}
+
+.div-tom {
+  background-color: pink;
+}
+
 .dropdown-toggle {
   border: none;
   border-bottom: 3px solid;

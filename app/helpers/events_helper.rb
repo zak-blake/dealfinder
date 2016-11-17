@@ -1,8 +1,12 @@
 module EventsHelper
 
   def day_link_list
+    day_list = Event.week_days_array
+    # rotate until todayu is first
+    day_list.rotate! while day_list.first != Event.current_day
+
     html = ''
-    Event.week_days_array.each do |day|
+    day_list.each do |day|
       html += '<li>'
       html += link_to(
         Event.today_or(day), events_path(day: day), { class: "dropdown-item"})
@@ -27,5 +31,11 @@ module EventsHelper
     end
 
     return html.html_safe
+  end
+
+  def today_or_tomorrow_class(event)
+    return "div-today".html_safe if event.one_time_date_today?
+    return "div-tom".html_safe if event.one_time_date_tomorrow?
+    ""
   end
 end

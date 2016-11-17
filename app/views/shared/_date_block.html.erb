@@ -1,8 +1,8 @@
 <h4 style="float: right" class="short-hd">
   <small>
-    <%= event.pretty_start_time + " - " + event.pretty_end_time %>
+    <%= event.pretty_time_range %>
   </small>
-  <div class="event-days">
+  <div class="event-days <%= today_or_tomorrow_class(event) %>">
     <%= event.day_or_dates %>
   </div>
 </h4>

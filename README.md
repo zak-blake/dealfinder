@@ -6,6 +6,8 @@
 * bookmark icon is default :(
 
 ## To Do
+* write model tests for all the event methods
+* test today and tomorrow showing up
 * refactor more code into the models from the controllers, clean up events generally, rename date_or_days
 * show date as 'today' when it is
 * allow upload of pictures for events and users (many for each)

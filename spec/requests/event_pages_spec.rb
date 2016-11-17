@@ -65,11 +65,13 @@ describe "Event Pages" do
         expect(page).to have_content("Signup")
       end
 
-      describe "when there is an event" do
+      describe "when there is a weekly event" do
         before do
-          time = Time.parse("Jan 3 2000 4:00pm utc)") #monday
-          allow(Time).to receive(:now).and_return(time)
+          dt = "Jan 3 2000 4:00pm utc".to_datetime #monday
+
+          allow(Time).to receive(:now).and_return(dt.to_time)
           allow(Event).to receive(:current_day).and_return("monday")
+          allow(Date).to receive(:today).and_return(dt.to_date)
         end
         describe "today" do
           before do
@@ -140,7 +142,15 @@ describe "Event Pages" do
             allow(Date).to receive(:today).and_return(Date.today)
           end
 
-          it "should not display the event" do
+          describe "when day param is not today" do
+            it "should not display the event" do
+              tomorrow = Date.tomorrow.strftime("%A").downcase
+              visit events_path(day: tomorrow)
+              expect(page).not_to have_content(@one_time_event.name)
+            end
+          end
+
+          it "should display the event" do
             visit events_path
             expect(page).to have_content(@one_time_event.name)
           end

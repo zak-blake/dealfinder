@@ -56,7 +56,7 @@ class EventsController < ApplicationController
     day = params[:day]
     @day = (Event.week_days_array.include? day) ? day : Event.current_day
     @owners = User.owners
-    @events_today = Event.events_today(@day)
+    @events_today = Event.events_on_day(@day)
   end
 
   def destroy
