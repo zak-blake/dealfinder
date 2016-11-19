@@ -87,16 +87,14 @@ class Event < ApplicationRecord
     self.where(event_type: "weekly")
   end
 
-  def self.events_on_day(clean_day = nil)
+  def self.events_on_day(clean_day)
     # day dropdown parameter changes dates
     actual_date = date_after_modifier(clean_day)
 
     events = self.select{ |e| e.happens_on_date? actual_date }
     # only filter past-time events today
 
-    puts "current: #{current_day} and clean: #{clean_day}"
-
-    events.reject!{ |e| e.ended? } if current_day == clean_day || clean_day.nil?
+    events.reject!{ |e| e.ended? } if current_day == clean_day
 
     events
   end
@@ -127,9 +125,7 @@ class Event < ApplicationRecord
 
   def ended?
     et = end_time.strftime("%H%M").to_i
-    now = Rails.env.test? ?
-     Time.now.strftime("%H%M").to_i :
-     Time.zone.now.strftime("%H%M").to_i
+    now = Time.zone.now.strftime("%H%M").to_i
 
     now > et
   end
