@@ -56,7 +56,7 @@ class EventsController < ApplicationController
     day = params[:day]
     @day = (Event.week_days_array.include? day) ? day : Event.current_day
     @owners = User.owners
-    @events_today = Event.events_on_day(@day)
+    @events_today = Event.by_time.events_on_day(@day)
   end
 
   def destroy
@@ -66,7 +66,7 @@ class EventsController < ApplicationController
   end
 
   def api_events_today
-    render json: Event.all
+    render json: Event.by_time
   end
 
   private

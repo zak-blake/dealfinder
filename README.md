@@ -3,15 +3,12 @@
 ## Small Changes
 * highlight events that are today on the owner show page?
 * fix map asset errors
-* bookmark icon is default :(
 
 ## To Do
-* favicon only shows on one page?
 * Figure out how to order the dealer show events (weekly and one time)
 * write model tests for all the event methods
 * test today and tomorrow showing up
 * refactor more code into the models from the controllers, clean up events generally, rename date_or_days
-* show date as 'today' when it is
 * allow upload of pictures for events and users (many for each)
 * create third user contexts for normal people
 * devise token auth for app

@@ -11,7 +11,7 @@ class Event < ApplicationRecord
 
   enum event_type: { weekly: 0, one_time: 1 }
 
-  default_scope { order(:start_time) }
+  scope :by_time, -> {order(:start_time)}
 
   before_validation(on: [:create, :update]) do
     self.event_date = nil if weekly?
@@ -60,6 +60,7 @@ class Event < ApplicationRecord
   end
 
   def self.date_after_modifier(day)
+    # day is assumed to be valid
     # returns the date modified by the dropdown
     todays_day = current_day
     return Date.today if day.nil? || day == todays_day
@@ -86,13 +87,16 @@ class Event < ApplicationRecord
     self.where(event_type: "weekly")
   end
 
-  def self.events_on_day(clean_day)
-    # day parameter changes dates
+  def self.events_on_day(clean_day = nil)
+    # day dropdown parameter changes dates
     actual_date = date_after_modifier(clean_day)
 
     events = self.select{ |e| e.happens_on_date? actual_date }
     # only filter past-time events today
-    events.reject!{ |e| e.ended? } if current_day == clean_day
+
+    puts "current: #{current_day} and clean: #{clean_day}"
+
+    events.reject!{ |e| e.ended? } if current_day == clean_day || clean_day.nil?
 
     events
   end
@@ -123,7 +127,9 @@ class Event < ApplicationRecord
 
   def ended?
     et = end_time.strftime("%H%M").to_i
-    now = Time.zone.now.strftime("%H%M").to_i
+    now = Rails.env.test? ?
+     Time.now.strftime("%H%M").to_i :
+     Time.zone.now.strftime("%H%M").to_i
 
     now > et
   end
