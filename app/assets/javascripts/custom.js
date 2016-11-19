@@ -1,7 +1,7 @@
 function fadeAlert(){
   $(document).ready(function(){
     setTimeout(function(){
-    $('.alert').fadeOut();
+    $('.alert-success').fadeOut();
     }, 2000);
   })
 }
