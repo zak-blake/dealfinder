@@ -14,7 +14,7 @@
 
   <% if event.owner == current_user %>
     <div class="pull-right">
-      <%= link_to "edit", edit_event_path(event)  %>
+      <%= link_to "edit", edit_event_path(event)  %> |
       <%= link_to "delete", event, :method => :delete, data: {confirm: "confirm delete: #{event.name}" } %>
     </div>
   <% end %>
