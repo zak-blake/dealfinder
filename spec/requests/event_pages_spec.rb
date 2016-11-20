@@ -3,8 +3,10 @@ require 'rails_helper'
 describe "Event Pages" do
   before do
     @owner = FactoryGirl.create(:user)
-    @weekly_event = FactoryGirl.create(:event, owner: @owner, days_of_the_week: 1)
-    @one_time_event = FactoryGirl.create(:event, owner: @owner, event_type: :one_time, event_date: Date.today)
+    @weekly_event = FactoryGirl.create(:event,
+      owner: @owner, days_of_the_week: 1)
+    @one_time_event = FactoryGirl.create(:event,
+      owner: @owner, event_type: :one_time, event_date: Date.today)
   end
 
   describe "as public user" do
@@ -46,18 +48,26 @@ describe "Event Pages" do
 
     describe "edit" do
       it "should redirect to login page" do
-        expect(get edit_event_path(@weekly_event)).to redirect_to new_user_session_path
+        expect(get edit_event_path(@weekly_event))
+          .to redirect_to new_user_session_path
       end
     end
 
     describe "update" do
       it "should redirect to login page" do
-        expect(patch event_path(@weekly_event)).to redirect_to new_user_session_path
+        expect(patch event_path(@weekly_event))
+          .to redirect_to new_user_session_path
         expect(put event_path).to redirect_to new_user_session_path
       end
     end
 
     describe "index" do
+      before do
+        @dt = "Jan 3 2000 4:00pm utc".to_datetime #monday
+        allow(Time).to receive(:now).and_return(@dt.to_time)
+        allow(Event).to receive(:current_day).and_return("monday")
+        allow(Date).to receive(:today).and_return(@dt.to_date)
+      end
       it "should have have index page content" do
         visit events_path
         expect(page).to have_content("what's going on")
@@ -66,13 +76,6 @@ describe "Event Pages" do
       end
 
       describe "when there is a weekly event" do
-        before do
-          dt = "Jan 3 2000 4:00pm utc".to_datetime #monday
-
-          allow(Time).to receive(:now).and_return(dt.to_time)
-          allow(Event).to receive(:current_day).and_return("monday")
-          allow(Date).to receive(:today).and_return(dt.to_date)
-        end
         describe "today" do
           before do
             @weekly_event.days_of_the_week = 1
@@ -131,44 +134,40 @@ describe "Event Pages" do
       end
 
       describe "when there is a one-time event" do
-        before do
-          @one_time_event.save!
-          @one_time_event.reload
-        end
-
         describe "today" do
           before do
-            allow(Time).to receive(:now).and_return(Time.parse("12:00pm"))
-            allow(Date).to receive(:today).and_return(Date.today)
-          end
-
-          describe "when day param is not today" do
-            it "should not display the event" do
-              tomorrow = Date.tomorrow.strftime("%A").downcase
-              visit events_path(day: tomorrow)
-              expect(page).not_to have_content(@one_time_event.name)
-            end
+            @one_time_event.event_date = @dt.to_date
+            @one_time_event.save!
+            @one_time_event.reload
           end
 
           it "should display the event" do
             visit events_path
             expect(page).to have_content(@one_time_event.name)
           end
-        end
 
-        describe "not today" do
-          before { allow(Date).to receive(:today).and_return(Date.new(2001,2,3) ) }
+          describe "today that has passed" do
+            before do
+              allow(Time).to receive(:now).and_return(Time.parse("11:00pm"))
+            end
 
-          it "should not display the event" do
-            visit events_path
-            expect(page).not_to have_content(@one_time_event.name)
+            it "should not display the event" do
+              visit events_path
+              expect(page).not_to have_content(@one_time_event.name)
+            end
+          end
+
+          describe "when day param is not today" do
+            it "should not display the event" do
+              visit events_path(day: "tuesday")
+              expect(page).not_to have_content(@one_time_event.name)
+            end
           end
         end
 
-        describe "today that has passed" do
+        describe "not today" do
           before do
-            allow(Time).to receive(:now).and_return(Time.parse("11:00pm"))
-            allow(Date).to receive(:today).and_return(Date.today)
+            allow(Date).to receive(:today).and_return(@dt.to_date + 1.day)
           end
 
           it "should not display the event" do
@@ -181,7 +180,8 @@ describe "Event Pages" do
 
     describe "destroy" do
       it "should redirect to login page" do
-        expect(delete event_path(@weekly_event)).to redirect_to new_user_session_path
+        expect(delete event_path(@weekly_event))
+          .to redirect_to new_user_session_path
       end
     end
   end
@@ -217,7 +217,9 @@ describe "Event Pages" do
           select "10", from: "event_end_time_4i"
           select "45", from: "event_end_time_5i"
         end
-        specify{ expect{ click_button "Create Event" }.to change(Event, :count).by(1) }
+        specify do
+          expect{ click_button "Create Event" }.to change(Event, :count).by(1)
+        end
 
         describe "saves event" do
           before{ click_button "Create Event" }
@@ -252,7 +254,8 @@ describe "Event Pages" do
             select "10", from: "event_end_time_4i"
             select "45", from: "event_end_time_5i"
           end
-          specify{ expect{ click_button "Update" }.not_to change(Event, :count) }
+          specify{ expect{ click_button "Update" }
+            .not_to change(Event, :count) }
 
           describe "saves event" do
             before{ click_button "Update" }

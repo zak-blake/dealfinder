@@ -8,7 +8,8 @@
 * allow upload of pictures for events and users (many for each)
 * create third user contexts for normal people
 * devise token auth for app
-* allow address for dealer and customer address for event (2 line and zip and city)
+* provide address in some way
+* one time events coming up
 
 ## Specs
 * user model tests
@@ -22,7 +23,5 @@
 * twitter?
 
 ## Backlog
-* make the alerts stop bouncing so hard
 * mobile sidenav
-* edit profile with bootstrap modal?
 * gps coordinates
