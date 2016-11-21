@@ -11,7 +11,8 @@ class Event < ApplicationRecord
 
   enum event_type: { weekly: 0, one_time: 1 }
 
-  scope :by_start_time, -> {order(:start_time)}
+  scope :by_start_time, -> { order(:start_time) }
+  scope :by_date, -> {  }
 
   before_validation(on: [:create, :update]) do
     self.event_date = nil if weekly?
@@ -97,6 +98,10 @@ class Event < ApplicationRecord
     events.reject!{ |e| e.ended? } if current_day == clean_day
 
     events
+  end
+
+  def self.past
+    self.where("event_date < ?", Date.today)
   end
 
   def happens_on_date?(date)

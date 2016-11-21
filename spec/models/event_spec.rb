@@ -11,7 +11,7 @@ describe "Event" do
     expect(subject).to be_valid
   end
 
-  it "should respond" do
+  it "should respond to" do
     expect(subject).to respond_to(
       :pretty_start_time,
       :pretty_end_time,
@@ -71,6 +71,38 @@ describe "Event" do
         subject.event_date = nil
         expect(subject).not_to be_valid
       end
+    end
+  end
+
+  describe "past events" do
+    before do
+      @dt = "Jan 3 2000 4:00pm utc".to_datetime #monday
+      allow(Time).to receive(:now).and_return(@dt.to_time)
+      allow(Event).to receive(:current_day).and_return("monday")
+      allow(Date).to receive(:today).and_return(@dt.to_date)
+
+      @past_event = FactoryGirl.create(:event,
+        owner: @owner, event_type: :one_time, event_date: @dt.to_date - 1.days )
+
+      @ongoing_event = FactoryGirl.create(:event,
+        owner: @owner,
+        event_type: :one_time,
+        event_date: @dt.to_date,
+        start_time: @dt.to_time - 1.hours,
+        end_time: @dt.to_time + 1.hours )
+
+      @upcoming_event = FactoryGirl.create(:event,
+        owner: @owner, event_type: :one_time, event_date: @dt.to_date + 1.days )
+
+      @upcoming_event.save!
+      @ongoing_event.save!
+      @past_event.save!
+    end
+
+    it "includes only past events" do
+      expect(Event.past).to include(@past_event)
+      expect(Event.past).not_to include(@ongoing_event)
+      expect(Event.past).not_to include(@upcoming_event)
     end
   end
 end
