@@ -11,6 +11,8 @@
 * one time events coming up with a nice filter
 * cancel my account?
 * replace the devise errors
+* move the demo data to a rake task
+* restrict admin profile access
 
 ## Specs
 * user model tests

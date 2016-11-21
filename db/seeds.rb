@@ -8,7 +8,13 @@
 
 sandbar_events = [
   ["Pint Night", "01:00", "23:00", 127, "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
-  ["Day Drinking", "08:00", "13:00", 96, "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."]
+  ["Day Drinking", "08:00", "13:00", 96, "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."],
+]
+
+sandbar_one_time_events = [
+  ["The Smiths Live Dance Night", "20:00", "23:00", Date.today, "Salvia pug locavore man bun. Next level vaporware XOXO vinyl, viral paleo echo park marfa cronut ethical iceland man braid. Direct trade hoodie helvetica pop-up green juice, af meh jianbing synth mixtape roof party pour-over blue bottle XOXO. Tbh XOXO street art tattooed air plant cornhole vexillologist, pug viral put a bird on it hella 90's."],
+  ["The Growlers Live", "22:00", "23:30", Date.today - 3.days, "Synth aesthetic seitan, fixie vegan cray kickstarter meggings listicle sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."],
+  ["Bottomless Mimosas!", "08:00", "13:00", Date.today + 1.day, "Sriracha enamel pin pour-over before they sold out bicycle rights. Unicorn VHS listicle humblebrag la croix try-hard normcore. Pabst craft beer distillery single-origin coffee authentic wolf."]
 ]
 
 beach_club_events = [
@@ -36,11 +42,11 @@ user_list = [
 
 
 
-user_list.each do |email, name, password, user_context, events, desc|
-  puts "Creating User: " + name.to_s
+user_list.each do |email, user_name, password, user_context, events, user_desc|
+  puts "Creating User: " + user_name.to_s
   u = User.create(
-    name: name,
-    description: desc,
+    name: user_name,
+    description: user_desc,
     password: password,
     email: email,
     user_context: user_context )
@@ -56,4 +62,23 @@ user_list.each do |email, name, password, user_context, events, desc|
       description: desc
     )
   end unless u.admin? || events.nil?
+
+  if user_name == "Sandbar"
+    sandbar_one_time_events.each do |name, start_time, end_time, date, desc|
+      puts "Creating Event: " + name.to_s
+      e = Event.create(
+        user_id: u.id,
+        event_type: :one_time,
+        event_date: date,
+        name: name,
+        start_time: start_time,
+        end_time: end_time,
+        description: desc
+      )
+
+      e.errors.each do |err|
+        puts err
+      end if e.errors.any?
+    end
+  end
 end
