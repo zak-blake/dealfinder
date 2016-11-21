@@ -11,7 +11,7 @@ class Event < ApplicationRecord
 
   enum event_type: { weekly: 0, one_time: 1 }
 
-  scope :by_time, -> {order(:start_time)}
+  scope :by_start_time, -> {order(:start_time)}
 
   before_validation(on: [:create, :update]) do
     self.event_date = nil if weekly?
@@ -99,35 +99,28 @@ class Event < ApplicationRecord
     events
   end
 
-  def one_time_happens_on_date?(date)
-    return false unless one_time?
-    event_date == date
-  end
-
-  def one_time_date_today?
-    return false unless one_time?
-    event_date == Date.today
-  end
-
-  def one_time_date_tomorrow?
-    return false unless one_time?
-    event_date == Date.tomorrow
-  end
-
   def happens_on_date?(date)
-    day = date.strftime('%A').downcase
-    if ( weekly? && (days_long.include? day) ) || one_time_happens_on_date?(date)
+    if one_time? && (event_date == date)
+      true
+    elsif weekly? && (days_long.include? date.strftime('%A').downcase)
       true
     else
       false
     end
   end
 
-  def ended?
-    et = end_time.strftime("%H%M").to_i
-    now = Time.zone.now.strftime("%H%M").to_i
+  def date_is_today?
+    return false unless one_time?
+    event_date == Date.today
+  end
 
-    now > et
+  def date_is_tomorrow?
+    return false unless one_time?
+    event_date == Date.tomorrow
+  end
+
+  def ended?
+    Time.zone.now.strftime("%H%M").to_i > end_time.strftime("%H%M").to_i
   end
 
   def pretty_time_range
@@ -143,19 +136,21 @@ class Event < ApplicationRecord
   end
 
   def days_short
-    WEEK_DAYS.select { |d| (d.last & days_of_the_week) != 0 }.map{ |d| d.second }
+    WEEK_DAYS.select { |d| (d.last & days_of_the_week) != 0 }.
+      map{ |d| d.second }
   end
 
   def days_long
-    WEEK_DAYS.select { |d| (d.last & days_of_the_week) != 0 }.map{ |d| d.first }
+    WEEK_DAYS.select { |d| (d.last & days_of_the_week) != 0 }.
+      map{ |d| d.first }
   end
 
-  def day_or_dates
+  def pretty_active_time
     if weekly?
       days_as_string
-    elsif one_time_date_today?
+    elsif date_is_today?
       "Only Today"
-    elsif one_time_date_tomorrow?
+    elsif date_is_tomorrow?
       "Only Tomorrow"
     elsif one_time?
       event_date.strftime("%A %b %d")
@@ -201,7 +196,8 @@ class Event < ApplicationRecord
   private
 
   def at_least_one_day
-    errors.add(:days_of_the_week, "requires at least one") if days_of_the_week == 0
+    errors.add(
+      :days_of_the_week, "requires at least one") if days_of_the_week == 0
   end
 
   def date_only_for_one_time

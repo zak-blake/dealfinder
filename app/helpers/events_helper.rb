@@ -34,8 +34,8 @@ module EventsHelper
   end
 
   def today_or_tomorrow_class(event)
-    return "div-today".html_safe if event.one_time_date_today?
-    return "div-tom".html_safe if event.one_time_date_tomorrow?
+    return "div-today".html_safe if event.date_is_today?
+    return "div-tom".html_safe if event.date_is_tomorrow?
     ""
   end
 end
