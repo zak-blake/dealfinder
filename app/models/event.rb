@@ -12,7 +12,7 @@ class Event < ApplicationRecord
   enum event_type: { weekly: 0, one_time: 1 }
 
   scope :by_start_time, -> { order(:start_time) }
-  scope :by_date, -> {  }
+  scope :recent_first, -> { order(:event_date) }
 
   before_validation(on: [:create, :update]) do
     self.event_date = nil if weekly?
@@ -93,15 +93,35 @@ class Event < ApplicationRecord
     actual_date = date_after_modifier(clean_day)
 
     events = self.select{ |e| e.happens_on_date? actual_date }
-    # only filter past-time events today
 
+    # only filter past-time events today
     events.reject!{ |e| e.ended? } if current_day == clean_day
 
     events
   end
 
+  # note: weekly events are not filtered out
+
   def self.past
     self.where("event_date < ?", Date.today)
+  end
+
+  def self.not_past
+    self.where("event_date >= ? OR event_date IS NULL", Date.today)
+  end
+
+  def self.upcoming #does not include events today
+    self.where("event_date > ? OR event_date IS NULL", Date.today)
+  end
+
+  def self.upcoming_today
+    self.where("(event_date = ? AND start_time > ?) OR event_date IS NULL",
+      Date.today, Time.now)
+  end
+
+  def self.ongoing
+    self.where("(event_date = ? AND start_time < ? AND end_time > ?) OR event_date IS NULL",
+      Date.today, Time.now, Time.now)
   end
 
   def happens_on_date?(date)

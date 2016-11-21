@@ -1,11 +1,12 @@
 <% edit_mode ||= nil %>
 <% show ||= nil %>
+<% location ||= false %>
 
 <div class="card">
   <h4>
     <%= link_to event.name, event_path(event) unless show %>
     <%= event.name if show %>
-    <small> at <%= link_to event.owner.name, user_show_path(event.owner) %></small>
+    <small> <%= link_to "@#{event.owner.name}", user_show_path(event.owner) if location %></small>
   </h4>
 
   <%= render 'shared/date_block', event: event %>

@@ -74,7 +74,7 @@ describe "Event" do
     end
   end
 
-  describe "past events" do
+  describe "relation" do
     before do
       @dt = "Jan 3 2000 4:00pm utc".to_datetime #monday
       allow(Time).to receive(:now).and_return(@dt.to_time)
@@ -82,7 +82,7 @@ describe "Event" do
       allow(Date).to receive(:today).and_return(@dt.to_date)
 
       @past_event = FactoryGirl.create(:event,
-        owner: @owner, event_type: :one_time, event_date: @dt.to_date - 1.days )
+        owner: @owner, event_type: :one_time, event_date: @dt.to_date - 1.days)
 
       @ongoing_event = FactoryGirl.create(:event,
         owner: @owner,
@@ -92,17 +92,54 @@ describe "Event" do
         end_time: @dt.to_time + 1.hours )
 
       @upcoming_event = FactoryGirl.create(:event,
-        owner: @owner, event_type: :one_time, event_date: @dt.to_date + 1.days )
+        owner: @owner, event_type: :one_time, event_date: @dt.to_date + 1.days)
 
-      @upcoming_event.save!
-      @ongoing_event.save!
-      @past_event.save!
+      @upcoming_event_today = FactoryGirl.create(:event,
+        owner: @owner,
+        event_type: :one_time,
+        event_date: @dt.to_date,
+        start_time: @dt.to_time + 2.hours,
+        end_time: @dt.to_time + 3.hours )
     end
 
-    it "includes only past events" do
-      expect(Event.past).to include(@past_event)
-      expect(Event.past).not_to include(@ongoing_event)
-      expect(Event.past).not_to include(@upcoming_event)
+    describe "past" do
+      it "includes only past events" do
+        expect(Event.past).not_to include(@event)
+        expect(Event.past).to include(@past_event)
+        expect(Event.past).not_to include(@ongoing_event)
+        expect(Event.past).not_to include(@upcoming_event)
+        expect(Event.past).not_to include(@upcoming_event_today)
+      end
+    end
+
+    describe "upcoming" do
+      it "includes only upcoming events" do
+        expect(Event.upcoming).to include(@event)
+        expect(Event.upcoming).not_to include(@past_event)
+        expect(Event.upcoming).not_to include(@ongoing_event)
+        expect(Event.upcoming).to include(@upcoming_event)
+        expect(Event.upcoming).not_to include(@upcoming_event_today)
+      end
+    end
+
+    describe "ongoing" do
+      it "includes only ongoing events" do
+        expect(Event.ongoing).to include(@event)
+        expect(Event.ongoing).not_to include(@past_event)
+        expect(Event.ongoing).to include(@ongoing_event)
+        expect(Event.ongoing).not_to include(@upcoming_event)
+        expect(Event.ongoing).not_to include(@upcoming_event_today)
+      end
+    end
+
+    describe "upcoming_today" do
+      it "includes only upcoming events today" do
+        expect(Event.upcoming_today).to include(@event)
+        expect(Event.upcoming_today).not_to include(@past_event)
+        expect(Event.upcoming_today).not_to include(@ongoing_event)
+        expect(Event.upcoming_today).not_to include(@upcoming_event)
+        expect(Event.upcoming_today).to include(@upcoming_event_today)
+      end
     end
   end
 end

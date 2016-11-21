@@ -13,6 +13,6 @@
 
 <div class="col-md-10 col-md-offset-1">
   <% @events_today.each do |e| %>
-    <%= render 'shared/event_card', event: e %>
+    <%= render 'shared/event_card', event: e, location: true %>
   <% end %>
 </div>

@@ -4,11 +4,9 @@
       <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default pull-right" if @edit_mode %>
     </div>
 
-    <p><%= mail_to @owner.email %></p>
     <p><%= @owner.description %></p>
 
-    <center><h4>Events</h4></center>
-
+    <center><h4 class="pretty-font">Events</h4></center>
     <% @events.each do |e| %>
       <%= render 'shared/event_card', event: e %>
     <% end %>
@@ -19,4 +17,10 @@
       </center>
     <% end %>
 
+    <% if @past_events.any? %>
+      <center><h4 class="pretty-font">Past</h4></center>
+      <% @past_events.each do |e| %>
+        <%= render 'shared/event_card', event: e %>
+      <% end %>
+    <% end %>
   </div>
