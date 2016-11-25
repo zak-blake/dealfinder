@@ -12,7 +12,7 @@ class Event < ApplicationRecord
   enum event_type: { weekly: 0, one_time: 1 }
 
   scope :by_start_time, -> { order(:start_time) }
-  scope :recent_first, -> { order(:event_date) }
+  scope :recent_first, -> { order(event_date: :desc) }
 
   before_validation(on: [:create, :update]) do
     self.event_date = nil if weekly?
@@ -45,6 +45,25 @@ class Event < ApplicationRecord
       5
     when "sunday"
       6
+    end
+  end
+
+  def self.day_to_mask(day)
+    case day
+    when "monday"
+      1
+    when "tuesday"
+      2
+    when "wednesday"
+      4
+    when "thursday"
+      8
+    when "friday"
+      16
+    when "saturday"
+      32
+    when "sunday"
+      64
     end
   end
 
@@ -88,16 +107,44 @@ class Event < ApplicationRecord
     self.where(event_type: "weekly")
   end
 
+  def self.every_monday
+    self.weekly_events.where("days_of_the_week & 1 != 0")
+  end
+
+  def self.every_tuesday
+    self.weekly_events.where("days_of_the_week & 2 != 0")
+  end
+
+  def self.every_wednesday
+    self.weekly_events.where("days_of_the_week & 4 != 0")
+  end
+
+  def self.every_thursday
+    self.weekly_events.where("days_of_the_week & 8 != 0")
+  end
+
+  def self.every_friday
+    self.weekly_events.where("days_of_the_week & 16 != 0")
+  end
+
+  def self.every_saturday
+    self.weekly_events.where("days_of_the_week & 32 != 0")
+  end
+
+  def self.every_sunday
+    self.weekly_events.where("days_of_the_week & 64 != 0")
+  end
+
+  def self.every_day_number(day_number)
+    return nil unless WEEK_DAYS.map{ |d| d.last }.include? day_number
+    self.weekly_events.where("days_of_the_week & ? != 0", day_number)
+  end
+
   def self.events_on_day(clean_day)
     # day dropdown parameter changes dates
-    actual_date = date_after_modifier(clean_day)
 
-    events = self.select{ |e| e.happens_on_date? actual_date }
-
-    # only filter past-time events today
-    events.reject!{ |e| e.ended? } if current_day == clean_day
-
-    events
+    self.happens_on_date(
+      date_after_modifier(clean_day))
   end
 
   # note: weekly events are not filtered out
@@ -114,14 +161,9 @@ class Event < ApplicationRecord
     self.where("event_date > ? OR event_date IS NULL", Date.today)
   end
 
-  def self.upcoming_today
-    self.where("(event_date = ? AND start_time > ?) OR event_date IS NULL",
-      Date.today, Time.now)
-  end
-
-  def self.ongoing
-    self.where("(event_date = ? AND start_time < ? AND end_time > ?) OR event_date IS NULL",
-      Date.today, Time.now, Time.now)
+  def self.happens_on_date(date)
+    day_number = Event.day_to_mask(date.strftime('%A').downcase)
+    Event.where("event_date = ? OR (days_of_the_week & ? != 0)", date, day_number)
   end
 
   def happens_on_date?(date)

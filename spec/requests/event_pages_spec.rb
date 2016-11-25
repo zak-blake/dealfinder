@@ -63,7 +63,7 @@ describe "Event Pages" do
 
     describe "index" do
       before do
-        @dt = "Jan 3 2000 4:00pm utc".to_datetime #monday
+        @dt = "Jan 3 2000 4:00pm pst".to_datetime #monday
         allow(Time).to receive(:now).and_return(@dt.to_time)
         allow(Event).to receive(:current_day).and_return("monday")
         allow(Date).to receive(:today).and_return(@dt.to_date)
@@ -85,8 +85,8 @@ describe "Event Pages" do
 
           describe "that has not passed" do
             before do
-              @weekly_event.start_time = Time.parse("2:00pm utc")
-              @weekly_event.end_time = Time.parse("6:00pm utc")
+              @weekly_event.start_time = Time.parse("2:00pm pst")
+              @weekly_event.end_time = Time.parse("6:00pm pst")
               @weekly_event.save!
               @weekly_event.reload
               visit events_path
@@ -98,15 +98,15 @@ describe "Event Pages" do
 
           describe "that has already passed" do
             before do
-              @weekly_event.start_time = Time.parse("2:00pm utc")
-              @weekly_event.end_time = Time.parse("3:00pm utc")
+              @weekly_event.start_time = Time.parse("2:00pm pst")
+              @weekly_event.end_time = Time.parse("3:00pm pst")
               @weekly_event.save!
               @weekly_event.reload
             end
 
-            it "should not display the event" do
+            it "should display the event" do
               visit events_path
-              expect(page).not_to have_content(@weekly_event.name)
+              expect(page).to have_content(@weekly_event.name)
             end
 
             describe "on a different day" do
@@ -146,14 +146,17 @@ describe "Event Pages" do
             expect(page).to have_content(@one_time_event.name)
           end
 
-          describe "today that has passed" do
+          describe "that has passed" do
             before do
-              allow(Time).to receive(:now).and_return(Time.parse("11:00pm"))
+              now = Time.parse("11:00pm")
+              @one_time_event.update_attribute(:start_time, now - 1.hour)
+              @one_time_event.update_attribute(:end_time, now - 20.minutes)
+              allow(Time).to receive(:now).and_return(now)
             end
 
-            it "should not display the event" do
+            it "should display the event" do
               visit events_path
-              expect(page).not_to have_content(@one_time_event.name)
+              expect(page).to have_content(@one_time_event.name)
             end
           end
 

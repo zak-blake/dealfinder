@@ -76,7 +76,7 @@ describe "Event" do
 
   describe "relation" do
     before do
-      @dt = "Jan 3 2000 4:00pm utc".to_datetime #monday
+      @dt = "Jan 3 2000 4:00pm pst".to_datetime #monday
       allow(Time).to receive(:now).and_return(@dt.to_time)
       allow(Event).to receive(:current_day).and_return("monday")
       allow(Date).to receive(:today).and_return(@dt.to_date)
@@ -121,25 +121,18 @@ describe "Event" do
         expect(Event.upcoming).not_to include(@upcoming_event_today)
       end
     end
+  end
 
-    describe "ongoing" do
-      it "includes only ongoing events" do
-        expect(Event.ongoing).to include(@event)
-        expect(Event.ongoing).not_to include(@past_event)
-        expect(Event.ongoing).to include(@ongoing_event)
-        expect(Event.ongoing).not_to include(@upcoming_event)
-        expect(Event.ongoing).not_to include(@upcoming_event_today)
-      end
+  describe "#every_tuesday" do
+    before do
+      @event.update_attribute(:days_of_the_week, 2)
+      @event2 = FactoryGirl.create(:event, owner: @owner, days_of_the_week: 4)
     end
-
-    describe "upcoming_today" do
-      it "includes only upcoming events today" do
-        expect(Event.upcoming_today).to include(@event)
-        expect(Event.upcoming_today).not_to include(@past_event)
-        expect(Event.upcoming_today).not_to include(@ongoing_event)
-        expect(Event.upcoming_today).not_to include(@upcoming_event)
-        expect(Event.upcoming_today).to include(@upcoming_event_today)
-      end
+    it "should return event on the day" do
+      expect(Event.every_tuesday).to include(@event)
+    end
+    it "should not return events not on the day" do
+      expect(Event.every_tuesday).not_to include(@event2)
     end
   end
 end
