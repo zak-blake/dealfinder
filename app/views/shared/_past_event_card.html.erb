@@ -1,6 +1,7 @@
 <% edit_mode ||= nil %>
 <% show ||= nil %>
 <% location ||= false %>
+<% past_time ||= nil %>
 
 <div class="card">
   <h4>
@@ -12,10 +13,9 @@
         (<%= link_to "edit", edit_event_path(event)  %> or
         <%= link_to "delete", event, :method => :delete, data: {confirm: "confirm delete: #{event.name}" } %>)
       <% end %>
+      - <%= event.time_since_end %>
     </small>
   </h4>
 
   <%= render 'shared/date_block', event: event %>
-
-  <p><%= event.description %></p>
 </div>

@@ -57,8 +57,23 @@ class EventsController < ApplicationController
     day = params[:day]
     @selected_day = (Event.week_days_array.include? day) ?
       day : Event.current_day
-    @owners = User.owners
-    @events_today = Event.events_on_day(@selected_day).by_start_time
+    @view_is_today = Event.current_day == @selected_day
+
+    @active_events = []
+    @inactive_events = []
+    day_events = Event.events_on_day(@selected_day).by_start_time
+
+    if @view_is_today
+      day_events.each do |e|
+        if e.ended?
+          @inactive_events.push(e)
+        else
+          @active_events.push(e)
+        end
+      end
+    else
+      @active_events = day_events
+    end
   end
 
   def destroy

@@ -95,6 +95,18 @@ class Event < ApplicationRecord
     Date.today + date_shift.days
   end
 
+  def time_since_end
+    hour_diff = Time.zone.now.strftime("%H").to_i - end_time.strftime("%H").to_i
+
+
+    if hour_diff >= 1
+      "ended #{hour_diff} hours ago"
+    else
+      min_diff = Time.zone.now.strftime("%M").to_i - end_time.strftime("%M").to_i
+      "ended #{min_diff} minutes ago"
+    end
+  end
+
   def self.type_name_array
     [[:weekly, "weekly"], [:one_time, "one-time"]]
   end
