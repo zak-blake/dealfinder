@@ -10,29 +10,31 @@
       </button>
     </div>
 
-   <%= link_to root_url, class: "navbar-brand hidden-xs hidden-sm" do %> <!-- took out waves effect for now -->
+    <%= link_to root_url, class: "navbar-brand hidden-xs hidden-sm" do %> <!-- took out waves effect for now -->
       <%= image_tag "logoSample.png" %>
-   <% end %>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <% if user_signed_in? && current_user.owner? %>
-      <ul class="nav navbar-nav navbar-left">
-        <li class="nav-item"><%= link_to "New Event", new_event_path, class: "nav-link waves-effect" %></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-left">
-        <li class="nav-item"><%= link_to "My Profile", user_show_path(current_user.id), class: "nav-link waves-effect" %></li>
-      </ul>
     <% end %>
-    <ul class="nav navbar-nav navbar-right">
-      <% if user_signed_in? %>
-        <li ="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-      <% else %>
-        <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link waves-effect" %></li>
-        <li class="nav-link"><%= link_to "Signup", new_user_registration_path, class: "nav-link waves-effect" %></li>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left">
+        <li class="nav-item"><%= link_to "Home", root_path, class: "nav-link waves-effect visible-xs visible-sm" %></li>
+      </ul>
+      <% if user_signed_in? && current_user.owner? %>
+        <ul class="nav navbar-nav navbar-left">
+          <li class="nav-item"><%= link_to "New Event", new_event_path, class: "nav-link waves-effect" %></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+          <li class="nav-item"><%= link_to "My Profile", user_show_path(current_user.id), class: "nav-link waves-effect" %></li>
+        </ul>
       <% end %>
-    </ul>
-  </div>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li ="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link waves-effect" %></li>
+          <li class="nav-link"><%= link_to "Signup", new_user_registration_path, class: "nav-link waves-effect" %></li>
+        <% end %>
+      </ul>
     </div>
+  </div>
 
 </nav>
