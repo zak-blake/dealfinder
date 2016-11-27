@@ -12,6 +12,7 @@
         (<%= link_to "edit", edit_event_path(event)  %> or
         <%= link_to "delete", event, :method => :delete, data: {confirm: "confirm delete: #{event.name}" } %>)
       <% end %>
+      <%= event.time_relative_to_now %>
     </small>
   </h4>
 

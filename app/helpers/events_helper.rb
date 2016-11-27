@@ -42,7 +42,7 @@ module EventsHelper
   def past_events(events, display_past_events)
     return nil unless events.any? && display_past_events
 
-    html = '<div class="col-md-12"><center><h2>Past</h2></center></row>'
+    html = '<div class="col-md-12"><center><h2>past</h2></center></row>'
     html += '<div class="col-md-10 col-md-offset-1">'
     events.each do |e|
       html += render partial: 'shared/past_event_card', locals: {

@@ -135,4 +135,136 @@ describe "Event" do
       expect(Event.every_tuesday).not_to include(@event2)
     end
   end
+
+  describe "#time_relative_to_now" do
+    before do
+      @dt = "Jan 3 2000 3:55am pst".to_datetime #monday
+      @time_now = @dt.to_time
+      allow(Time).to receive(:now).and_return(@time_now)
+      allow(Event).to receive(:current_day).and_return("monday")
+      allow(Date).to receive(:today).and_return(@dt.to_date)
+
+      @event.event_date = @dt.to_date
+    end
+
+    describe "when event starts in one hour" do
+      before do
+        @event.update_attribute(:start_time, @time_now + 1.hour)
+        @event.update_attribute(:end_time, @time_now + 2.hour)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("starts in 1 hour")
+      end
+    end
+
+    describe "when event starts in one hour and 30 minutes" do
+      before do
+        @event.update_attribute(:start_time, @time_now + 1.hour + 30.minutes)
+        @event.update_attribute(:end_time, @time_now + 2.hour)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("starts in 1 hour and 30 minutes")
+      end
+    end
+
+    describe "when event starts in 30 minutes" do
+      before do
+        @event.update_attribute(:start_time, @time_now + 30.minutes)
+        @event.update_attribute(:end_time, @time_now + 2.hour)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("starts in 30 minutes")
+      end
+    end
+
+    describe "when event started 5 minutes ago" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 5.minutes)
+        @event.update_attribute(:end_time, @time_now + 2.hour)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("started 5 minutes ago")
+      end
+    end
+
+    describe "when event started 59 minutes ago" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 59.minutes)
+        @event.update_attribute(:end_time, @time_now + 4.hour)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("started 59 minutes ago")
+      end
+    end
+
+    describe "when event started 1 hour and 10 minutes ago" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 1.hour - 10.minutes)
+        @event.update_attribute(:end_time, @time_now + 4.hour)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("4 hours left")
+      end
+    end
+
+    describe "when event started 1 hour and 10 minutes ago" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 1.hour - 10.minutes)
+        @event.update_attribute(:end_time, @time_now + 4.hour)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("4 hours left")
+      end
+    end
+
+    describe "when event ends in 5 minutes" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 3.hours)
+        @event.update_attribute(:end_time, @time_now + 5.minutes)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("5 minutes left")
+      end
+    end
+
+    describe "when event ends in 30 minutes" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 3.hours)
+        @event.update_attribute(:end_time, @time_now + 30.minutes)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("30 minutes left")
+      end
+    end
+
+    describe "when event ends in 1 hour 30 minutes" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 3.hours)
+        @event.update_attribute(:end_time, @time_now + 1.hour + 30.minutes)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("1 hour and 30 minutes left")
+      end
+    end
+
+    describe "when event ended 30 minutes ago" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 3.hours)
+        @event.update_attribute(:end_time, @time_now - 30.minutes)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("ended 30 minutes ago")
+      end
+    end
+
+    describe "when event ended 1 hour and 30 minutes ago" do
+      before do
+        @event.update_attribute(:start_time, @time_now - 3.hours)
+        @event.update_attribute(:end_time, @time_now - 1.hour - 30.minutes)
+      end
+      it "should display time difference" do
+        expect(@event.time_relative_to_now).to eq("ended 1 hour and 30 minutes ago")
+      end
+    end
+  end
 end

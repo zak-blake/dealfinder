@@ -1,4 +1,7 @@
 class Event < ApplicationRecord
+  include ActionView::Helpers::TextHelper
+  include RelativeTimeHelper
+
   validates :name, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
@@ -95,16 +98,8 @@ class Event < ApplicationRecord
     Date.today + date_shift.days
   end
 
-  def time_since_end
-    hour_diff = Time.zone.now.strftime("%H").to_i - end_time.strftime("%H").to_i
-
-
-    if hour_diff >= 1
-      "ended #{hour_diff} hours ago"
-    else
-      min_diff = Time.zone.now.strftime("%M").to_i - end_time.strftime("%M").to_i
-      "ended #{min_diff} minutes ago"
-    end
+  def time_relative_to_now
+    RelativeTimeHelper.time_relative_to_now(Time.zone.now, start_time, end_time)
   end
 
   def self.type_name_array
@@ -175,7 +170,8 @@ class Event < ApplicationRecord
 
   def self.happens_on_date(date)
     day_number = Event.day_to_mask(date.strftime('%A').downcase)
-    Event.where("event_date = ? OR (days_of_the_week & ? != 0)", date, day_number)
+    Event.where("event_date = ? OR (days_of_the_week & ? != 0)",
+      date, day_number)
   end
 
   def happens_on_date?(date)
