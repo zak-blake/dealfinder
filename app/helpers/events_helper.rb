@@ -86,9 +86,15 @@ module EventsHelper
   end
 
   def card_body(event, hide_desc, compact, user)
-    "<div class=\"#{'hidden-xs' if compact }>\"
-      <p>#{event.description unless hide_desc }</p>
-      <p>#{owner_links(event) if event.owner == user }</p>
-    </div>".html_safe
+    owner_links = "#{owner_links(event) if event.owner == user }"
+    return owner_links.html_safe unless !event.description.blank? && !hide_desc
+
+    html =
+      "<div class=\"#{'hidden-xs' if compact }\">
+        <p>#{event.description}</p>
+        <p>#{owner_links}</p>
+      </div>"
+
+    html.html_safe
   end
 end

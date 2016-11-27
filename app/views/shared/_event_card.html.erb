@@ -15,8 +15,10 @@
       <%= link_to "@#{event.owner.name}", user_show_path(event.owner) if location %>
     </small>
   </h4>
+
   <!-- Time/Date -->
-  <%= render 'shared/date_block', event: event, compact: compact %>
+  <%= render 'shared/date_block', event: event %><!-- !sm/xs -->
+  <%= render 'shared/date_line', event: event %><!-- sm/xs -->
 
   <!-- Relative -->
   <%= relative_time(event, show_rel_time, compact) %>
