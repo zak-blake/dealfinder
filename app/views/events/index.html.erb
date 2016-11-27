@@ -1,21 +1,22 @@
 <center>
-  <h1>what's going on
+  <h2>what's going on
     <div class="btn-group">
       <button class="dropdown-toggle pretty-font" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= Event.today_or(@selected_day.to_s) %>
         <i class="fa fa-chevron-down" aria-hidden="true"></i>
       </button>
-      <div class="dropdown-menu"><%= day_link_list %></div>
+      <div class="dropdown-menu">
+        <%= day_link_list %>
+      </div>
     </div>
     <%= link_to "reset", events_path, class: "btn btn-sm btn-secondary" unless @view_is_today %>
-  </h1>
+  </h2>
 </center>
 
 <div class="col-md-10 col-md-offset-1">
-  <% @active_events.each do |e| %>
-    <%= render 'shared/event_card', event: e, location: true %>
-  <% end %>
+  <%= active_events(@active_events) %>
 </div>
 
-  <%= past_events(@inactive_events, @view_is_today) %>
+<div class="col-md-10 col-md-offset-1">
+  <%= inactive_events(@inactive_events, @view_is_today) %>
 </div>

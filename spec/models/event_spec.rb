@@ -153,7 +153,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 2.hour)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("starts in 1 hour")
+        expect(@event.time_relative_to_now).to eq("starts in 1h")
       end
     end
 
@@ -163,7 +163,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 2.hour)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("starts in 1 hour and 30 minutes")
+        expect(@event.time_relative_to_now).to eq("starts in 1h and 30m")
       end
     end
 
@@ -173,7 +173,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 2.hour)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("starts in 30 minutes")
+        expect(@event.time_relative_to_now).to eq("starts in 30m")
       end
     end
 
@@ -183,7 +183,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 2.hour)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("started 5 minutes ago")
+        expect(@event.time_relative_to_now).to eq("started 5m ago")
       end
     end
 
@@ -193,7 +193,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 4.hour)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("started 59 minutes ago")
+        expect(@event.time_relative_to_now).to eq("started 59m ago")
       end
     end
 
@@ -203,7 +203,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 4.hour)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("4 hours left")
+        expect(@event.time_relative_to_now).to eq("4h left")
       end
     end
 
@@ -213,7 +213,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 4.hour)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("4 hours left")
+        expect(@event.time_relative_to_now).to eq("4h left")
       end
     end
 
@@ -223,7 +223,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 5.minutes)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("5 minutes left")
+        expect(@event.time_relative_to_now).to eq("5m left")
       end
     end
 
@@ -233,7 +233,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 30.minutes)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("30 minutes left")
+        expect(@event.time_relative_to_now).to eq("30m left")
       end
     end
 
@@ -243,7 +243,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now + 1.hour + 30.minutes)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("1 hour and 30 minutes left")
+        expect(@event.time_relative_to_now).to eq("1h and 30m left")
       end
     end
 
@@ -253,7 +253,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now - 30.minutes)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("ended 30 minutes ago")
+        expect(@event.time_relative_to_now).to eq("ended 30m ago")
       end
     end
 
@@ -263,7 +263,7 @@ describe "Event" do
         @event.update_attribute(:end_time, @time_now - 1.hour - 30.minutes)
       end
       it "should display time difference" do
-        expect(@event.time_relative_to_now).to eq("ended 1 hour and 30 minutes ago")
+        expect(@event.time_relative_to_now).to eq("ended 1h and 30m ago")
       end
     end
   end

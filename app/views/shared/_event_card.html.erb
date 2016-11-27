@@ -1,22 +1,26 @@
 <% edit_mode ||= nil %>
 <% show ||= nil %>
 <% location ||= false %>
+<% hide_desc ||= false %>
+<% show_rel_time ||= false %>
+<% compact ||= false %>
 
 <div class="card">
   <h4>
-    <%= link_to event.name, event_path(event) unless show %>
-    <%= event.name if show %>
+    <%= link_to event.name, event_path(event) unless show %><%= event.name if show %>
     <small>
       <%= link_to "@#{event.owner.name}", user_show_path(event.owner) if location %>
-      <% if event.owner == current_user %>
-        (<%= link_to "edit", edit_event_path(event)  %> or
-        <%= link_to "delete", event, :method => :delete, data: {confirm: "confirm delete: #{event.name}" } %>)
-      <% end %>
-      <%= event.time_relative_to_now %>
+
     </small>
   </h4>
+  <%= render 'shared/date_block', event: event, compact: compact %>
 
-  <%= render 'shared/date_block', event: event %>
+  <div class="<%= 'hidden-sm hidden-xs' if compact %>">
+    <h4><small><%= event.time_relative_to_now if show_rel_time %></small></h4>
+  </div>
 
-  <p><%= event.description %></p>
+  <div class="<%= 'hidden-sm hidden-xs' if compact %>">
+    <p><%= event.description unless hide_desc %></p>
+    <p><%= owner_links(event) if event.owner == current_user %></p>
+  </div>
 </div>

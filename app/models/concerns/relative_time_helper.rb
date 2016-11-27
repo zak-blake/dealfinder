@@ -23,20 +23,20 @@ module RelativeTimeHelper
     end
 
     if hours_til_start >= 1
-      str = "starts in #{pluralize(hours_til_start, 'hour')}"
+      str = "starts in #{hours_til_start}h"
       if minutes_til_start == 0
         str
       else
-        str.concat " and #{pluralize(minutes_til_start, 'minute')}"
+        str.concat " and #{minutes_til_start}m"
       end
     elsif (hours_til_start == 0) && minutes_til_start > 0
       if minutes_til_start >= 0
-        "starts in #{pluralize(minutes_til_start, 'minute')}"
+        "starts in #{minutes_til_start}m"
       else
-        "started #{pluralize(minutes_til_start*-1, 'minute')} ago"
+        "started #{minutes_til_start*-1}m ago"
       end
     elsif hours_since_start == 0 && minutes_since_start < 60
-      "started #{pluralize(minutes_since_start, 'minute')} ago"
+      "started #{minutes_since_start}m ago"
 
     else
       hours_til_end = hour_difference(now, end_time)
@@ -53,13 +53,13 @@ module RelativeTimeHelper
         end
 
         if hours_since_end == 0
-          "ended #{pluralize(minutes_since_end, 'minute')} ago"
+          "ended #{minutes_since_end}m ago"
         else
-          str = "ended #{pluralize(hours_since_end, 'hour')}"
+          str = "ended #{hours_since_end}h"
           if minutes_til_end == 0
             str.concat " ago"
           else
-            str.concat " and #{pluralize(minutes_since_end, 'minute')} ago"
+            str.concat " and #{minutes_since_end}m ago"
           end
         end
       else
@@ -70,20 +70,16 @@ module RelativeTimeHelper
         end
 
         if hours_til_end == 0
-          "#{pluralize(minutes_til_end, 'minute')} left"
+          "#{minutes_til_end}m left"
         else
-          str = "#{pluralize(hours_til_end, 'hour')}"
+          str = "#{hours_til_end}h"
           if minutes_til_end == 0
             str.concat " left"
           else
-            str.concat " and #{pluralize(minutes_til_end, 'minute')} left"
+            str.concat " and #{minutes_til_end}m left"
           end
         end
       end
     end
-  end
-
-  def self.pluralize(count, str)
-    ActionController::Base.helpers.pluralize(count, str)
   end
 end

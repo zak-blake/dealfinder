@@ -1,4 +1,6 @@
-<h4 style="float: right" class="short-hd">
+<% compact ||= false %>
+
+<h4 class="short-hd pull-right <%= 'hidden-sm hidden-xs' if compact %>">
   <small>
     <%= event.pretty_time_range %>
   </small>
