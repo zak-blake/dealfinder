@@ -7,20 +7,20 @@
 
 <div class="card">
   <h4>
-    <%= link_to event.name, event_path(event) unless show %><%= event.name if show %>
+    <!-- Title -->
+    <%= link_to event.name, event_path(event) unless show %>
+    <%= event.name if show %>
+    <!-- Owner -->
     <small>
       <%= link_to "@#{event.owner.name}", user_show_path(event.owner) if location %>
-
     </small>
   </h4>
+  <!-- Time/Date -->
   <%= render 'shared/date_block', event: event, compact: compact %>
 
-  <div class="<%= 'hidden-sm hidden-xs' if compact %>">
-    <h4><small><%= event.time_relative_to_now if show_rel_time %></small></h4>
-  </div>
+  <!-- Relative -->
+  <%= relative_time(event, show_rel_time, compact) %>
 
-  <div class="<%= 'hidden-sm hidden-xs' if compact %>">
-    <p><%= event.description unless hide_desc %></p>
-    <p><%= owner_links(event) if event.owner == current_user %></p>
-  </div>
+  <!-- Body -->
+  <%= card_body(event, hide_desc, compact, current_user) %>
 </div>

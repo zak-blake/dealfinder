@@ -39,15 +39,15 @@ module EventsHelper
     ""
   end
 
-  def active_events(events)
-    return "<h2>it's dead</h2>".html_safe unless events.any?
+  def active_events(events, today=true)
+    return "".html_safe unless events.any?
     html = ''
 
     events.each do |e|
       html += render partial: 'shared/event_card', locals: {
         event: e,
         location: true,
-        show_rel_time: true,
+        show_rel_time: today,
         compact: true
       }
     end
@@ -58,7 +58,7 @@ module EventsHelper
   def inactive_events(events, display_past_events)
     return nil unless events.any? && display_past_events
 
-    html = '<center><h2 class="pretty-font">past</h2></center></row>'
+    html = '<center><h3 class="pretty-font">past</h3></center></row>'
     events.each do |e|
       html += render partial: 'shared/event_card', locals: {
         event: e,
@@ -76,5 +76,19 @@ module EventsHelper
     "#{link_to "edit", edit_event_path(event)} /
       #{link_to "delete", event, :method => :delete, data:
         {confirm: "confirm delete: #{event.name}" }}".html_safe
+  end
+
+  def relative_time(event, show_rel_time, compact)
+    return nil unless show_rel_time
+    "<div #{'class="hidden-xs"' if compact }>
+      <h4><small>#{event.time_relative_to_now if show_rel_time}</small></h4>
+    </div>".html_safe
+  end
+
+  def card_body(event, hide_desc, compact, user)
+    "<div class=\"#{'hidden-xs' if compact }>\"
+      <p>#{event.description unless hide_desc }</p>
+      <p>#{owner_links(event) if event.owner == user }</p>
+    </div>".html_safe
   end
 end

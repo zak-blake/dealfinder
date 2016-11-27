@@ -91,7 +91,7 @@ class Event < ApplicationRecord
     current_index = day_to_index(todays_day)
     modifier_index = day_to_index(day)
 
-    modifier_index += 6 if modifier_index < current_index
+    modifier_index += 7  if modifier_index < current_index
 
     date_shift = modifier_index - current_index
 
@@ -150,8 +150,7 @@ class Event < ApplicationRecord
   def self.events_on_day(clean_day)
     # day dropdown parameter changes dates
 
-    self.happens_on_date(
-      date_after_modifier(clean_day))
+    self.happens_on_date(date_after_modifier(clean_day))
   end
 
   # note: weekly events are not filtered out
