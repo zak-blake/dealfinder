@@ -1,4 +1,4 @@
-<% edit_mode ||= nil %>
+<% edit_mode ||= false %>
 <% show ||= nil %>
 <% location ||= false %>
 <% hide_desc ||= false %>
@@ -20,9 +20,16 @@
   <%= render 'shared/date_block', event: event %><!-- !sm/xs -->
   <%= render 'shared/date_line', event: event %><!-- sm/xs -->
 
-  <!-- Relative -->
-  <%= relative_time(event, show_rel_time, compact) %>
+  <!-- Relative Time -->
+  <% if show_rel_time %>
+    <div class="<%= "hidden-xs" if compact %>">
+      <h4><small><%= event.time_relative_to_now %></small></h4>
+    </div>
+  <% end %>
 
   <!-- Body -->
-  <%= card_body(event, hide_desc, compact, current_user) %>
+  <div class="<%= "hidden-xs" if compact %>">
+    <p><%= event.description %></p>
+    <p><%= owner_links(event) if edit_mode %></p>
+  </div>
 </div>

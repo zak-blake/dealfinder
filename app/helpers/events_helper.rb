@@ -77,24 +77,4 @@ module EventsHelper
       #{link_to "delete", event, :method => :delete, data:
         {confirm: "confirm delete: #{event.name}" }}".html_safe
   end
-
-  def relative_time(event, show_rel_time, compact)
-    return nil unless show_rel_time
-    "<div #{'class="hidden-xs"' if compact }>
-      <h4><small>#{event.time_relative_to_now if show_rel_time}</small></h4>
-    </div>".html_safe
-  end
-
-  def card_body(event, hide_desc, compact, user)
-    owner_links = "#{owner_links(event) if event.owner == user }"
-    return owner_links.html_safe unless !event.description.blank? && !hide_desc
-
-    html =
-      "<div class=\"#{'hidden-xs' if compact }\">
-        <p>#{event.description}</p>
-        <p>#{owner_links}</p>
-      </div>"
-
-    html.html_safe
-  end
 end
