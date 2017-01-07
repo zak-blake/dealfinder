@@ -83,7 +83,9 @@ class EventsController < ApplicationController
   end
 
   def api_events_today
+    puts "sending data"
     render json: Event.by_start_time
+    puts "sent!"
   end
 
   private
