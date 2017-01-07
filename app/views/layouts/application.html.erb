@@ -15,13 +15,14 @@
 
   <body class="bod">
 
-    <%= render 'shared/navbar' %>
+  
       <%= render 'shared/devise_flash_override' %>
       <% flash.each do |key, value| %>
         <% unless key == "notice" || key == "alert" %>
           <div class="alert alert-<%= key %>"><%= value %></div>
         <% end %>
       <% end %>
+
 
 
       <div <%= "class=container".html_safe unless controller_name == "events" && action_name == "index" %>>
