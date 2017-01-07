@@ -19,6 +19,7 @@
 * user pages spec
 
 ## Integration
+* uber
 * facebook
 * yelp
 * google maps
