@@ -99,10 +99,10 @@ textarea {
 
 .event-days {
   border-radius: 20px;
-  background-color: lightgray;
+  background-color: lightblue;
   color: white;
   text-align: center;
-  font-size: 23px;
+  font-size: 18px;
 }
 
 .div-today {
@@ -115,7 +115,6 @@ textarea {
 
 .dropdown-toggle {
   border: none;
-  border-bottom: 3px solid;
 }
 
 .dropdown-toggle[aria-expanded="true"] {
