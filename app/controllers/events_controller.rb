@@ -90,7 +90,8 @@ class EventsController < ApplicationController
         description: e.description,
         start_time: e.start_time,
         end_time: e.end_time,
-        owner: e.owner.name
+        owner: e.owner.name,
+        event_date: e.event_date
       }
     }
   end

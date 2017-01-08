@@ -161,3 +161,8 @@ textarea {
 .no-top-bord {
   border-top: none !important;
 }
+
+a {
+  color: #3f3f3f !important;
+  text-decoration: none;
+ }
