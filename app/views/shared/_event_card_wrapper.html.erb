@@ -7,6 +7,7 @@
 <% index ||= nil %>
 <% link_to_path ||= nil %>
 <% date ||= nil %>
+<% combined_time_line ||= nil %>
 
 <% card_params = {
   event: event,
@@ -17,7 +18,8 @@
   show_rel_time: show_rel_time,
   index: index,
   link_to_path: link_to_path,
-  date: date
+  date: date,
+  combined_time_line: combined_time_line
 } %>
 
 <% if link_to_path %>

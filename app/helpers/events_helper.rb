@@ -90,7 +90,9 @@ module EventsHelper
     events.each_with_index do |e, index|
       html += render partial: 'shared/event_card_wrapper', locals: {
         link_to_path: event_path(e),
+        show_rel_time: true,
         index: index,
+        combined_time_line: true,
         event: e
       }
     end

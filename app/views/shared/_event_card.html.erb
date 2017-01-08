@@ -13,8 +13,19 @@
     <div>
       <h4>
         <small>
-          <i class="glyphicon glyphicon-time time-icon"></i>
-          <%= event.time_relative_to_now %>
+          <% if combined_time_line %>
+            <span class="hidden-sm hidden-xs">
+              <i class="glyphicon glyphicon-time time-icon"></i>
+              <%= event.time_relative_to_now %>
+            </span>
+            <span class="visible-sm visible-xs">
+              <i class="glyphicon glyphicon-time time-icon"></i>
+              <%= "#{event.time_relative_to_now} (#{event.pretty_time_range})" %>
+            </span>
+          <% else %>
+            <i class="glyphicon glyphicon-time time-icon"></i>
+            <%= event.time_relative_to_now %>
+          <% end %>
         </small>
       </h4>
     </div>
