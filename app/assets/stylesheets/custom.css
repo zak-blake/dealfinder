@@ -31,7 +31,8 @@
 }
 
 h4 {
-  display: inline-block;;
+  display: inline-block;
+  font-size: 25px;
 }
 
 h5 {
