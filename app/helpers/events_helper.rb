@@ -50,6 +50,7 @@ module EventsHelper
         event: e,
         location: true,
         show_rel_time: today,
+        show_owner: true,
         compact: true
       }
     end
@@ -69,6 +70,7 @@ module EventsHelper
         location: true,
         hide_desc: true,
         show_rel_time: true,
+        show_owner: true,
         compact: true
       }
     end

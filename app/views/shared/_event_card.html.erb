@@ -1,8 +1,7 @@
 <%= content_tag(:div, class: "card #{'event-card' if link_to_path } #{'no-top-bord' if index && index != 0}") do %>
   <h4>
     <!-- Title -->
-    <%= event.name unless show %>
-    <%= event.name if show %>
+    <%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }"  %>
   </h4>
 
   <!-- Time/Date -->
