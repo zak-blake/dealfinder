@@ -4,9 +4,9 @@
 <% location ||= false %>
 <% hide_desc ||= false %>
 <% show_rel_time ||= false %>
-<% compact ||= false %>
 <% index ||= nil %>
 <% link_to_path ||= nil %>
+<% date ||= nil %>
 
 <% card_params = {
   event: event,
@@ -15,9 +15,9 @@
   location: location,
   hide_desc: hide_desc,
   show_rel_time: show_rel_time,
-  compact: compact,
   index: index,
-  link_to_path: link_to_path
+  link_to_path: link_to_path,
+  date: date
 } %>
 
 <% if link_to_path %>

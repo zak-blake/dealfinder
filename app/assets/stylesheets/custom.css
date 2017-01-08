@@ -145,6 +145,11 @@ textarea {
   margin-top: -15px;
 }
 
+.navbar {
+  height: 140px;
+  border-bottom: 0;
+}
+
 #mast-head {
   height: 200px;
   clear: both;
@@ -155,6 +160,7 @@ textarea {
 }
 
 #content {
+  padding-top: 140px;
   margin-bottom: 60px;
 }
 
@@ -165,4 +171,10 @@ textarea {
 a {
   color: #3f3f3f !important;
   text-decoration: none;
+ }
+
+ .time-icon {
+   margin-right: 6px;
+   margin-bottom: 2px;
+   vertical-align: bottom;
  }

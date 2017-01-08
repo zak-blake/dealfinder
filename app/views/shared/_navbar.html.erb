@@ -11,7 +11,7 @@
     </div>
 
     <%= link_to root_url, class: "navbar-brand hidden-xs" do %>
-      <%= image_tag "logoSample.png" %>
+      <%= image_tag "LogoLines.png" %>
     <% end %>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -33,7 +33,7 @@
           <li ="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
         <% else %>
           <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link waves-effect" %></li>
-          <li class="nav-link"><%= link_to "Signup", new_user_registration_path, class: "nav-link waves-effect" %></li>
+          <!-- <li class="nav-link"><%# link_to "Signup", new_user_registration_path, class: "nav-link waves-effect" %></li> -->
         <% end %>
       </ul>
     </div>
