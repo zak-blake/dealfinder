@@ -1,5 +1,5 @@
 <center>
-  <h3>what's going on
+  <h1>what's going on
     <div class="btn-group">
       <button class="dropdown-toggle pretty-font" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= Event.today_or(@selected_day.to_s) %>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <%= link_to "reset", events_path, class: "btn btn-sm btn-secondary" unless @view_is_today %>
-  </h3>
+  </h1>
 </center>
 
 <div class="col-md-10 col-md-offset-1">
