@@ -1,19 +1,8 @@
-<% edit_mode ||= false %>
-<% show ||= nil %>
-<% location ||= false %>
-<% hide_desc ||= false %>
-<% show_rel_time ||= false %>
-<% compact ||= false %>
-
-<div class="card">
+<%= content_tag(:div, class: "card #{'event-card' if link_to_path } #{'no-top-bord' if index && index != 0}") do %>
   <h4>
     <!-- Title -->
-    <%= link_to event.name, event_path(event) unless show %>
+    <%= event.name unless show %>
     <%= event.name if show %>
-    <!-- Owner -->
-    <small>
-      <%= link_to "@#{event.owner.name}", user_show_path(event.owner) if location %>
-    </small>
   </h4>
 
   <!-- Time/Date -->
@@ -32,4 +21,4 @@
     <p><%= event.description %></p>
     <p><%= owner_links(event) if edit_mode %></p>
   </div>
-</div>
+<% end %>

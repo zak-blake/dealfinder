@@ -1,0 +1,29 @@
+<% event ||= nil %>
+<% edit_mode ||= false %>
+<% show ||= nil %>
+<% location ||= false %>
+<% hide_desc ||= false %>
+<% show_rel_time ||= false %>
+<% compact ||= false %>
+<% index ||= nil %>
+<% link_to_path ||= nil %>
+
+<% card_params = {
+  event: event,
+  edit_mode: edit_mode,
+  show: show,
+  location: location,
+  hide_desc: hide_desc,
+  show_rel_time: show_rel_time,
+  compact: compact,
+  index: index,
+  link_to_path: link_to_path
+} %>
+
+<% if link_to_path %>
+  <%= link_to link_to_path do %>
+    <%= render 'shared/event_card', card_params %>
+  <% end %>
+<% else %>
+  <%= render 'shared/event_card', card_params %>
+<% end %>

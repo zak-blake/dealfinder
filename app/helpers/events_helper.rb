@@ -43,8 +43,10 @@ module EventsHelper
     return "".html_safe unless events.any?
     html = ''
 
-    events.each do |e|
-      html += render partial: 'shared/event_card', locals: {
+    events.each_with_index do |e, index|
+      html += render partial: 'shared/event_card_wrapper', locals: {
+        link_to_path: event_path(e),
+        index: index,
         event: e,
         location: true,
         show_rel_time: today,
@@ -59,8 +61,10 @@ module EventsHelper
     return nil unless events.any? && display_past_events
 
     html = '<center><h3 class="pretty-font">past</h3></center></row>'
-    events.each do |e|
-      html += render partial: 'shared/event_card', locals: {
+    events.each_with_index do |e, index|
+      html += render partial: 'shared/event_card_wrapper', locals: {
+        link_to_path: event_path(e),
+        index: index,
         event: e,
         location: true,
         hide_desc: true,
@@ -76,5 +80,18 @@ module EventsHelper
     "#{link_to "edit", edit_event_path(event)} /
       #{link_to "delete", event, :method => :delete, data:
         {confirm: "confirm delete: #{event.name}" }}".html_safe
+  end
+
+  def render_event_list(events)
+    html = ''
+    events.each_with_index do |e, index|
+      html += render partial: 'shared/event_card_wrapper', locals: {
+        link_to_path: event_path(e),
+        index: index,
+        event: e
+      }
+    end
+
+    return html.html_safe
   end
 end

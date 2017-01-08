@@ -7,9 +7,7 @@
     <p><%= @owner.description %></p>
 
     <center><h4 class="pretty-font">Events</h4></center>
-    <% @events.each do |e| %>
-      <%= render 'shared/event_card', event: e %>
-    <% end %>
+    <%= render_event_list(@events) %>
 
     <% if @events.empty? %>
       <center>
@@ -19,8 +17,6 @@
 
     <% if @past_events.any? %>
       <center><h4 class="pretty-font">Past</h4></center>
-      <% @past_events.each do |e| %>
-        <%= render 'shared/event_card', event: e %>
-      <% end %>
+      <%= render_event_list(@past_events) %>
     <% end %>
   </div>

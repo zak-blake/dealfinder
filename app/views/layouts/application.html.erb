@@ -15,15 +15,17 @@
 
   <body class="bod">
     <%= render 'shared/mast_head' %>
-    <%= render 'shared/devise_flash_override' %>
-    <% flash.each do |key, value| %>
-      <% unless key == "notice" || key == "alert" %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
+    <div id="content" class="col-lg-12">
+      <%= render 'shared/devise_flash_override' %>
+      <% flash.each do |key, value| %>
+        <% unless key == "notice" || key == "alert" %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
       <% end %>
-    <% end %>
 
-    <div <%= "class=container".html_safe unless controller_name == "events" && action_name == "index" %>>
-      <%= yield %>
+      <div <%= "class=container".html_safe unless controller_name == "events" && action_name == "index" %>>
+        <%= yield %>
+      </div>
     </div>
   </body>
 

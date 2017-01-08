@@ -1,12 +1,12 @@
 .card {
   padding: 15px;
   background-color: white;
-  border: 2px solid #D3D3D3 !important;
+  border: 1px solid #D3D3D3 !important;
+  box-shadow: none !important;
 }
 
-.card:hover {
-  box-shadow: none !important;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+.event-card:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   position: relative;
 }
@@ -147,8 +147,13 @@ textarea {
 
 #mast-head {
   height: 200px;
+  clear: both;
 }
 
 #mast-logo {
   height: 100%;
+}
+
+.no-top-bord {
+  border-top: none !important;
 }
