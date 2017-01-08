@@ -83,7 +83,16 @@ class EventsController < ApplicationController
   end
 
   def api_events_today
-    render json: Event.by_start_time
+    render json: Event.by_start_time.each.map{ |e|
+      {
+        name: e.name,
+        days_of_the_week: e.days_of_the_week,
+        description: e.description,
+        start_time: e.start_time,
+        end_time: e.end_time,
+        owner: e.owner.name
+      }
+    }
   end
 
   private

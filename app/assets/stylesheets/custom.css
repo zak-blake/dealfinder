@@ -155,6 +155,10 @@ textarea {
   height: 100%;
 }
 
+#content {
+  margin-bottom: 60px;
+}
+
 .no-top-bord {
   border-top: none !important;
 }
