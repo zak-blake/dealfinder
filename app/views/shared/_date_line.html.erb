@@ -1,7 +1,7 @@
-<h4 class="short-hd visible-md visible-sm visible-xs">
-  <% if date %>
-    <div class="event-days <%= today_or_tomorrow_class(event) %>">
-      <%= event.pretty_active_time %>&nbsp;<%= event.pretty_time_range %>
-    </div>
-  <% end %>
-</h4>
+<% if date %>
+  <div class="event-days <%= today_or_tomorrow_class(event) %> visible-md visible-sm visible-xs">
+    <h4 class="short-hd"><%= event.pretty_active_time %></h4>
+    &nbsp;
+    <h4 class="short-hd"><%= event.pretty_time_range %></h4>
+  </div>
+<% end %>

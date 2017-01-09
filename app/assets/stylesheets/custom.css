@@ -98,7 +98,7 @@ textarea {
  }
 
 .event-days {
-  height: 30px;
+  min-height: 30px;
   border-radius: 20px;
   background-color: lightblue;
   color: white;
@@ -185,4 +185,8 @@ a {
 
 .own-back-lnk {
   margin-right: 6px;
+}
+
+no-wrap {
+    white-space: nowrap;
 }

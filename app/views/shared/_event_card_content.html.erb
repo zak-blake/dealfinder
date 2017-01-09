@@ -1,8 +1,15 @@
 <%= content_tag(:div, class: "card #{'event-card' if link_to_path } #{'no-top-bord' if index && index != 0}") do %>
-  <h4>
-    <!-- Title -->
-    <%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }" %>
-  </h4>
+  <!-- Title -->
+  <span class="hidden-xs">
+    <h4><%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }" %></h4>
+  </span>
+  <span class="visible-xs">
+    <center>
+      <h4><%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }" %></h4>
+    </center>
+  </span>
+
+  <!-- Right side time -->
   <h4 class="hidden-md hidden-sm hidden-xs">
     <% if date %>
       <div class="event-days <%= today_or_tomorrow_class(event) %>">
@@ -18,30 +25,36 @@
 
   <!-- Relative Time -->
   <% if show_rel_time %>
-    <div>
-      <h4>
-        <small>
-          <% if combined_time_line %>
-            <span class="hidden-sm hidden-xs">
-              <i class="glyphicon glyphicon-time time-icon"></i>
-              <%= event.time_relative_to_now %>
-            </span>
-            <span class="visible-sm">
-              <i class="glyphicon glyphicon-time time-icon"></i>
-              <%= "#{event.time_relative_to_now} (#{event.pretty_time_range})" %>
-            </span>
-            <span class="visible-xs">
-              <i class="glyphicon glyphicon-time time-icon"></i>
-              <%= event.time_relative_to_now %><br /><br />
-              <%= event.pretty_time_range %>
-            </span>
-          <% else %>
+  <div>
+    <h4>
+      <small>
+        <% if combined_time_line %>
+          <span class="hidden-md hidden-sm hidden-xs">
             <i class="glyphicon glyphicon-time time-icon"></i>
             <%= event.time_relative_to_now %>
-          <% end %>
+          </span>
+          <span class="visible-sm visible-md">
+            <i class="glyphicon glyphicon-time time-icon"></i>
+            <%= "#{event.time_relative_to_now} (#{event.pretty_time_range})" %>
+          </span>
+
+        <% else %>
+          <i class="glyphicon glyphicon-time time-icon"></i>
+          <%= event.time_relative_to_now %>
+        <% end %>
+      </small>
+    </h4>
+
+    <center class="visible-xs">
+      <h4>
+        <small>
+          <i class="glyphicon glyphicon-time time-icon"></i>
+          <%= event.time_relative_to_now %><br />
+          <%= event.pretty_time_range %>
         </small>
       </h4>
-    </div>
+    </center>
+  </div>
   <% end %>
 
   <!-- Body -->
