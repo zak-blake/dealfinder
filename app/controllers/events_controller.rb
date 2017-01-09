@@ -79,7 +79,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     flash[:success] = "Event Deleted"
-    redirect_to user_show_path(current_user)
+    redirect_to user_path(current_user)
   end
 
   def api_events_today

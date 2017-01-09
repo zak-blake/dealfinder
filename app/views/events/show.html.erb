@@ -1,8 +1,6 @@
 <br>
-<%= render 'shared/event_card',
-  event_card_view_options(:event_show,
-  {
-    event: @event,
-    edit_mode: @edit_mode
-  })
-%>
+<%= render 'shared/event_card', event_card_view_options(:event_show, { event: @event, edit_mode: @edit_mode}) %>
+
+<h2 class="own-back-lnk">
+  <%= link_to '<i class="fa fa-chevron-left own-back-lnk"></i>'.html_safe + @event.owner.name, @event.owner %>
+</h2>
