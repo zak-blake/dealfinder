@@ -1,39 +1,31 @@
-<%= content_tag(:div, class: "card #{'event-card' if link_to_path } #{'no-top-bord' if index && index != 0}") do %>
-  <h4>
-    <!-- Title -->
-    <%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }" %>
-  </h4>
+<% event ||= nil %>
+<% edit_mode ||= false %>
+<% show_owner ||= nil %>
+<% location ||= false %>
+<% hide_desc ||= false %>
+<% show_rel_time ||= false %>
+<% index ||= nil %>
+<% link_to_path ||= nil %>
+<% date ||= nil %>
+<% combined_time_line ||= nil %>
 
-  <!-- Time/Date -->
-  <%= render 'shared/date_block', event: event, date: date %><!-- !sm/xs -->
-  <%= render 'shared/date_line', event: event, date: date %><!-- sm/xs -->
+<% card_params = {
+  event: event,
+  edit_mode: edit_mode,
+  show_owner: show_owner,
+  location: location,
+  hide_desc: hide_desc,
+  show_rel_time: show_rel_time,
+  index: index,
+  link_to_path: link_to_path,
+  date: date,
+  combined_time_line: combined_time_line
+} %>
 
-  <!-- Relative Time -->
-  <% if show_rel_time %>
-    <div>
-      <h4>
-        <small>
-          <% if combined_time_line %>
-            <span class="hidden-sm hidden-xs">
-              <i class="glyphicon glyphicon-time time-icon"></i>
-              <%= event.time_relative_to_now %>
-            </span>
-            <span class="visible-sm visible-xs">
-              <i class="glyphicon glyphicon-time time-icon"></i>
-              <%= "#{event.time_relative_to_now} (#{event.pretty_time_range})" %>
-            </span>
-          <% else %>
-            <i class="glyphicon glyphicon-time time-icon"></i>
-            <%= event.time_relative_to_now %>
-          <% end %>
-        </small>
-      </h4>
-    </div>
+<% if link_to_path %>
+  <%= link_to link_to_path do %>
+    <%= render 'shared/event_card_content', card_params %>
   <% end %>
-
-  <!-- Body -->
-  <div class="<%= "hidden-xs" if hide_desc %>">
-    <p><%= event.description %></p>
-    <p><%= owner_links(event) if edit_mode %></p>
-  </div>
+<% else %>
+  <%= render 'shared/event_card_content', card_params %>
 <% end %>

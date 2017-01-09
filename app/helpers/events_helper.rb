@@ -39,20 +39,21 @@ module EventsHelper
     ""
   end
 
+  def owner_links(event)
+    "#{link_to "edit", edit_event_path(event)} /
+      #{link_to "delete", event, :method => :delete, data:
+        {confirm: "confirm delete: #{event.name}" }}".html_safe
+  end
+
   def active_events(events, today=true)
     return "".html_safe unless events.any?
     html = ''
 
     events.each_with_index do |e, index|
-      html += render partial: 'shared/event_card_wrapper', locals: {
-        link_to_path: event_path(e),
-        index: index,
+      html += render partial: 'shared/event_card', locals: {
         event: e,
-        location: true,
-        hide_desc: true,
-        show_rel_time: today,
-        show_owner: true,
-        date: false
+        link_to_path: event_path(e),
+        index: index
       }
     end
 
@@ -64,39 +65,53 @@ module EventsHelper
 
     html = '<center><h3 class="pretty-font">past</h3></center></row>'
     events.each_with_index do |e, index|
-      html += render partial: 'shared/event_card_wrapper', locals: {
-        link_to_path: event_path(e),
-        index: index,
-        event: e,
+      html += render 'shared/event_card', event_card_view_options(
+        :event_index, {
+          event: e, link_to_path: event_path(e), index: index
+        })
+    end
+
+    return html.html_safe
+  end
+
+  def render_event_list(events)
+    html = ''
+    events.each_with_index do |e, index|
+      html += render 'shared/event_card', event_card_view_options(
+        :user_show, {
+            event: e, link_to_path: event_path(e), index: index
+        })
+    end
+
+    return html.html_safe
+  end
+
+  def event_card_view_options(setting, extras)
+    view_opt = case setting
+    when :event_index
+      {
         location: true,
         hide_desc: true,
         show_rel_time: true,
         show_owner: true,
         date: false
       }
-    end
-
-    return html.html_safe
-  end
-
-  def owner_links(event)
-    "#{link_to "edit", edit_event_path(event)} /
-      #{link_to "delete", event, :method => :delete, data:
-        {confirm: "confirm delete: #{event.name}" }}".html_safe
-  end
-
-  def render_event_list(events)
-    html = ''
-    events.each_with_index do |e, index|
-      html += render partial: 'shared/event_card_wrapper', locals: {
-        link_to_path: event_path(e),
+    when :event_show
+      {
+        show_owner: true,
+        location: true,
         show_rel_time: true,
-        index: index,
-        combined_time_line: true,
-        event: e
+        combined_time_line: true
       }
+    when :user_show
+      {
+        show_rel_time: true,
+        combined_time_line: true
+      }
+    else
+      {}
     end
 
-    return html.html_safe
+    view_opt.merge(extras)
   end
 end

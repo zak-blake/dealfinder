@@ -1,9 +1,8 @@
 <br>
-<%= render 'shared/event_card_wrapper',
-  event: @event,
-  edit_mode: @edit_mode,
-  show_owner: true,
-  location: true,
-  show_rel_time: true,
-  combined_time_line: true
+<%= render 'shared/event_card',
+  event_card_view_options(:event_show,
+  {
+    event: @event,
+    edit_mode: @edit_mode
+  })
 %>

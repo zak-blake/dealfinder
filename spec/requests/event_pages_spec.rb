@@ -72,7 +72,7 @@ describe "Event Pages" do
         visit events_path
         expect(page).to have_content("what's going on")
         expect(page).to have_content("Login")
-        expect(page).to have_content("Signup")
+        #expect(page).to have_content("Signup")
       end
 
       describe "when there is a weekly event" do
