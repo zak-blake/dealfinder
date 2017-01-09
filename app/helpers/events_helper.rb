@@ -50,11 +50,10 @@ module EventsHelper
     html = ''
 
     events.each_with_index do |e, index|
-      html += render partial: 'shared/event_card', locals: {
-        event: e,
-        link_to_path: event_path(e),
-        index: index
-      }
+      html += render 'shared/event_card', event_card_view_options(
+        :event_index, {
+          event: e, link_to_path: event_path(e), index: index
+        })
     end
 
     return html.html_safe
