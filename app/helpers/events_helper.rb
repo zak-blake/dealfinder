@@ -73,11 +73,11 @@ module EventsHelper
     return html.html_safe
   end
 
-  def render_event_list(events)
+  def render_event_list(events, context)
     html = ''
     events.each_with_index do |e, index|
       html += render 'shared/event_card', event_card_view_options(
-        :user_show, {
+        context, {
             event: e, link_to_path: event_path(e), index: index
         })
     end
@@ -102,10 +102,18 @@ module EventsHelper
         show_rel_time: true,
         combined_time_line: true
       }
-    when :user_show
+    when :today
       {
         show_rel_time: true,
         combined_time_line: true
+      }
+    when :weekly_type
+      {
+        date: true
+      }
+    when :one_time_type
+      {
+        date: true
       }
     else
       {}

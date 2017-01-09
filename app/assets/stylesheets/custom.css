@@ -98,11 +98,14 @@ textarea {
  }
 
 .event-days {
+  height: 30px;
   border-radius: 20px;
   background-color: lightblue;
   color: white;
   text-align: center;
-  font-size: 18px;
+  font-size: 25px;
+  padding: 0 20 0 20px;
+  margin-left: 10px;
 }
 
 .div-today {

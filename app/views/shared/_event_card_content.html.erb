@@ -3,10 +3,18 @@
     <!-- Title -->
     <%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }" %>
   </h4>
+  <h4 class="hidden-md hidden-sm hidden-xs">
+    <% if date %>
+      <div class="event-days <%= today_or_tomorrow_class(event) %>">
+        <%= event.pretty_active_time %>
+      </div>
+    <% end %>
+  <h4>
+
 
   <!-- Time/Date -->
-  <%= render 'shared/date_block', event: event, date: date %><!-- !sm/xs -->
-  <%= render 'shared/date_line', event: event, date: date %><!-- sm/xs -->
+  <%= render 'shared/date_block', event: event, date: date %><!-- !md/sm/xs -->
+  <%= render 'shared/date_line', event: event, date: date %><!-- md/sm/xs -->
 
   <!-- Relative Time -->
   <% if show_rel_time %>
@@ -18,9 +26,14 @@
               <i class="glyphicon glyphicon-time time-icon"></i>
               <%= event.time_relative_to_now %>
             </span>
-            <span class="visible-sm visible-xs">
+            <span class="visible-sm">
               <i class="glyphicon glyphicon-time time-icon"></i>
               <%= "#{event.time_relative_to_now} (#{event.pretty_time_range})" %>
+            </span>
+            <span class="visible-xs">
+              <i class="glyphicon glyphicon-time time-icon"></i>
+              <%= event.time_relative_to_now %><br /><br />
+              <%= event.pretty_time_range %>
             </span>
           <% else %>
             <i class="glyphicon glyphicon-time time-icon"></i>

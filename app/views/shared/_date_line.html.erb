@@ -1,10 +1,7 @@
-<h4 class="short-hd visible-xs visible-sm">
-  <small class="hidden-xs hidden-sm">
-    <%= event.pretty_time_range %>
-  </small>
+<h4 class="short-hd visible-md visible-sm visible-xs">
   <% if date %>
     <div class="event-days <%= today_or_tomorrow_class(event) %>">
-      <%= event.pretty_active_time %>
+      <%= event.pretty_active_time %>&nbsp;<%= event.pretty_time_range %>
     </div>
   <% end %>
 </h4>
