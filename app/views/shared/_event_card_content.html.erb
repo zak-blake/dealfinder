@@ -9,14 +9,13 @@
     </center>
   </span>
 
-  <!-- Right side time -->
   <h4 class="hidden-md hidden-sm hidden-xs">
     <% if date %>
       <div class="event-days <%= today_or_tomorrow_class(event) %>">
         <%= event.pretty_active_time %>
       </div>
     <% end %>
-  <h4>
+  </h4>
 
 
   <!-- Time/Date -->
@@ -26,9 +25,10 @@
   <!-- Relative Time -->
   <% if show_rel_time %>
   <div>
-    <h4>
-      <small>
-        <% if combined_time_line %>
+    <% if combined_time_line %>
+      <h4>
+        <small>
+
           <span class="hidden-md hidden-sm hidden-xs">
             <i class="glyphicon glyphicon-time time-icon"></i>
             <%= event.time_relative_to_now %>
@@ -37,20 +37,28 @@
             <i class="glyphicon glyphicon-time time-icon"></i>
             <%= "#{event.time_relative_to_now} (#{event.pretty_time_range})" %>
           </span>
+        </small>
+      </h4>
 
-        <% else %>
-          <i class="glyphicon glyphicon-time time-icon"></i>
-          <%= event.time_relative_to_now %>
-        <% end %>
-      </small>
-    </h4>
+
+    <% else %>
+      <h4>
+        <small>
+          <div class="hidden-xs">
+            <i class="glyphicon glyphicon-time time-icon"></i>
+            <%= event.time_relative_to_now %>
+          </div>
+        </small>
+      </h4>
+    <% end %>
+
 
     <center class="visible-xs">
       <h4>
         <small>
           <i class="glyphicon glyphicon-time time-icon"></i>
           <%= event.time_relative_to_now %><br />
-          <%= event.pretty_time_range %>
+          <%#event.pretty_time_range %>
         </small>
       </h4>
     </center>
