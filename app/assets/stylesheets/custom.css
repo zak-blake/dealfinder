@@ -187,6 +187,10 @@ a {
   margin-right: 6px;
 }
 
-no-wrap {
+.no-wrap {
     white-space: nowrap;
+}
+
+.small-fix-box {
+  margin-top: 40px;
 }
