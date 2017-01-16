@@ -7,16 +7,47 @@
     <p><%= @owner.description %></p>
 
     <center><h4 class="pretty-font">Events</h4></center>
-    <%= render_event_list(@events) %>
+    <ul class="nav nav-tabs nav-justified">
+      <li class="active"><a data-toggle="tab" href="#todays">Today</a></li>
+      <li><a data-toggle="tab" href="#weekly_events">Weekly</a></li>
+      <li><a data-toggle="tab" href="#one_time_events">One Time</a></li>
+      </ul>
 
-    <% if @events.empty? %>
-      <center>
-        <h5><small>no events posted yet<%= link_to " add one", new_event_path if @edit_mode %></small></h5>
-      </center>
-    <% end %>
+    <br /><br />
 
-    <% if @past_events.any? %>
-      <center><h4 class="pretty-font">Past</h4></center>
-      <%= render_event_list(@past_events) %>
-    <% end %>
+    <div class="tab-content">
+      <div id="todays" class="tab-pane fade in active">
+        <%= render_event_list(@active_events, :today) %>
+
+        <% if @active_events.empty? %>
+          <center>
+            <h2><small>no active events</small></h2>
+          </center>
+        <% end %>
+
+        <% if @inactive_events.any? %>
+          <center><h4 class="pretty-font">Past</h4></center>
+          <%= render_event_list(@inactive_events, :today) %>
+        <% end %>
+      </div>
+      <div id="weekly_events" class="tab-pane fade">
+        <% if @weekly_events.any? %>
+          <%= render_event_list(@weekly_events, :weekly_type) %>
+        <% else %>
+          <center>
+            <h2><small>no weekly events</small></h2>
+          </center>
+        <% end %>
+      </div>
+      <div id="one_time_events" class="tab-pane fade">
+        <% if @one_time_events.any? %>
+          <%= render_event_list(@one_time_events, :one_time_type) %>
+        <% else %>
+          <center>
+            <h2><small>no one time events</small></h2>
+          </center>
+        <% end %>
+      </div>
+    </div>
+
   </div>

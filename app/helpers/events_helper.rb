@@ -21,7 +21,7 @@ module EventsHelper
     index = 1
 
     Event::WEEK_DAYS.each do |day|
-      html += label_tag(:weekday, class: "checkbox-inline") do
+      html += label_tag("weekday#{day.last}[select]", class: "checkbox-inline event-form-text") do
         concat check_box("weekday#{day.last}", "select",
           { checked: (event.days_of_the_week & index) != 0 }, day.last.to_s)
         concat day.first
@@ -39,21 +39,21 @@ module EventsHelper
     ""
   end
 
+  def owner_links(event)
+    "#{link_to "edit", edit_event_path(event)} /
+      #{link_to "delete", event, :method => :delete, data:
+        {confirm: "confirm delete: #{event.name}" }}".html_safe
+  end
+
   def active_events(events, today=true)
     return "".html_safe unless events.any?
     html = ''
 
     events.each_with_index do |e, index|
-      html += render partial: 'shared/event_card_wrapper', locals: {
-        link_to_path: event_path(e),
-        index: index,
-        event: e,
-        location: true,
-        hide_desc: true,
-        show_rel_time: today,
-        show_owner: true,
-        date: false
-      }
+      html += render 'shared/event_card', event_card_view_options(
+        :event_index, {
+          event: e, link_to_path: event_path(e), index: index
+        })
     end
 
     return html.html_safe
@@ -64,37 +64,61 @@ module EventsHelper
 
     html = '<center><h3 class="pretty-font">past</h3></center></row>'
     events.each_with_index do |e, index|
-      html += render partial: 'shared/event_card_wrapper', locals: {
-        link_to_path: event_path(e),
-        index: index,
-        event: e,
+      html += render 'shared/event_card', event_card_view_options(
+        :event_index, {
+          event: e, link_to_path: event_path(e), index: index
+        })
+    end
+
+    return html.html_safe
+  end
+
+  def render_event_list(events, context)
+    html = ''
+    events.each_with_index do |e, index|
+      html += render 'shared/event_card', event_card_view_options(
+        context, {
+            event: e, link_to_path: event_path(e), index: index
+        })
+    end
+
+    return html.html_safe
+  end
+
+  def event_card_view_options(setting, extras)
+    view_opt = case setting
+    when :event_index
+      {
         location: true,
         hide_desc: true,
         show_rel_time: true,
         show_owner: true,
         date: false
       }
-    end
-
-    return html.html_safe
-  end
-
-  def owner_links(event)
-    "#{link_to "edit", edit_event_path(event)} /
-      #{link_to "delete", event, :method => :delete, data:
-        {confirm: "confirm delete: #{event.name}" }}".html_safe
-  end
-
-  def render_event_list(events)
-    html = ''
-    events.each_with_index do |e, index|
-      html += render partial: 'shared/event_card_wrapper', locals: {
-        link_to_path: event_path(e),
-        index: index,
-        event: e
+    when :event_show
+      {
+        show_owner: true,
+        location: true,
+        show_rel_time: true,
+        combined_time_line: true
       }
+    when :today
+      {
+        show_rel_time: true,
+        combined_time_line: true
+      }
+    when :weekly_type
+      {
+        date: true
+      }
+    when :one_time_type
+      {
+        date: true
+      }
+    else
+      {}
     end
 
-    return html.html_safe
+    view_opt.merge(extras)
   end
 end

@@ -79,21 +79,29 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     flash[:success] = "Event Deleted"
-    redirect_to user_show_path(current_user)
+    redirect_to user_path(current_user)
   end
 
   def api_events_today
-    render json: Event.by_start_time.each.map{ |e|
-      {
-        name: e.name,
-        days_of_the_week: e.days_of_the_week,
-        description: e.description,
-        start_time: e.start_time,
-        end_time: e.end_time,
-        owner: e.owner.name,
-        event_date: e.event_date
-      }
-    }
+    all_days = []
+
+    (0..6).each do |index|
+      all_days << Event.happens_on_date(Date.today + index.days).
+        by_start_time.each.map{ |e|
+          {
+            name: e.name,
+            relative_time: e.time_relative_to_now,
+            days_of_the_week: e.days_of_the_week,
+            description: e.description,
+            start_time: e.start_time,
+            end_time: e.end_time,
+            owner: e.owner.name,
+            event_date: e.event_date
+          }
+        }
+    end
+
+    render json: all_days
   end
 
   private

@@ -1,4 +1,4 @@
-# override of default devise error messages
+ # override of default devise error messages
 
 module DeviseHelper
   def devise_error_messages!
@@ -9,14 +9,11 @@ module DeviseHelper
                       :count => resource.errors.count,
                       :resource => resource.class.model_name.human.downcase)
 
-    html = <<-HTML
-    <div id="error_explanation">
-      <h4>#{sentence}</h4>
-      <ul>#{messages}</ul>
-    </div>
-    HTML
+    puts resource.errors.full_messages.join("\n")
 
-    html.html_safe
+    flash[:alert] = resource.errors.full_messages.join("<br />").html_safe
+
+    nil
   end
 
   def devise_error_messages?

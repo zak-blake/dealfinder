@@ -173,6 +173,14 @@ class Event < ApplicationRecord
       date, day_number)
   end
 
+  def self.happens_today
+    self.happens_on_date(Date.today)
+  end
+
+  def self.for_owner(owner)
+    self.where(owner: owner)
+  end
+
   def happens_on_date?(date)
     if one_time? && (event_date == date)
       true
