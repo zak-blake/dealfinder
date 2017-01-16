@@ -71,14 +71,6 @@ html {
   padding-bottom: 50px;
 }
 
-.btn-primary {
-  margin-left: 0px !important;
-}
-
-.btn-default {
-  margin-left: 0px !important;
-}
-
 .title {
   color: white;
 }
@@ -187,7 +179,7 @@ a {
 }
 
 .no-wrap {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .small-fix-box {
@@ -273,4 +265,12 @@ body {
 }
 .navbar-collapse.collapse.in{
   display:block !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn-center {
+  margin: auto;
 }

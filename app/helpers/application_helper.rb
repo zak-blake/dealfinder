@@ -4,6 +4,9 @@ module ApplicationHelper
   end
 
   def hidden_ham?
-    return true if controller_name == "sessions" && action_name == "new"
+    if (controller_name == "sessions" && action_name == "new") ||
+      (controller_name == "passwords" && action_name == "new")
+        return true
+      end
   end
 end

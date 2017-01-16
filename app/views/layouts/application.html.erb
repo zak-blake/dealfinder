@@ -29,7 +29,9 @@
       </div>
     </div>
   </body>
-
+  <%= content_tag(:div) do %>
+    <%= "#{controller_name}##{action_name}" %>
+  <% end if Rails.env.development? && false %>
 </html>
 
 <script type="text/javascript">fadeAlert()</script>
