@@ -3,6 +3,7 @@
   background-color: white;
   border: 1px solid #D3D3D3 !important;
   box-shadow: none !important;
+  font-family: 'Lato', sans-serif;
 }
 
 .event-card:hover {
