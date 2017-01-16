@@ -63,7 +63,7 @@ html {
 }
 
 .container {
-  padding-bottom: 250px;
+  //padding-bottom: 250px;
 }
 
 .navbar-fixed-bottom {
@@ -148,9 +148,9 @@ textarea {
 }
 
 .navbar {
-  min-height: 140px;
+  min-height: 100px;
   border-bottom: 0;
-  background-color: transparent !important;
+  //background-color: transparent !important;
   box-shadow: none !important;
 }
 
@@ -219,6 +219,47 @@ a {
   font-size: 20px;
 }
 
+.mast-text:hover {
+  background-color: none;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+  background-color: transparent !important;
+}
+
+.nav-links {
+  text-align: right;
+}
+
 #mast-links {
   padding-top: 20px;
+}
+
+.ham-tog {
+  padding: 20px;
+}
+
+// custom navbar
+
+body {
+	padding-top:70px;
+}
+
+.navbar-header {
+  float: none;
+}
+.navbar-toggle {
+  display: block;
+}
+.navbar-collapse.collapse {
+  display: none!important;
+}
+.navbar-nav {
+  float: none!important;
+}
+.navbar-nav>li {
+  float: none;
+}
+.navbar-collapse.collapse.in{
+  display:block !important;
 }

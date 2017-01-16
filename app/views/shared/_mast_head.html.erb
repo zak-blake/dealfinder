@@ -5,8 +5,25 @@
     <% end %>
   </div>
 
-  <div id="mast-links" class="col-lg-1 col-lg-offset-7">
+  <div id="mast-links" class="col-lg-2 col-lg-offset-6">
+    <% if user_signed_in? && current_user.owner? %>
+      <%= link_to "new event", new_event_path, class: "mast-text" %>
+      <%= link_to "my profile", user_path(current_user.id), class: "mast-text"%>
+    <% end %>
     <%= link_to "login", new_user_session_path, class: "mast-text" if !user_signed_in? %>
     <%= link_to "logout", destroy_user_session_path, :method => :delete, class: "mast-text" if user_signed_in? %>
   </div>
 </div>
+
+<nav class="navbar navbar-default navbar-light lighten-3 z-depth-1">
+  <div class="container-fluid">
+
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+  </div>
+</nav>

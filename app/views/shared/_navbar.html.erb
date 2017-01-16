@@ -1,37 +1,20 @@
-<nav class="navbar navbar-default navbar-light lighten-3 z-depth-1">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <%= link_to root_url, class: "navbar-brand hidden-xs" do %>
-      <%= image_tag "shindig.png" %>
+<nav class="navbar">
+  <div class="navbar-header">
+    <%= link_to root_url, class: "navbar-brand" do %>
+      <%= image_tag "shindig.png", class: "main-logo" %>
     <% end %>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-left">
-        <li class="nav-item"><%= link_to "Home", root_path, class: "nav-link waves-effect visible-xs" %></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? && current_user.owner? %>
-          <%= content_tag :li do link_to "New Event", new_event_path, class: "nav-link" end %>
-          <%= content_tag :li do link_to "My Profile", user_path(current_user.id), class: "nav-link" end %>
-        <% end %>
-        <% if user_signed_in? %>
-          <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-        <% else %>
-          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
-          <!-- <li class="nav-link"><%# link_to "Signup", new_user_registration_path, class: "nav-link waves-effect" %></li> -->
-        <% end %>
-      </ul>
-    </div>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <i class="fa fa-bars fa-2x"></i>
+    </button>
   </div>
-
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav nav-links">
+      <% if user_signed_in? && current_user.owner? %>
+        <%= content_tag :li do link_to "new event", new_event_path, class: "mast-text" end %>
+        <%= content_tag :li do link_to "my profile", user_path(current_user.id), class: "mast-text" end %>
+      <% end %>
+      <%= content_tag :li do link_to "login", new_user_session_path, class: "mast-text" end if !user_signed_in? %>
+      <%= content_tag :li do link_to "logout", destroy_user_session_path, :method => :delete, class: "mast-text" end if user_signed_in? %>
+    </ul>
+  </div>
 </nav>
