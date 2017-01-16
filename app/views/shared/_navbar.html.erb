@@ -3,9 +3,11 @@
     <%= link_to root_url, class: "navbar-brand" do %>
       <%= image_tag "shindig.png", class: "main-logo" %>
     <% end %>
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-      <i class="fa fa-bars fa-2x"></i>
-    </button>
+    <% unless hidden_ham? %>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <i class="fa fa-bars fa-2x"></i>
+      </button>
+    <% end %>
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav nav-links">
