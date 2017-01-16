@@ -142,15 +142,15 @@ textarea {
 }
 
 .navbar-brand {
-  transform: translateX(-50%);
-  left: 50%;
   position: absolute;
   margin-top: -15px;
 }
 
 .navbar {
-  height: 140px;
+  min-height: 140px;
   border-bottom: 0;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 #mast-head {
@@ -163,7 +163,6 @@ textarea {
 }
 
 #content {
-  padding-top: 140px;
   margin-bottom: 60px;
 }
 
@@ -201,7 +200,7 @@ a {
 }
 
 .event-opt {
-  height: 10px;
+  height: 20px;
 }
 
 .event-form-lb {

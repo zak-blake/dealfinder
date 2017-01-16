@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top navbar-light purple lighten-3 z-depth-1">
+<nav class="navbar navbar-default navbar-light lighten-3 z-depth-1">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -19,20 +19,15 @@
         <li class="nav-item"><%= link_to "Home", root_path, class: "nav-link waves-effect visible-xs" %></li>
       </ul>
 
-      <% if user_signed_in? && current_user.owner? %>
-        <ul class="nav navbar-nav navbar-left">
-          <li class="nav-item"><%= link_to "New Event", new_event_path, class: "nav-link waves-effect" %></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-left">
-          <li class="nav-item"><%= link_to "My Profile", user_path(current_user.id), class: "nav-link waves-effect" %></li>
-        </ul>
-      <% end %>
-
       <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? && current_user.owner? %>
+          <%= content_tag :li do link_to "New Event", new_event_path, class: "nav-link" end %>
+          <%= content_tag :li do link_to "My Profile", user_path(current_user.id), class: "nav-link" end %>
+        <% end %>
         <% if user_signed_in? %>
-          <li ="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+          <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
         <% else %>
-          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link waves-effect" %></li>
+          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
           <!-- <li class="nav-link"><%# link_to "Signup", new_user_registration_path, class: "nav-link waves-effect" %></li> -->
         <% end %>
       </ul>
