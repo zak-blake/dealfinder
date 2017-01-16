@@ -1,9 +1,12 @@
 <div id="mast-head" class="col-lg-12">
-  <div id="mast-logo" class="col-lg-4 col-lg-offset-4">
-  <center>
+  <div id="mast-logo" class="col-lg-4">
     <%= link_to root_path do %>
-      <%= image_tag "LogoLines.png" %>
+      <%= image_tag "shindig.png", class: "main-logo" %>
     <% end %>
-  </center>
+  </div>
+
+  <div id="mast-links" class="col-lg-1 col-lg-offset-7">
+    <%= link_to "login", new_user_session_path, class: "mast-text" if !user_signed_in? %>
+    <%= link_to "logout", destroy_user_session_path, :method => :delete, class: "mast-text" if user_signed_in? %>
   </div>
 </div>

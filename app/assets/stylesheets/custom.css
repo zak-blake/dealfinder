@@ -154,12 +154,11 @@ textarea {
 }
 
 #mast-head {
-  height: 200px;
+  height: 100px;
   clear: both;
 }
 
 #mast-logo {
-  height: 100%;
 }
 
 #content {
@@ -209,4 +208,16 @@ a {
 
 .time-lb {
   width: 60px;
+}
+
+.main-logo {
+  transform: scale(.8);
+}
+
+.mast-text {
+  font-size: 20px;
+}
+
+#mast-links {
+  padding-top: 20px;
 }

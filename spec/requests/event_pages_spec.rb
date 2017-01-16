@@ -71,7 +71,7 @@ describe "Event Pages" do
       it "should have have index page content" do
         visit events_path
         expect(page).to have_content("what's going on")
-        expect(page).to have_content("Login")
+        expect(page).to have_content("login")
         #expect(page).to have_content("Signup")
       end
 
