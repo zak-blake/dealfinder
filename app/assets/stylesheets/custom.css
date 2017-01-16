@@ -217,7 +217,14 @@ a {
 
 .mast-text {
   font-size: 20px;
+  margin-right: 30px;
+  font-family: 'Lato', sans-serif;
 }
+
+.mast-text:hover, .mast-text:active {
+  color: #f15d5c !important;
+}
+
 
 .mast-text:hover {
   background-color: none;
@@ -236,7 +243,11 @@ a {
 }
 
 .ham-tog {
-  padding: 20px;
+  padding: 30px;
+}
+
+.navbar-toggle {
+  padding: 26px;
 }
 
 // custom navbar
