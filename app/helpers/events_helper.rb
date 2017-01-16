@@ -21,7 +21,7 @@ module EventsHelper
     index = 1
 
     Event::WEEK_DAYS.each do |day|
-      html += label_tag(:weekday, class: "checkbox-inline") do
+      html += label_tag("weekday#{day.last}[select]", class: "checkbox-inline event-form-text") do
         concat check_box("weekday#{day.last}", "select",
           { checked: (event.days_of_the_week & index) != 0 }, day.last.to_s)
         concat day.first

@@ -194,3 +194,20 @@ a {
 .small-fix-box {
   margin-top: 40px;
 }
+
+.event-form-text {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.event-opt {
+  height: 10px;
+}
+
+.event-form-lb {
+  padding-right: 20px;
+}
+
+.time-lb {
+  width: 60px;
+}

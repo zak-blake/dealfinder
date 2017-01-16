@@ -6,26 +6,30 @@
 
 <br /><br />
 
-<%= f.label :start_time %>
-<%= f.time_select :start_time %>
+<%= f.collection_radio_buttons(:event_type, Event.type_name_array, :first, :second) do |b| %>
+  <div class="radio">
+    <%= b.label(class: "event-form-text event-form-lb") {b.radio_button(onchange: "hideGroupShow(\"event_type\", \"#{b.text}\")") + b.text } %>
+  </div>
+<% end %>
+<div class="event-opt">
+  <div class="event_type one-time" <%="#{'style=display:none;' if @event.weekly?}" %>>
+    <label class="event-form-text event-form-lb">event date&nbsp;<%= f.date_select :event_date %></label>
+  </div>
 
-<%= f.label :end_time %>
-<%= f.time_select :end_time %>
+  <div class="event_type weekly" <%= 'style=display:none;' if @event.one_time? %>>
+    <%= days_of_the_week_checkboxes(@event) %>
+  </div>
+</div>
 
 <br /><br />
 
-<%= f.collection_radio_buttons(:event_type, Event.type_name_array, :first, :second) do |b| %>
-  <div class="radio">
-    <%= b.label {b.radio_button(onchange: "hideGroupShow(\"event_type\", \"#{b.text}\")") + b.text } %>
-  </div>
-<% end %>
-
-<div class="event_type one-time" <%="#{'style=display:none;' if @event.weekly?}" %>>
-  <label>event date<%= f.date_select :event_date %></label>
-</div>
-
-<div class="event_type weekly" <%= "#{'style=display:none;' if @event.one_time?}" %>>
-  <%= days_of_the_week_checkboxes(@event) %>
-</div>
+  <%= f.label :start_time, class: "event-form-text event-form-lb" do %>
+    start
+    <%= f.time_select :start_time %>
+  <% end %>
+  <%= f.label :end_time, class: "event-form-text event-form-lb" do %>
+    end
+    <%= f.time_select :end_time %>
+  <% end %>
 
 <br /><br />
