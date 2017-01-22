@@ -3,20 +3,8 @@
 ## Small Changes
 
 ## To Do
-* Figure out how to order the dealer show events (weekly and one time)
-* allow upload of pictures for events and users (many for each)
-* create third user contexts for normal people
-* devise token auth for app
 * provide address in some way
-* one time events coming up with a nice filter
 * cancel my account?
-* replace the devise errors
-* move the demo data to a rake task
-* restrict admin profile access
-
-## Specs
-* user model tests
-* user pages spec
 
 ## Integration
 * uber
@@ -27,5 +15,8 @@
 * twitter?
 
 ## Backlog
+* create third user contexts for normal people
 * mobile sidenav
 * gps coordinates
+* allow upload of pictures for events and users (many for each)
+* devise token auth for app
