@@ -7,7 +7,7 @@
     <% end %>
   <% end %>
 
-  <h2 class="pretty-font">venues</h2>
+  <h2 class="pretty-font text-center">venues</h2>
 
   <% @owners.each_with_index do |o, index| %>
     <%= render 'owner_card', owner: o, index: index, admin_view: @admin_view, link_to_path: user_path(o) %>
