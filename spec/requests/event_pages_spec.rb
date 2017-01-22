@@ -309,4 +309,16 @@ describe "Event Pages" do
       end
     end
   end
+
+  describe "unauthorized event" do
+    before do
+      sign_in FactoryGirl.create(:owner, approved_status: :status_approved)
+    end
+
+    it "should redirect to root" do
+      expect(
+        get edit_event_path(@weekly_event)
+      ).to redirect_to root_path
+    end
+  end
 end
