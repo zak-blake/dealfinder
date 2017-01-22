@@ -5,6 +5,17 @@ describe "User Pages" do
 
 
   describe "show" do
+    describe "when user is another admin" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before do
+        sign_in admin
+      end
+
+      it "should redirect to root" do
+        expect(get user_path(admin)).to redirect_to root_path
+      end
+    end
+
     describe "as public user" do
       describe "that is not approved" do
         before do

@@ -1,0 +1,7 @@
+<%= content_tag(:div, class: "card admin-card") do %>
+    <h4>Admin <small><%= link_to "(edit my profile)", edit_user_registration_path %></small></h4>
+    <p>
+      <%= current_user.name %><br>
+      <%= current_user.email %>
+    </p>
+<% end if view %>

@@ -6,6 +6,10 @@ class UsersController < ApplicationController
       redirect_to root_path and return
     end
 
+    if @owner.admin?
+      redirect_to root_path and return
+    end
+
     @active_events = []
     @inactive_events = []
     day_events = Event.for_owner(@owner).happens_today

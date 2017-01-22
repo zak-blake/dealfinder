@@ -46,7 +46,7 @@ module EventsHelper
   end
 
   def active_events(events, today=true)
-    return "<center><h4 class=\"center\">no upcoming events</h4></center>".html_safe unless events.any?
+    return "<center><h4 class=\"center\"><small>no upcoming events</small></h4></center>".html_safe unless events.any?
     html = ''
 
     events.each_with_index do |e, index|

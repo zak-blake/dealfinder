@@ -58,6 +58,8 @@ class EventsController < ApplicationController
   end
 
   def index
+    @admin_view = current_user.try(:admin?)
+
     day = params[:day]
     @selected_day = (Event.week_days_array.include? day) ?
       day : Event.current_day

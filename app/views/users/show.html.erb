@@ -4,7 +4,6 @@
       Sign ins: <%= @owner.sign_in_count.to_s %><br/>
       Last online: <%= @owner.last_sign_in_at ? "#{time_ago_in_words(@owner.last_sign_in_at)} ago" : "never" %><br/><br/>
 
-
       Events<br/>
       Weekly: <%= @weekly_event_count %><br/>
       One-time:  <%= @upcoming_one_time_count %> upcoming
@@ -19,7 +18,9 @@
 
 <h1 class="text-center"><%= @owner.name %></h1>
 <div class="card">
-  <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default pull-right" if @edit_mode %>
+  <div class="row">
+    <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-default" if @edit_mode %>
+  </div>
 
   <p><%= @owner.description %></p>
 
