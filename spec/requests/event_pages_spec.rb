@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "Event Pages" do
   before do
-    @owner = FactoryGirl.create(:user)
+    @owner = FactoryGirl.create(:user, approved_status: :status_approved)
     @weekly_event = FactoryGirl.create(:event,
       owner: @owner, days_of_the_week: 1)
     @one_time_event = FactoryGirl.create(:event,
@@ -19,10 +19,33 @@ describe "Event Pages" do
     describe "create" do
       it "should redirect to login page" do
         expect(post events_path).to redirect_to new_user_session_path
-      end
+      end   
     end
 
     describe "show" do
+      describe "when the owner is not approved" do
+        before do
+          @owner.approved_status = :status_unapproved
+          @owner.save!
+        end
+
+        describe "as non admin" do
+          it "should redirect to root" do
+            expect(get event_path(@weekly_event)).to redirect_to root_path
+          end
+        end
+
+        describe "as admin" do
+          before do
+            sign_in FactoryGirl.create(:admin)
+          end
+
+          it "should not redirect" do
+            expect(get event_path(@weekly_event)).not_to redirect_to root_path
+          end
+        end
+      end
+
       it "should have weekly event content" do
         #event card layout
         visit event_path(@weekly_event)

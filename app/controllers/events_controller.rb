@@ -32,6 +32,10 @@ class EventsController < ApplicationController
 
   def show
     @owner = @event.owner
+    
+    unless current_user.try(:admin?) || @owner.status_approved?
+      redirect_to root_path and return
+    end
   end
 
   def edit

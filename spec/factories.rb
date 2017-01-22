@@ -3,7 +3,14 @@ FactoryGirl.define do
     sequence(:name) { |n| "User #{n}" }
     sequence(:email) { |n| "email#{n}@email.com" }
     password "password123"
-    user_context :owner
+
+    factory :owner do
+      user_context :owner
+    end
+
+    factory :admin do
+      user_context :admin
+    end
   end
 
   factory :event do

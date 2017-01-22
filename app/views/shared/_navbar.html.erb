@@ -16,6 +16,7 @@
         <%= content_tag :li do link_to "profile", user_path(current_user.id), class: "mast-text" end %>
       <% end %>
       <%= content_tag :li do link_to "login", new_user_session_path, class: "mast-text" end if !user_signed_in? %>
+      <%= content_tag :li do link_to "signup", new_user_registration_path, class: "mast-text" end if !user_signed_in? %>
       <%= content_tag :li do link_to "logout", destroy_user_session_path, :method => :delete, class: "mast-text" end if user_signed_in? %>
     </ul>
   </div>

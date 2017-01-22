@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
  enum user_context: { owner: 0, admin: 1 }
+ enum approved_status: { status_unapproved: 0, status_approved: 1 }
 
  has_many :events
  validates :name, presence: true

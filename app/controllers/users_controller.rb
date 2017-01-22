@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   def show
     @owner = User.find(params[:id])
 
+    unless current_user.try(:admin?) || @owner.status_approved?
+      redirect_to root_path and return
+    end
+
     @active_events = []
     @inactive_events = []
     day_events = Event.for_owner(@owner).happens_today

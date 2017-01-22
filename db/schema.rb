@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114031915) do
+ActiveRecord::Schema.define(version: 20170121231426) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20161114031915) do
     t.datetime "updated_at",                          null: false
     t.integer  "user_context",           default: 0,  null: false
     t.text     "description"
+    t.integer  "approved_status",        default: 0,  null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
