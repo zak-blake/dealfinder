@@ -5,7 +5,8 @@ module ApplicationHelper
 
   def hidden_ham?
     if (controller_name == "sessions" && action_name == "new") ||
-      (controller_name == "passwords" && action_name == "new")
+      (controller_name == "passwords" && action_name == "new") ||
+      (controller_name == "registrations" && action_name == "new")
         return true
       end
   end

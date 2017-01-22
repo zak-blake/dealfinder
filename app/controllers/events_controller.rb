@@ -32,7 +32,7 @@ class EventsController < ApplicationController
 
   def show
     @owner = @event.owner
-    
+
     unless current_user.try(:admin?) || @owner.status_approved?
       redirect_to root_path and return
     end
@@ -65,7 +65,7 @@ class EventsController < ApplicationController
 
     @active_events = []
     @inactive_events = []
-    day_events = Event.events_on_day(@selected_day).by_start_time
+    day_events = Event.approved.events_on_day(@selected_day).by_start_time
 
     if @view_is_today
       day_events.each do |e|

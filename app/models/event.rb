@@ -98,6 +98,11 @@ class Event < ApplicationRecord
     Date.today + date_shift.days
   end
 
+  def self.approved
+    self.all.joins(:owner).where("users.approved_status = ?",
+      User.approved_statuses[:status_approved])
+  end
+
   def time_relative_to_now
     RelativeTimeHelper.time_relative_to_now(Time.zone.now, start_time, end_time)
   end

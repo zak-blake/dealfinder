@@ -74,6 +74,31 @@ describe "Event" do
     end
   end
 
+  describe "approved scope" do
+    describe "when owner is not approved" do
+      before do
+        @owner.approved_status = :status_unapproved
+        @owner.save!
+      end
+
+      it "should not include the event" do
+        expect(Event.approved).not_to include(@event)
+      end
+    end
+
+    describe "when owner is approved" do
+      before do
+        @owner.approved_status = :status_approved
+        @owner.save!
+      end
+
+      it "should not include the event" do
+        expect(Event.approved).to include(@event)
+      end
+    end
+
+  end
+
   describe "relation" do
     before do
       @dt = "Jan 3 2000 4:00pm pst".to_datetime #monday

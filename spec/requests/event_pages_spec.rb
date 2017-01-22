@@ -19,7 +19,7 @@ describe "Event Pages" do
     describe "create" do
       it "should redirect to login page" do
         expect(post events_path).to redirect_to new_user_session_path
-      end   
+      end
     end
 
     describe "show" do
