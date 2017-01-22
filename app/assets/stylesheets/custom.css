@@ -279,3 +279,7 @@ body {
   margin-top: 5px;
   padding-bottom: 10px;
 }
+
+.admin-card {
+  border: 3px solid #cde7f0 !important;
+}

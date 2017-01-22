@@ -1,0 +1,6 @@
+<%= link_to link_to_path do %>
+  <%= content_tag(:div, class: "card event-card #{'no-top-bord' if index != 0}") do %>
+    <h2><%= owner.name %></h2>
+    <p><%= owner.description %></p>
+  <% end %>
+<% end if owner && link_to_path && index %>

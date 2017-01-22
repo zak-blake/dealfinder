@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => :registrations }
-  get '/users/:id', to: 'users#show', as: 'user'
+  get '/user/:id', to: 'users#show', as: 'user'
+  get '/users', to: 'users#index', as: 'users'
+  patch '/user/:id', to: 'users#update', as: 'update_user'
 
   resources :events
 

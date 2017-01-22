@@ -7,6 +7,10 @@ class User < ApplicationRecord
  enum user_context: { owner: 0, admin: 1 }
  enum approved_status: { status_unapproved: 0, status_approved: 1 }
 
+ scope :approved, -> { where(approved_status: :status_approved) }
+ scope :unapproved, -> { where(approved_status: :status_unapproved) }
+ scope :owner, -> { where(user_context: :owner) }
+
  has_many :events
  validates :name, presence: true
 
