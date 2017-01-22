@@ -283,3 +283,7 @@ body {
 .admin-card {
   border: 3px solid #cde7f0 !important;
 }
+
+.sign-up-card {
+  height: 320px;
+}
