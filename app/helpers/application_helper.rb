@@ -10,4 +10,11 @@ module ApplicationHelper
         return true
       end
   end
+
+  def wide_page?
+    if (controller_name == "events" && action_name == "index") ||
+      (controller_name == "users" && action_name == "index")
+        return true
+    end
+  end
 end
