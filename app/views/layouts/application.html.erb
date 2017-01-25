@@ -24,7 +24,7 @@
         <% end %>
       <% end %>
 
-      <div <%= "class=container".html_safe unless controller_name == "events" && action_name == "index" %>>
+      <div <%= "class=container".html_safe unless wide_page? %>>
         <%= yield %>
       </div>
     </div>

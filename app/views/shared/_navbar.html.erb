@@ -11,6 +11,7 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav nav-links">
+      <%= content_tag :li do link_to "home", root_path, class: "mast-text" end %>
       <% if user_signed_in? && current_user.owner? %>
         <%= content_tag :li do link_to "new event", new_event_path, class: "mast-text" end %>
         <%= content_tag :li do link_to "profile", user_path(current_user.id), class: "mast-text" end %>
