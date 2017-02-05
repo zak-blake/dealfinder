@@ -51,7 +51,7 @@ module EventsHelper
 
     events.each_with_index do |e, index|
       html += render 'shared/event_card', event_card_view_options(
-        :event_index, {
+        :today, {
           event: e, link_to_path: event_path(e), index: index
         })
     end
@@ -74,6 +74,7 @@ module EventsHelper
   end
 
   def render_event_list(events, context)
+    return "<center><h4 class=\"center\"><small>no events</small></h4></center>".html_safe unless events.any?
     html = ''
     events.each_with_index do |e, index|
       html += render 'shared/event_card', event_card_view_options(
@@ -87,33 +88,31 @@ module EventsHelper
 
   def event_card_view_options(setting, extras)
     view_opt = case setting
-    when :event_index
-      {
-        location: true,
-        hide_desc: true,
-        show_rel_time: true,
-        show_owner: true,
-        date: false
-      }
-    when :event_show
-      {
-        show_owner: true,
-        location: true,
-        show_rel_time: true,
-        combined_time_line: true
-      }
     when :today
       {
-        show_rel_time: true,
-        combined_time_line: true
+        relative_time: true,
+        show_owner: true
       }
-    when :weekly_type
+    when :this_week
       {
-        date: true
+        show_owner: true
       }
-    when :one_time_type
+    when :owner_today
       {
-        date: true
+        relative_time: true
+      }
+    when :owner_one_time
+      {
+        show_date: true
+      }
+    when :owner_weekly
+      {
+        show_date: true
+      }
+    when :show
+      {
+        show_date: true,
+        show_owner: true
       }
     else
       {}

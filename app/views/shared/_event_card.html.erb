@@ -1,25 +1,22 @@
 <% event ||= nil %>
-<% edit_mode ||= false %>
-<% show_owner ||= nil %>
-<% location ||= false %>
-<% hide_desc ||= false %>
-<% show_rel_time ||= false %>
-<% index ||= nil %>
 <% link_to_path ||= nil %>
-<% date ||= nil %>
-<% combined_time_line ||= nil %>
+<% index ||= nil %>
+<% edit_mode ||= nil %>
+
+<% relative_time ||= nil %>
+<% show_owner ||= nil %>
+<% show_date ||= nil %>
 
 <% card_params = {
+  # data
   event: event,
-  edit_mode: edit_mode,
-  show_owner: show_owner,
-  location: location,
-  hide_desc: hide_desc,
-  show_rel_time: show_rel_time,
-  index: index,
   link_to_path: link_to_path,
-  date: date,
-  combined_time_line: combined_time_line
+  index: index,
+  edit_mode: edit_mode,
+  # options
+  relative_time: relative_time,
+  show_owner: show_owner,
+  show_date: show_date
 } %>
 
 <% if link_to_path %>

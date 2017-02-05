@@ -1,23 +1,27 @@
 <%= render 'shared/admin_main_panel', view: @admin_view %>
-
-<center>
-  <h1 class="whats-going-on">what's going on
-    <div class="btn-group">
-      <button class="dropdown-toggle pretty-font day-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= Event.today_or(@selected_day.to_s) %>
-        <i class="fa fa-chevron-down" aria-hidden="true"></i>
-      </button>
-      <div class="dropdown-menu">
-        <%= day_link_list %>
+<%= content_tag :div, class: "col-lg-12" do %>
+  <center>
+    <h1 class="whats-going-on">what's going on
+      <div class="btn-group">
+        <button class="dropdown-toggle pretty-font day-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= Event.today_or(@selected_day.to_s) %>
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu">
+          <%= day_link_list %>
+        </div>
       </div>
-    </div>
-  </h1>
-</center>
+    </h1>
+  </center>
 
-<div class="col-md-10 col-md-offset-1">
-  <%= active_events(@active_events, @view_is_today) %>
-</div>
+  <div class="col-md-10 col-md-offset-1">
+    <%= render_event_list(@active_events, (@view_is_today ? :today : :this_week)) %>
+  </div>
+<% end %>
 
-<div class="col-md-10 col-md-offset-1">
-  <%= inactive_events(@inactive_events, @view_is_today) %>
-</div>
+<%= content_tag :div, class: "col-lg-12" do %>
+  <center><h3 class="pretty-font">past</h3></center></row>
+  <div class="col-md-10 col-md-offset-1">
+    <%= render_event_list(@inactive_events, :today) %>
+  </div>
+<% end if @view_is_today %>

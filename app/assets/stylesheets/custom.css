@@ -127,7 +127,7 @@ textarea {
 }
 
 .short-hd {
-  margin-top: -5px;
+  margin: 0px;
 }
 
 .pretty-font {
@@ -286,4 +286,13 @@ body {
 
 .sign-up-card {
   height: 320px;
+}
+
+.time-t {
+  width: 100%;
+  font-size: 18px;
+}
+
+.full-wid {
+  width: 100%;
 }

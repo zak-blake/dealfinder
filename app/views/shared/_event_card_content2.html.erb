@@ -1,0 +1,73 @@
+<%= content_tag(:div, class: "card #{'event-card' if link_to_path } #{'no-top-bord' if index && index != 0}") do %>
+  <!-- Title -->
+  <span class="hidden-xs">
+    <h4><%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }" %></h4>
+  </span>
+  <span class="visible-xs">
+    <center>
+      <h4><%= "#{event.name}#{ " @ #{event.owner.name}" if show_owner }" %></h4>
+    </center>
+  </span>
+
+  <h4 class="hidden-md hidden-sm hidden-xs">
+    <% if date %>
+      <div class="event-days <%= today_or_tomorrow_class(event) %>">
+        <%= event.pretty_active_time %>
+      </div>
+    <% end %>
+  </h4>
+
+
+  <!-- Time/Date -->
+  <%= render 'shared/date_block', event: event, date: date %><!-- !md/sm/xs -->
+  <%= render 'shared/date_line', event: event, date: date %><!-- md/sm/xs -->
+
+  <!-- Relative Time -->
+  <% if show_rel_time %>
+  <div>
+    <% if combined_time_line %>
+      <h4>
+        <small>
+
+          <span class="hidden-md hidden-sm hidden-xs">
+            <i class="glyphicon glyphicon-time time-icon"></i>
+            <%= event.time_relative_to_now %>
+          </span>
+          <span class="visible-sm visible-md">
+            <i class="glyphicon glyphicon-time time-icon"></i>
+            <%= "#{event.time_relative_to_now} (#{event.pretty_time_range})" %>
+          </span>
+        </small>
+      </h4>
+
+
+    <% else %>
+      <h4>
+        <small>
+          <div class="hidden-xs">
+            <i class="glyphicon glyphicon-time time-icon"></i>
+            <%= event.time_relative_to_now %>
+          </div>
+        </small>
+      </h4>
+    <% end %>
+
+
+    <center class="visible-xs">
+      <h4>
+        <small>
+          <i class="glyphicon glyphicon-time time-icon"></i>
+          <%= event.time_relative_to_now %><br />
+          <%#event.pretty_time_range %>
+        </small>
+      </h4>
+    </center>
+  </div>
+  <% end %>
+
+  <!-- Body -->
+  <div>
+    <p><%= event.description %></p>
+    <p><%= owner_links(event) if edit_mode %></p>
+  </div>
+<% end %>
