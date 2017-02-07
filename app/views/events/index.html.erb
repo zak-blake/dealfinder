@@ -1,5 +1,5 @@
 <%= render 'shared/admin_main_panel', view: @admin_view %>
-<%= content_tag :div, class: "col-lg-12" do %>
+<%= content_tag :div do %>
   <center>
     <h1 class="whats-going-on">what's going on
       <div class="btn-group">
@@ -14,14 +14,10 @@
     </h1>
   </center>
 
-  <div class="col-md-10 col-md-offset-1">
-    <%= render_event_list(@active_events, (@view_is_today ? :today : :this_week)) %>
-  </div>
+  <%= render_event_list(@active_events, (@view_is_today ? :today : :this_week)) %>
 <% end %>
 
-<%= content_tag :div, class: "col-lg-12" do %>
+<%= content_tag :div do %>
   <center><h3 class="pretty-font">past</h3></center></row>
-  <div class="col-md-10 col-md-offset-1">
-    <%= render_event_list(@inactive_events, :today) %>
-  </div>
+  <%= render_event_list(@inactive_events, :today) %>
 <% end if @view_is_today %>

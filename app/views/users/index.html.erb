@@ -1,19 +1,16 @@
-<div class="col-md-10 col-md-offset-1">
-
-  <% if @admin_view %>
-    <h2 class="pretty-font text-center">waiting for approval</h2>
-    <% @unapproved_owners.each_with_index do |o, index| %>
-      <%= render 'owner_card', owner: o, index: index, admin_view: @admin_view, link_to_path: user_path(o) %>
-    <% end %>
-  <% end %>
-
-  <h2 class="pretty-font text-center">venues</h2>
-
-  <% @owners.each_with_index do |o, index| %>
+<% if @admin_view %>
+  <h2 class="pretty-font text-center">waiting for approval</h2>
+  <% @unapproved_owners.each_with_index do |o, index| %>
     <%= render 'owner_card', owner: o, index: index, admin_view: @admin_view, link_to_path: user_path(o) %>
   <% end %>
+<% end %>
 
-  <%= content_tag(:h2, class: "text-center") do %>
-    <small>no venues available</small>
-  <% end if @owners.empty? %>
-</div>
+<h2 class="pretty-font text-center">venues</h2>
+
+<% @owners.each_with_index do |o, index| %>
+  <%= render 'owner_card', owner: o, index: index, admin_view: @admin_view, link_to_path: user_path(o) %>
+<% end %>
+
+<%= content_tag(:h2, class: "text-center") do %>
+  <small>no venues available</small>
+<% end if @owners.empty? %>
