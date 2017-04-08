@@ -3,23 +3,25 @@
     <%= link_to root_url, class: "navbar-brand" do %>
       <%= image_tag "shindig.png", class: "main-logo" %>
     <% end %>
-    <% unless hidden_ham? %>
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <i class="fa fa-bars fa-2x"></i>
-      </button>
-    <% end %>
   </div>
-  <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav nav-links">
-      <%= content_tag :li do link_to "home", root_path, class: "mast-text" end %>
-      <% if user_signed_in? && current_user.owner? %>
-        <%= content_tag :li do link_to "new event", new_event_path, class: "mast-text" end %>
-        <%= content_tag :li do link_to "profile", user_path(current_user.id), class: "mast-text" end %>
-      <% end %>
-      <%= content_tag :li do link_to "venues", users_path, class: "mast-text" end %>
-      <%= content_tag :li do link_to "login", new_user_session_path, class: "mast-text" end if !user_signed_in? %>
-      <%= content_tag :li do link_to "signup", new_user_registration_path, class: "mast-text" end if !user_signed_in? %>
-      <%= content_tag :li do link_to "logout", destroy_user_session_path, :method => :delete, class: "mast-text" end if user_signed_in? %>
-    </ul>
-  </div>
+
+  <% unless hidden_ham? %>
+    <button type="button" class="navbar-toggle" align="right" data-toggle="collapse" data-target=".navbar-collapse">
+      <i class="fa fa-bars fa-2x"></i>
+    </button>
+  <% end %>
 </nav>
+
+<div class="navbar-collapse collapse">
+  <ul class="nav navbar-nav nav-links nav-sink">
+    <%= content_tag :li do link_to "home", root_path, class: "mast-text" end %>
+    <% if user_signed_in? && current_user.owner? %>
+      <%= content_tag :li do link_to "new event", new_event_path, class: "mast-text" end %>
+      <%= content_tag :li do link_to "profile", user_path(current_user.id), class: "mast-text" end %>
+    <% end %>
+    <%= content_tag :li do link_to "venues", users_path, class: "mast-text" end %>
+    <%= content_tag :li do link_to "login", new_user_session_path, class: "mast-text" end if !user_signed_in? %>
+    <%= content_tag :li do link_to "signup", new_user_registration_path, class: "mast-text" end if !user_signed_in? %>
+    <%= content_tag :li do link_to "logout", destroy_user_session_path, :method => :delete, class: "mast-text" end if user_signed_in? %>
+  </ul>
+</div>
