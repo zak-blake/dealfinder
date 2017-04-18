@@ -8,7 +8,6 @@
 * signup box is awk on mobile
 
 ## To Do
-*
 * provide address in some way
 * cancel my account?
 
