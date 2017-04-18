@@ -144,6 +144,8 @@ textarea {
   border-bottom: 0;
   //background-color: transparent !important;
   box-shadow: none !important;
+  margin-bottom: 0;
+
 }
 
 #mast-head {
@@ -244,10 +246,6 @@ a {
 
 // custom navbar
 
-body {
-	padding-top:70px;
-}
-
 .navbar-header {
   float: none;
 }
@@ -295,4 +293,8 @@ body {
 
 .full-wid {
   width: 100%;
+}
+
+#navbar-brand {
+  overflow: auto;
 }
