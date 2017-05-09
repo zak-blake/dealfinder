@@ -3,7 +3,7 @@ namespace :db do
     User.where(user_context: :admin).delete_all
 
     [
-      [ "arie@gmail.com",      "arie allen", "password123!", 1],
+      [ "arie.gurneyallen@gmail.com",      "arie allen", "password123!", 1],
       [ "94zakary@gmail.com",  "zak blake",  "password123!", 1]
     ].each do |email, user_name, password, user_context|
       User.create(
