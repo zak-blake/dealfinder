@@ -33,7 +33,7 @@ class EventsController < ApplicationController
   def show
     @owner = @event.owner
 
-    unless current_user.try(:admin?) || @owner.status_approved?
+    unless @owner.status_approved? || current_user.try(:can_view_owner?, @owner)
       redirect_to root_path and return
     end
   end

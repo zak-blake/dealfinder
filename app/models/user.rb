@@ -37,4 +37,12 @@ class User < ApplicationRecord
      return false
    end
  end
+
+ def can_view_owner?(owner)
+   if admin? || self == owner
+     true
+   else
+     false
+   end
+ end
 end
