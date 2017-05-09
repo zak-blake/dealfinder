@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def show
     @owner = User.find(params[:id])
 
-    unless current_user.try(:admin?) || @owner.status_approved?
+    unless current_user.try(:admin?) || (user_signed_in? && current_user == @owner) || @owner.status_approved?
       redirect_to root_path and return
     end
 
