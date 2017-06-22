@@ -17,10 +17,16 @@
   <body class="bod">
     <%= render 'shared/navbar' %>
     <div id="content" class="col-lg-12">
+      <%= content_tag :h3 do %>
+        <center>
+          Your business is unnapproved. Create some events to kick things off!
+        </center>
+      <% end if current_user&.unapproved_owner? %>
+
       <%= render 'shared/devise_flash_override' %>
       <% flash.each do |key, value| %>
         <% unless key == "notice" || key == "alert" %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
+          <% content_tag :div , value, class: "alert alert-#{key}" %>
         <% end %>
       <% end %>
 
@@ -29,9 +35,6 @@
       </div>
     </div>
   </body>
-  <%= content_tag(:div) do %>
-    <%= "#{controller_name}##{action_name}" %>
-  <% end if Rails.env.development? && false %>
 </html>
 
 <script type="text/javascript">fadeAlert()</script>

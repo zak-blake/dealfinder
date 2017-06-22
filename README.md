@@ -1,9 +1,6 @@
 # README
 
-## Small Changes
-
 ## Bugfix
-* unapproved dealer can't access own profile
 * unapproved dealer needs more messages about why they are not live
 * signup box is awk on mobile
 

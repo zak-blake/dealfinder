@@ -215,8 +215,11 @@ a {
   font-family: 'Lato', sans-serif;
 }
 
-.mast-text:hover, .mast-text:active {
+.mast-text:hover,
+.mast-text:active
+{
   color: #f15d5c !important;
+  background-color: green;
 }
 
 

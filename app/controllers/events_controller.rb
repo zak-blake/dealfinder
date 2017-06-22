@@ -1,11 +1,13 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :day, :api_events_today]
+  before_action :authenticate_user!, except: [
+    :index, :show, :day, :api_events_today]
 
   before_action :find_event, only: [:show, :edit, :update, :destroy]
   before_action :filter_content_owner, only: [:edit, :update, :destroy]
 
-  before_action :filter_dealer_or_admin,
-    except: [:new, :index, :show, :day, :api_events_today]
+  before_action :filter_dealer_or_admin, except: [
+    :new, :index, :show, :day, :api_events_today]
+
   before_action :set_edit_mode, only: [:show, :edit, :update, :destroy]
 
   before_action :set_errors, only: [:new, :edit]
@@ -22,10 +24,12 @@ class EventsController < ApplicationController
     if (@event.owner == current_user) && @event.save
       flash[:success] = "Event Created"
       redirect_to @event
+
     else
       @event.errors.full_messages.each do |e|
         flash[:danger] = e
       end
+
       render 'new'
     end
   end
@@ -33,7 +37,7 @@ class EventsController < ApplicationController
   def show
     @owner = @event.owner
 
-    unless @owner.status_approved? || current_user.try(:can_view_owner?, @owner)
+    unless @owner.status_approved? || current_user&.can_view_owner?(@owner)
       redirect_to root_path and return
     end
   end
@@ -58,7 +62,7 @@ class EventsController < ApplicationController
   end
 
   def index
-    @admin_view = current_user.try(:admin?)
+    @admin_view = current_user&.admin?
 
     day = params[:day]
     @selected_day = (Event.week_days_array.include? day) ?
@@ -71,11 +75,7 @@ class EventsController < ApplicationController
 
     if @view_is_today
       day_events.each do |e|
-        if e.ended?
-          @inactive_events.push(e)
-        else
-          @active_events.push(e)
-        end
+        e.ended? ? @inactive_events.push(e) : @active_events.push(e)
       end
     else
       @active_events = day_events

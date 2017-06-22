@@ -1,15 +1,19 @@
 module EventsHelper
 
+  def relative_time event
+
+  end
+
   def day_link_list
     day_list = Event.week_days_array
-    # rotate until todayu is first
+    # rotate until today is first
     day_list.rotate! while day_list.first != Event.current_day
 
     html = ''
     day_list.each do |day|
       html += '<li>'
       html += link_to(
-        Event.today_or(day), events_path(day: day), { class: "dropdown-item"})
+        Event.today_or(day), events_path(day: day), {class: "dropdown-item"})
       html += '</li>'
     end
 

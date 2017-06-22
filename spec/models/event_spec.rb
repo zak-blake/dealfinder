@@ -23,59 +23,53 @@ describe "Event" do
     )
   end
 
-  describe "should be invalid when" do
-    it "no days are selected" do
+  describe "attributes" do
+    it "should be invalid when no days are selected" do
       subject.days_of_the_week = 0
       expect(subject).not_to be_valid
     end
 
-    it "start time equal to or later than end time" do
+    it "should be invald when start time is equal to or later than end time" do
       subject.start_time = Time.parse("1:00pm")
       subject.end_time = Time.parse("9:00am")
       expect(subject).not_to be_valid
     end
 
-    it "name is nil" do
+    it "should be invalid when name is nil" do
       subject.name = nil
       expect(subject).not_to be_valid
     end
 
-    it "start time is nil" do
+    it "should be invalidstart time is nil" do
       subject.start_time = nil
       expect(subject).not_to be_valid
     end
 
-    it "end time is nil" do
+    it "should be invalidend time is nil" do
       subject.end_time = nil
       expect(subject).not_to be_valid
     end
 
-    it "owner is nil" do
+    it "should be invalidowner is nil" do
       subject.owner = nil
       expect(subject).not_to be_valid
     end
 
-    describe "type is weekly and" do
-      before{ @event.update_attribute(:event_type, :weekly) }
-
-      it "days of the week is nil" do
-        subject.days_of_the_week = nil
-        expect(subject).not_to be_valid
-      end
+    it " should be invalid when it is a weekly event abd days of the week is nil" do
+      subject.event_type = :weekly
+      subject.days_of_the_week = nil
+      expect(subject).not_to be_valid
     end
 
-    describe "type is one time" do
-      before{ @event.update_attribute(:event_type, :one_time) }
-
-      it "date is nil" do
-        subject.event_date = nil
-        expect(subject).not_to be_valid
-      end
+    it "date is nil" do
+      subject.event_type = :one_time
+      subject.event_date = nil
+      expect(subject).not_to be_valid
     end
   end
 
   describe "approved scope" do
-    describe "when owner is not approved" do
+    context "when owner is not approved" do
       before do
         @owner.approved_status = :status_unapproved
         @owner.save!
@@ -86,20 +80,20 @@ describe "Event" do
       end
     end
 
-    describe "when owner is approved" do
+    context "when owner is approved" do
       before do
         @owner.approved_status = :status_approved
         @owner.save!
       end
 
-      it "should not include the event" do
+      it "should include the event" do
         expect(Event.approved).to include(@event)
       end
     end
 
   end
 
-  describe "relation" do
+  describe "[scope]" do
     before do
       @dt = "Jan 3 2000 4:00pm pst".to_datetime #monday
       allow(Time).to receive(:now).and_return(@dt.to_time)
@@ -127,7 +121,7 @@ describe "Event" do
         end_time: @dt.to_time + 3.hours )
     end
 
-    describe "past" do
+    describe "#past" do
       it "includes only past events" do
         expect(Event.past).not_to include(@event)
         expect(Event.past).to include(@past_event)
@@ -137,7 +131,7 @@ describe "Event" do
       end
     end
 
-    describe "upcoming" do
+    describe "#upcoming" do
       it "includes only upcoming events" do
         expect(Event.upcoming).to include(@event)
         expect(Event.upcoming).not_to include(@past_event)
@@ -150,14 +144,16 @@ describe "Event" do
 
   describe "#every_tuesday" do
     before do
-      @event.update_attribute(:days_of_the_week, 2)
-      @event2 = FactoryGirl.create(:event, owner: @owner, days_of_the_week: 4)
+      @event.update! days_of_the_week: 2
+      @event2 = FactoryGirl.create :event, owner: @owner, days_of_the_week: 4
     end
+
     it "should return event on the day" do
-      expect(Event.every_tuesday).to include(@event)
+      expect(Event.every_tuesday).to include @event
     end
+
     it "should not return events not on the day" do
-      expect(Event.every_tuesday).not_to include(@event2)
+      expect(Event.every_tuesday).not_to include @event2
     end
   end
 

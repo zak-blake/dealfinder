@@ -22,6 +22,10 @@ class User < ApplicationRecord
    self.where(user_context: "admin")
  end
 
+ def unapproved_owner?
+   owner? && approved_status == 'status_unapproved'
+ end
+
  def owner?
    if user_context == "owner" then return true else return false end
  end

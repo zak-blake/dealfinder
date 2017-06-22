@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def show
     @owner = User.find(params[:id])
 
-    unless @owner.status_approved? || current_user.try(:can_view_owner?, @owner)
+    unless @owner.status_approved? || current_user&.can_view_owner?(@owner)
       redirect_to root_path and return
     end
 
@@ -15,11 +15,7 @@ class UsersController < ApplicationController
     day_events = Event.for_owner(@owner).happens_today
 
     day_events.each do |e|
-      if e.ended?
-        @inactive_events.push(e)
-      else
-        @active_events.push(e)
-      end
+      e.ended? ? @inactive_events.push(e) : @active_events.push(e)
     end
 
     @weekly_events = Event.for_owner(@owner).weekly_events
@@ -27,7 +23,7 @@ class UsersController < ApplicationController
     @edit_mode = current_user && current_user.id == @owner.id
 
     # admin panel info
-    if @admin_view = current_user.try(:admin?)
+    if @admin_view = current_user&.admin?
        @weekly_event_count = @owner.events.weekly.count.to_s
        @upcoming_one_time_count = @owner.events.one_time.not_past.count.to_s
        @past_one_time_count = @owner.events.one_time.past.count.to_s
@@ -35,15 +31,14 @@ class UsersController < ApplicationController
   end
 
   def index
-    @admin_view = current_user.try(:admin?)
+    @admin_view = current_user&.admin?
     @owners = User.owner.approved
 
-    @admin_view = current_user.try(:admin?)
     @unapproved_owners = User.owner.unapproved if @admin_view
   end
 
   def update
-    unless current_user.try(:admin?)
+    unless current_user&.admin?
       redirect_to root_path and return
     end
 
