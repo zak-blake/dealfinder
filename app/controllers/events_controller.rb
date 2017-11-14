@@ -62,6 +62,8 @@ class EventsController < ApplicationController
   end
 
   def index
+
+
     @admin_view = current_user&.admin?
 
     day = params[:day]
@@ -89,25 +91,22 @@ class EventsController < ApplicationController
   end
 
   def api_events_today
-    all_days = []
 
-    (0..6).each do |index|
-      all_days << Event.happens_on_date(Date.today + index.days).
-        by_start_time.each.map{ |e|
-          {
-            name: e.name,
-            relative_time: e.time_relative_to_now,
-            days_of_the_week: e.days_of_the_week,
-            description: e.description,
-            start_time: e.start_time,
-            end_time: e.end_time,
-            owner: e.owner.name,
-            event_date: e.event_date
-          }
+    days_deal = Event.happens_on_date(Date.today + params[:day].to_i).
+      by_start_time.each.map{ |e|
+        {
+          name: e.name,
+          relative_time: e.time_relative_to_now,
+          # days_of_the_week: e.days_of_the_week,
+          description: e.description,
+          start_time: e.start_time,
+          end_time: e.end_time,
+          owner: e.owner.name,
+          event_date: e.event_date
         }
-    end
+      }
 
-    render json: all_days
+    render json: days_deal
   end
 
   private
