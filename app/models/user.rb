@@ -9,7 +9,6 @@ class User < ApplicationRecord
 
  scope :approved, -> { where(approved_status: :status_approved) }
  scope :unapproved, -> { where(approved_status: :status_unapproved) }
- scope :owner, -> { where(user_context: :owner) }
 
  has_many :events
  validates :name, presence: true
