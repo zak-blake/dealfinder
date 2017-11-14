@@ -90,6 +90,7 @@ class EventsController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  # Test
   def api_events_today
 
     days_deal = Event.happens_on_date(Date.today + params[:day].to_i).
