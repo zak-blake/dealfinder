@@ -90,26 +90,6 @@ class EventsController < ApplicationController
     redirect_to user_path(current_user)
   end
 
-  # Test
-  def api_events_today
-
-    days_deal = Event.happens_on_date(Date.today + params[:day].to_i).
-      by_start_time.each.map{ |e|
-        {
-          name: e.name,
-          relative_time: e.time_relative_to_now,
-          # days_of_the_week: e.days_of_the_week,
-          description: e.description,
-          start_time: e.start_time,
-          end_time: e.end_time,
-          owner: e.owner.name,
-          event_date: e.event_date
-        }
-      }
-
-    render json: days_deal
-  end
-
   private
 
   def event_params

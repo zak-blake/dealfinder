@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   resources :events
 
-  get '/events_today', to: 'events#api_events_today'
+  get 'api/events_today', to: 'api#events_today'
+  get 'api/users_index', to: 'api#users_index'
 
   root 'events#index'
 end
